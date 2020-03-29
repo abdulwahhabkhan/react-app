@@ -1,0 +1,99 @@
+.bg-dark {
+  background-color: #343a40 !important;
+}
+.header.navbar.navbar-transparent {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+.login{
+
+}
+.navbar-brand {
+  padding: 0px;
+
+  img {
+    max-height: 40px;
+    width: 43px;
+  }
+}
+
+.content.has-bg .content-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  &::before{
+    content: " ";
+    background: url("../images/bg/content-bg-cover.png") ;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+  }
+}
+.header .navbar-nav > li > a {
+  color: #8F8E8E;
+  font-size: 12px;
+  line-height: 20px;
+  font-weight: 600;
+}
+.content.has-bg {
+  height: 100vh;
+  padding-bottom: 60px;
+  overflow: hidden;
+  position: relative;
+}
+.home-content {
+  z-index: 1020;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  color: #8F8E8E;
+  margin-top: -120px;
+  padding: 0 15px;
+  text-align: center;
+}
+.content.has-bg h1, .content.has-bg h2, .content.has-bg h3, .content.has-bg h4, .content.has-bg h5, .content.has-bg h6 {
+  color: #fff;
+}
+.home-content h1, .home-content h2, .home-content h3, .home-content h4 {
+  color: #fff;
+  margin: 0 0 30px;
+  font-weight: 300;
+}
+.home-content h1, .auth-content h1 {
+  font-size: 64px;
+  font-weight: 600;
+}
+
+.content {
+  &.auth-bg{
+    position: absolute; left: 0px; right: 0px; bottom: 0px; top: 0px;
+
+  }
+  .auth-content{
+    background: #2c3e50;
+    height: 100vh;
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: row;
+    h3{font-size: 3.5rem;}
+    h6{font-size: 1.5rem;}
+    .greetings{
+      padding: 12.8rem;
+      color:#fff;
+      align-items: flex-start;
+      width: 100%;
+    }
+    .form{
+      width: 100%;
+      max-width: 30rem;
+      color: rgba(0, 0, 0, 0.87);
+      transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+      background-color: #FFFFFF;
+      box-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12);
+    }
+  }
+}

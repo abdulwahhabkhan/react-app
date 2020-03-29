@@ -1,0 +1,37 @@
+html{font-size: 85.0%;}
+@import "~bootstrap/scss/bootstrap";
+@import "~npm-font-open-sans/open-sans.css";
+body{font-size: 14px; font-family: 'Open Sans Semibold' }
+.flex-col {
+  flex-direction: column;
+}
+.flex {
+  display: flex;
+}
+.justify-center {
+  justify-content: center;
+}
+.items-center {
+  align-items: center;
+}
+.font-medium {
+  font-weight: 500;
+}
+a {
+  color: #61dafb;
+  &:hover, &:focus{
+    color: #61dafb;
+  }
+}
+.p-48{padding: 3.8rem;}
+.p-30{padding: 3.0rem;}
+.w-128{width: 12.8rem;}
+.pt-128{padding-top: 12.8rem;}
+.mb-48{margin-bottom: 4.8rem;}
+.mb-36{margin-bottom: 3.6rem;}
+.mb-40{margin-bottom: 4.0rem;}
+.pt-28{padding-top: 2.8rem;}
+.pt-24{padding-top: 2.4rem;}
+.btn{font-size: 1.0rem; line-height: 1.75;}
+.form-control{font-size: 1.0rem; line-height: 1.75;}
+@import "login";
