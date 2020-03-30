@@ -44,4 +44,33 @@ a {
     border-color: #2c3e50;
   }
 }
+.navbar-left, .pull-left {
+  float: left;
+}
+.navbar-right, .pull-right {
+  float: right;
+}
+.fixed-navbar #page-container {
+  padding-top: 54px;
+}
+.private {
+  .bg-dark{
+    background: #2c3e50!important;
+  }
+  .nav-link{
+    color: #fff;
+    border-bottom: 2px solid transparent;
+    &:hover{
+      border-bottom-color: #192d3e;
+      color: #53a8c1;
+    }
+    &.active{
+      color: #53a8c1;
+    }
+  }
+
+  a{
+    color: #9d9fa2;
+  }
+}
 @import "login";

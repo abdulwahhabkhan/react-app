@@ -1,7 +1,7 @@
 import Welcome from "./Pages/Welcome";
 import Login from "./Pages/Auth/Login";
 import Register from "./Pages/Auth/Register";
-import Dashboard from "./Pages/Dashboard/Index";
+import Dashboard from "./Pages/Dashboard";
 
 const routes = [
     {path: '/login', component : Login, isPublic: true},
