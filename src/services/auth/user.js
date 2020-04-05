@@ -38,6 +38,11 @@ class  user {
         this.setSession(null);
     };
 
+    setAxiosAuth = ()=>{
+        let token = this.getAccessToken();
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+    }
+
     getAccessToken = () => {
         return window.localStorage.getItem('jwt_access_token');
     };

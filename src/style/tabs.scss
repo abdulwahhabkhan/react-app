@@ -1,0 +1,60 @@
+$tab-height:40px;
+.htabs {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  box-sizing: border-box;
+  list-style: none;
+  padding-left: 0px;
+  margin: 0px;
+  overflow: hidden;
+  position: relative;
+  margin-bottom: 10px;
+  li{
+    height: $tab-height;
+
+    flex-shrink: 0;
+    transition: border-color .5s;
+    z-index: 1;
+    &.active > a {
+      border-color: $color-green;
+    }
+  }
+  li > a{
+    border-bottom: 3px solid transparent;
+    padding:0px 10px;
+    height: $tab-height; line-height: $tab-height; display: block;
+    &.active , &:hover {
+      border-color: $color-green;
+    }
+  }
+}
+.nav-htabs{
+  position: relative;
+  .nav-tabs{
+    margin-bottom: 10px;
+  }
+  .nav-tabs .nav-link{
+    border: 0px;
+    border-bottom: 3px solid transparent;
+    color:#6a6c6f;
+    &:hover{
+      color: #535756;
+      border-bottom-color: $color-light-green;
+    }
+  }
+  .nav-tabs .nav-link.active, .nav-tabs .nav-item.show .nav-link, nav-tabs .nav-item:hover .nav-link{
+    border-bottom-color: $color-green;
+    background-color: transparent;
+  }
+  &::before, .nav-tabs::before{
+    position: absolute;
+    content: " ";
+    bottom: 0px;
+    background-color: #e4e5e7;
+    left: 0px;
+    right: 0px;
+    height: 3px;
+    z-index: -1;
+  }
+}

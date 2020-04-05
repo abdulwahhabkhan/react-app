@@ -47,7 +47,9 @@ class DashboardLayout extends Component {
                 { header }
                 <div className={''} id={'page-container'}>
                     <div className="content-wrapper">
-                        {this.props.children}
+                        <div className="content animate-panel">
+                            {this.props.children}
+                        </div>
                     </div>
                 </div>
             </div>

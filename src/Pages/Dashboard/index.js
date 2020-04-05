@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Row, Col} from "react-bootstrap";
 
 import DashboardLayout from "../../Layouts/Dashboard";
 
@@ -8,7 +9,14 @@ class Dashboard extends Component {
         return (
             <React.Fragment>
                 <DashboardLayout>
-                    <h2>Welcome to the Dashboard Page</h2>
+                    <Row>
+                        <Col className={'text-center'}>
+                            <h2>Welcome to the Dashboard Page</h2>
+                            <p></p>
+                        </Col>
+
+                    </Row>
+
                 </DashboardLayout>
             </React.Fragment>
         );
