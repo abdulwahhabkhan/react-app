@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Row, Col, ProgressBar} from "react-bootstrap";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faEllipsisV, faArrowDown, faArrowUp, faPlusCircle} from "@fortawesome/free-solid-svg-icons";
-
+import Avatar from 'react-avatar';
 
 import DashboardLayout from "../../Layouts/Dashboard";
 import project from "../../services/projects";
@@ -23,7 +23,8 @@ const ListProject = (props) => {
                                     <div className={'project-label'}>
                                         OWNER
                                     </div>
-                                    <small>{ props.projectInfo.owner && props.projectInfo.owner.name}</small>
+                                    {}
+                                    <small>{ props.projectInfo.owner && <Avatar name={props.projectInfo.owner.name} size="25" textSizeRatio={1.2} round={true}  />}</small>
                                 </Col>
                                 <Col sm={4}>
                                     <div className={'project-label'}>
