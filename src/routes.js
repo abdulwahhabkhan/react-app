@@ -4,12 +4,15 @@ import Register from "./Pages/Auth/Register";
 import Dashboard from "./Pages/Dashboard";
 import Projects from "./Pages/Projects";
 
+const APP_NAME = 'React Application';
+const APP_TITLE = ' - '+APP_NAME;
+
 const routes = [
-    {path: '/login', component : Login, isPublic: true},
-    {path: '/register', component : Register, isPublic: true},
-    {path: '/dashboard', component : Dashboard},
-    {path: '/projects', component : Projects},
-    {path: '/', component : Welcome, isPublic: true}
+    {path: '/login', component : Login, isPublic: true, meta: {title: 'Login'+ APP_TITLE}},
+    {path: '/register', component : Register, isPublic: true,meta: {title: 'Register'+ APP_TITLE}},
+    {path: '/dashboard', component : Dashboard, meta: {title: 'Dashboard'+ APP_TITLE}},
+    {path: '/projects', component : Projects, meta: {title: 'Projects List'+ APP_TITLE}},
+    {path: '/', component : Welcome, isPublic: true, meta: {title: 'Home'+ APP_TITLE}}
 ];
 
 export default routes;

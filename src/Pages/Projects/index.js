@@ -24,7 +24,7 @@ const ListProject = (props) => {
                                         OWNER
                                     </div>
                                     {}
-                                    <small>{ props.projectInfo.owner && <Avatar name={props.projectInfo.owner.name} size="25" textSizeRatio={1.2} round={true}  />}</small>
+                                    <small>{ props.projectInfo.owner && <Avatar name={props.projectInfo.owner.name} size="25" textSizeRatio={1.2} round={true} style={{fontFamily:'inherit'}}  />}</small>
                                 </Col>
                                 <Col sm={4}>
                                     <div className={'project-label'}>
@@ -70,6 +70,7 @@ class Projects extends Component {
     };
 
     componentDidMount() {
+        window.settings.setTitle('Projects List');
         project.getProjects().then(response => {
             this.setState({projects : response});
         });

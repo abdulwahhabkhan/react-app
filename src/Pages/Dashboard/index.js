@@ -5,6 +5,11 @@ import DashboardLayout from "../../Layouts/Dashboard";
 
 class Dashboard extends Component {
 
+    componentDidMount() {
+        //document.title = 'Dashboard - React App';
+        window.settings.setTitle('Dashboard');
+    }
+
     render() {
         return (
             <React.Fragment>
