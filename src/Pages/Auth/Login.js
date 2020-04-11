@@ -38,18 +38,22 @@ class  Login extends Component {
         }
 
         this.setState({ loading: true });
-        Auth.signInWithEmailAndPassword(email, password)
+        /*Auth.signInWithEmailAndPassword(email, password)
             .then(
                 user => {
                     const { from } = this.props.location.state || { from: { pathname: "/dashboard" } };
                     this.props.history.push(from);
                 },
                 error => this.setState({ error, loading: false })
-            );
+            );*/
     }
 
     render() {
         const { email, password, submitted,  error } = this.state;
+        let isValid = 'true';
+        if (!(email && password)) {
+            isValid = false;
+        }
         return (
             <React.Fragment>
                 <AuthLayout type="auth">
@@ -75,7 +79,7 @@ class  Login extends Component {
                                         <input type="password" name="password" id="password" value={password} className="form-control" onChange={this.handleChange}/>
                                     </div>
                                     <div className="form-group">
-                                        <button className="btn btn-form btn-block">Login</button>
+                                        <button className={'btn btn-form btn-block ' + (isValid? '': 'disabled')}>Login</button>
                                     </div>
                                 </form>
                                 <div className="flex flex-column items-center justify-center pt-32">
