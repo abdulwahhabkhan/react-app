@@ -41,11 +41,10 @@ class AuthLayout extends Component {
         auth.checkUserLogin()
             .then(
                 user =>{
-                    console.log('[template.js] login please redirect', this.props.history);
                     this.setState({isLogin: true})
                 },
                 err => {
-                    console.log('[templateauth.js] please continue');
+                    this.setState({isLogin: false})
                 }
             )
     }
