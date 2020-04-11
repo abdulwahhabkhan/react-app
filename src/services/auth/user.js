@@ -16,7 +16,7 @@ class  user {
                     // if you ever get an unauthorized response, logout the user
                     this.setSession(null);
                 }
-                throw err;
+                throw err
             });
         });
     };
@@ -49,7 +49,7 @@ class  user {
 
     createUser = (data) => {
         return new Promise((resolve, reject) => {
-            axios.post('/api/register', data)
+            axios.post('register', data)
                 .then(response => {
                     if ( response.data.user )
                     {
@@ -68,7 +68,7 @@ class  user {
         return new Promise((resolve, reject) => {
             axios({
                 method: 'post',
-                url: 'http://laravel.we:8180/api/login',
+                url: 'login',
                 data: {
                     email,
                     password
@@ -83,7 +83,10 @@ class  user {
                 {
                     reject(response.data.error);
                 }
-            });
+            })
+                .catch(res =>{
+                    reject(res.response.data);
+                })
         });
     };
 

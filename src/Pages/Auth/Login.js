@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import {Link} from "react-router-dom";
 import AuthLayout from "../../Layouts/Auth";
 import Auth from '../../services/auth';
-
+import Button from "../../Components/Form/ButtonLoader";
 
 import logo from '../../logo.svg'
 
@@ -10,10 +10,10 @@ class  Login extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            'email': '',
-            'password': '',
-            'submitted': false,
-            'error' : ''
+            email: '',
+            password: '',
+            submitted: false,
+            error : ''
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -36,24 +36,23 @@ class  Login extends Component {
         if (!(email && password)) {
             return;
         }
-
-        this.setState({ loading: true });
-        /*Auth.signInWithEmailAndPassword(email, password)
+        Auth.signInWithEmailAndPassword(email, password)
             .then(
                 user => {
                     const { from } = this.props.location.state || { from: { pathname: "/dashboard" } };
                     this.props.history.push(from);
                 },
-                error => this.setState({ error, loading: false })
-            );*/
+                error => {
+                    this.setState({'error': error.error})
+                    this.setState({ submitted: false })
+                }
+            )
+        ;
     }
 
     render() {
         const { email, password, submitted,  error } = this.state;
-        let isValid = 'true';
-        if (!(email && password)) {
-            isValid = false;
-        }
+
         return (
             <React.Fragment>
                 <AuthLayout type="auth">
@@ -64,9 +63,7 @@ class  Login extends Component {
                             <p>Connecting the ReactJS application with Laravel APIs</p>
                         </div>
                         <div className="form" onSubmit={this.handleSubmit}>
-                            {error &&
-                            <div className={'alert alert-danger'}>{error}</div>
-                            }
+
                             <div className="p-30 pt-128">
                                 <h6 className="mb-36">LOGIN TO YOUR ACCOUNT</h6>
                                 <form action="" className="">
@@ -79,8 +76,11 @@ class  Login extends Component {
                                         <input type="password" name="password" id="password" value={password} className="form-control" onChange={this.handleChange}/>
                                     </div>
                                     <div className="form-group">
-                                        <button className={'btn btn-form btn-block ' + (isValid? '': 'disabled')}>Login</button>
+                                        <Button className={'btn btn-form btn-block'} type={'submit'} loading={this.state.submitted}>Login</Button>
                                     </div>
+                                    {error &&
+                                    <div className={'alert alert-danger'}>{error}</div>
+                                    }
                                 </form>
                                 <div className="flex flex-column items-center justify-center pt-32">
                                     <span className="font-medium">Don't have an account?</span>
