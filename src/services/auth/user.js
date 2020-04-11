@@ -90,25 +90,20 @@ class  user {
         });
     };
 
-    signInWithToken = () => {
-        return new Promise((resolve, reject) => {
-            axios.get('login', {
+    checkUserLogin = () => {
+        let token = this.getAccessToken();
+        let res = new Promise((resolve, reject) => {
+            axios.get('user', {
                 data: {
-                    access_token: this.getAccessToken()
+
                 }
             })
                 .then(response => {
-                    if ( response.data.user )
-                    {
-                        this.setSession(response.data.access_token);
-                        resolve(response.data.user);
-                    }
-                    else
-                    {
-                        reject(response.data.error);
-                    }
-                });
+                    resolve(response.data.user);
+                })
+                .catch(err =>  reject(err) );
         });
+        return token ? res : Promise.reject({}) ;
     };
 }
 

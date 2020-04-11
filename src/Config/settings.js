@@ -1,5 +1,5 @@
 import axios from 'axios';
-
+import auth from '../services/auth'
 const baseurl = 'http://laravel.we:8180/api';
 const apiversion = '/v1';
 const title = 'React Application';
@@ -24,5 +24,6 @@ axios.defaults.crossdomain = true;
 axios.defaults.responseType = 'json';
 axios.defaults.headers.post['Accept'] = 'application/json';
 axios.defaults.headers.get['Accept'] = 'application/json';
+auth.setAxiosAuth();
 
 export default settings;

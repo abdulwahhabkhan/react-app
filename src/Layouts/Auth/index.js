@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
-import {Link} from "react-router-dom";
+import {Link, Redirect} from "react-router-dom";
 import logo from "../../images/logos/logo.svg";
 import {Container, Navbar,Nav, NavItem, NavLink} from "react-bootstrap";
+import auth from '../../services/auth'
 
 const Header = (props) =>{
     return(
@@ -24,25 +25,6 @@ const Header = (props) =>{
                     </Navbar.Collapse>
                 </Container>
             </Navbar>
-            {/*<div className="header navbar navbar-expand-md navbar-transparent fixed-top">
-                <Container>
-                    <div className="navbar-header">
-                        <Link className="navbar-brand" to="/">
-                            <img src={logo} alt="brand-logo" className="brand-image"/>
-                        </Link>
-                    </div>
-                    <div className="collapse navbar-collapse">
-                        <ul className="nav navbar-nav ml-md-auto">
-                            <li className="nav-item">
-                                <Link to="/login" className="nav-link">Login</Link>
-                            </li>
-                            <li className="nav-item">
-                                <Link to="/register" className="nav-link">Register</Link>
-                            </li>
-                        </ul>
-                    </div>
-                </Container>
-            </div>*/}
         </div>
     )
 };
@@ -50,17 +32,39 @@ const Header = (props) =>{
 
 class AuthLayout extends Component {
 
+    state = {
+        isLogin: false
+    }
+
+    componentDidMount() {
+        //check user already login redirect to dashboard
+        auth.checkUserLogin()
+            .then(
+                user =>{
+                    console.log('[template.js] login please redirect', this.props.history);
+                    this.setState({isLogin: true})
+                },
+                err => {
+                    console.log('[templateauth.js] please continue');
+                }
+            )
+    }
+
     render() {
         let header = <Header/>;
         if(this.props.type !== 'welcome')
             header = "";
+
+
         return (
-            <div>
-                { header }
-                <div className={this.props.type  === 'welcome' ? 'content has-bg home' : 'content auth-bg'}>
-                    {this.props.children}
+            this.state.isLogin ?
+                <Redirect to={'/dashboard'} /> :
+                <div>
+                    { header }
+                    <div className={this.props.type  === 'welcome' ? 'content has-bg home' : 'content auth-bg'}>
+                        {this.props.children}
+                    </div>
                 </div>
-            </div>
 
         );
     }
