@@ -50,7 +50,7 @@ a {
   float: right;
 }
 .fixed-navbar #page-container {
-  padding-top: 54px;
+  padding-top: 50px;
 }
 .private {
   .bg-dark{
@@ -102,4 +102,6 @@ a {
   line-height: 1.5;
 }
 .btn.loading.disabled, .btn.loading:disabled{opacity: 0.85; cursor: auto;}
-
+.fixed-navbar .content {
+  margin-left: 300px;
+}
