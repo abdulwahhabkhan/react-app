@@ -3,7 +3,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faArrowDown, faArrowUp} from "@fortawesome/free-solid-svg-icons";
 import Dropdown from 'react-bootstrap/Dropdown'
 import style from './Sort.scss'
-
+import PropTypes from 'prop-types'
 
 const Sort = ({
     sortOrder = 'asc',
@@ -41,6 +41,14 @@ const Sort = ({
         </Fragment>
     )
 
+}
+
+Sort.propTypes = {
+    sortOrder: PropTypes.string,
+    sort: PropTypes.string,
+    options : PropTypes.array,
+    sortHandler : PropTypes.func,
+    orderHandler : PropTypes.func
 }
 
 export default Sort;
