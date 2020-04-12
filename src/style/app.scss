@@ -22,7 +22,8 @@ $color-background-boxed: lighten($color-background, 3%);
 $border-color: #e4e5e7;
 
 @import "~bootstrap/scss/bootstrap";
-//@import "~npm-font-open-sans/open-sans.css";
+@import "~npm-font-open-sans/open-sans.css";
+@import "~roboto-fontface";
 @import "slate";
 @import "tabs";
 @import "projects";

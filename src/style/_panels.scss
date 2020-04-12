@@ -35,7 +35,7 @@
   background: #fff;
   border: 1px solid $border-color;
   border-radius: 2px;
-  padding: 20px;
+  padding: 15px;
   position: relative;
 }
 .sidebar-content .panel .panel-body {
@@ -196,6 +196,10 @@
 
 .panel-body h5, .panel-body h4 {
   font-weight: 500;
+}
+
+.panel-body .title-link{
+  font-weight: 600; font-size: 1.2em;
 }
 
 .small-header .panel-body h2 {

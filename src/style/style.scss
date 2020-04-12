@@ -1,5 +1,6 @@
 
-body{font-size: 14px; font-family: "Open Sans", Helvetica, Arial, sans-serif; color: #6a6c6f; }
+body{font-size: 13px; font-family: "Open Sans", Helvetica, Arial, sans-serif; color: #6a6c6f; }
+
 .flex-col {
   flex-direction: column;
 }
@@ -77,7 +78,7 @@ a {
   transition: all 0.4s ease 0s;
 }
 .list-options {display:flex; padding: 10px 0px;}
-.list-options h2 {flex:1; font-size:20px; font-weight:500;}
+.list-options h2, .list-options .title {flex:1; font-size:1.85em; font-weight:500;}
 .list-options .btn-options {flex:1; }
 .w-10{min-width: 10rem;}
 .sort-filter {
@@ -95,6 +96,10 @@ a {
   border-color: #e4e5e7;
   color: #6a6c6f;
 }
-
+.bold, .text-bold{font-weight: 600;}
+.btn-sm, .btn-group-sm > .btn {
+  font-size: 0.9275rem;
+  line-height: 1.5;
+}
 .btn.loading.disabled, .btn.loading:disabled{opacity: 0.85; cursor: auto;}
 
