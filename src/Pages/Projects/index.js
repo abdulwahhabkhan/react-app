@@ -7,10 +7,12 @@ import DashboardLayout from "../../Layouts/Dashboard";
 import project from "../../services/projects";
 import ListProject from "./ListProject";
 import storage from "../../Config/storage";
+import ProjectSidebar from "./ProjectSidebar";
 
 class Projects extends Component {
 
     state = {
+        loading: true,
         sortOrder: storage.get('project_order_by') || 'asc',
         sort: storage.get('project_sort_by')||'id',
         projects : {data:[]}
@@ -25,10 +27,12 @@ class Projects extends Component {
     ];
 
     getProjects(){
+        this.setState({loading: true})
         project.getProjects({
             sort: this.state.sort,
             order: this.state.sortOrder
         }).then(response => {
+            this.setState({loading: false})
             this.setState({projects : response});
         });
     }
@@ -41,15 +45,15 @@ class Projects extends Component {
 
     sortHandler = (option) =>{
         storage.set('project_sort_by', option.value)
-        this.setState({sort : option.value })
-        this.getProjects();
+        this.setState({sort : option.value }, () => this.getProjects())
+
     }
 
     sortOrderHandler= (sorder) =>{
         let norder = sorder === 'asc' ? 'desc' : 'asc';
         storage.set('project_order_by', norder)
-        this.setState({sortOrder: norder})
-        this.getProjects()
+        this.setState({sortOrder: norder}, () => this.getProjects())
+
     }
 
     render() {
@@ -60,11 +64,10 @@ class Projects extends Component {
                         key={project.id} />
             })
         );
-
-
+        let sidebar = <ProjectSidebar></ProjectSidebar>
         return (
             <React.Fragment>
-                <DashboardLayout sidebar={'show'}>
+                <DashboardLayout sidebar={sidebar}>
                     <Row>
                         <Col className={''} sm={12}>
                             <div className="list-options">
@@ -114,7 +117,6 @@ class Projects extends Component {
                         </Col>
 
                     </Row>
-
                 </DashboardLayout>
             </React.Fragment>
         );
