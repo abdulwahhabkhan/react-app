@@ -29,6 +29,7 @@ class Projects extends Component {
     getProjects(){
         this.setState({loading: true})
         project.getProjects({
+            completed: 0,
             sort: this.state.sort,
             order: this.state.sortOrder
         }).then(response => {
