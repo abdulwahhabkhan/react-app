@@ -43,7 +43,7 @@ class DashboardLayout extends Component {
 
     render() {
         let header = <Header/>;
-        let sidebar = this.props.sidebar ? <Sidebar></Sidebar> : null
+        let sidebar = this.props.sidebar ? <Sidebar>{this.props.sidebar}</Sidebar> : null
         return (
             <div className={'fixed-navbar no-sidebar private'}>
                 { header }
