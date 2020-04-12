@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Link, NavLink} from "react-router-dom";
-import logo from "../../images/logos/logo.svg";;
+import logo from "../../images/logos/logo.svg";
+import Sidebar from "../../Components/UI/Sidebar/Sidebar";
 
 const Header = (props) =>{
     return(
@@ -42,11 +43,13 @@ class DashboardLayout extends Component {
 
     render() {
         let header = <Header/>;
+        let sidebar = this.props.sidebar ? <Sidebar></Sidebar> : null
         return (
             <div className={'fixed-navbar no-sidebar private'}>
                 { header }
                 <div className={''} id={'page-container'}>
                     <div className="content-wrapper">
+                        {sidebar}
                         <div className="content animate-panel">
                             {this.props.children}
                         </div>
