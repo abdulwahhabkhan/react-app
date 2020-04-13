@@ -44,8 +44,12 @@ class DashboardLayout extends Component {
     render() {
         let header = <Header/>;
         let sidebar = this.props.sidebar ? <Sidebar>{this.props.sidebar}</Sidebar> : null
+        const wrapperclass = ['fixed-navbar', 'private']
+        if (window.settings.sidebarMinified) wrapperclass.push('mini-sidebar')
+        if (window.settings.hideSideBar) wrapperclass.push('no-sidebar')
+
         return (
-            <div className={'fixed-navbar no-sidebar private'}>
+            <div className={wrapperclass.join(' ')}>
                 { header }
                 <div className={''} id={'page-container'}>
                     <div className="content-wrapper">
