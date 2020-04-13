@@ -22,7 +22,7 @@ class Projects extends Component {
         {value: 'id', text:'Default'},
         {value: 'created_at', text:'Created Date'},
         {value: 'updated_at', text:'Last Modified'},
-        {value: 'title', text:'Project Name'},
+        {value: 'name', text:'Project Name'},
         {value: 'due_date', text:'Due Date'}
     ];
 
