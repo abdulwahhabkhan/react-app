@@ -17,6 +17,7 @@ const Sort = ({
     const selected = options.find((row, idx)=>{
         return row.value === sort ? true : false;
     });
+
     const ddOptions = options.map((row, idx)=>{
         let active = row.value === sort ? true : false;
         return <li key={idx}><Dropdown.Item as='button' active={active} onClick={()=>sortHandler(row)}>{row.text}</Dropdown.Item></li>
@@ -27,7 +28,7 @@ const Sort = ({
                 <Dropdown className={'btn-group'} alignRight>
                     <Dropdown.Toggle variant="default" size={'sm'}>
                         <span className={'text-bold'}>Sort By: </span>
-                        { selected.text ? selected.text: 'Default' }
+                        { selected ? selected.text: 'Default' }
                     </Dropdown.Toggle>
 
                     <Dropdown.Menu as='ul'>
