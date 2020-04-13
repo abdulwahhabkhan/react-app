@@ -2,7 +2,7 @@ import React, {Fragment} from 'react';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faArrowDown, faArrowUp} from "@fortawesome/free-solid-svg-icons";
 import Dropdown from 'react-bootstrap/Dropdown'
-import style from './Sort.scss'
+import './Sort.scss'
 import PropTypes from 'prop-types'
 
 const Sort = ({
@@ -52,5 +52,4 @@ Sort.propTypes = {
     orderHandler : PropTypes.func
 }
 
-export default Sort;
-export {Sort, style}
+export default Sort

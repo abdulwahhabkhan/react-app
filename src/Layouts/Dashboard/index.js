@@ -41,12 +41,16 @@ const Header = (props) =>{
 
 class DashboardLayout extends Component {
 
+    state = {
+        settings : window.settings
+    }
+
     render() {
         let header = <Header/>;
         let sidebar = this.props.sidebar ? <Sidebar>{this.props.sidebar}</Sidebar> : null
         const wrapperclass = ['fixed-navbar', 'private']
-        if (window.settings.sidebarMinified) wrapperclass.push('mini-sidebar')
-        if (window.settings.hideSideBar) wrapperclass.push('no-sidebar')
+        if (this.state.settings.sidebarMinified) wrapperclass.push('mini-sidebar')
+        if (this.state.settings.hideSideBar) wrapperclass.push('no-sidebar')
 
         return (
             <div className={wrapperclass.join(' ')}>
