@@ -8,6 +8,7 @@ import project from "../../services/projects";
 import ListProject from "./ListProject";
 import storage from "../../Config/storage";
 import ProjectSidebar from "./ProjectSidebar";
+import Loading from "../../Components/UI/Loader/Loading";
 
 class Projects extends Component {
 
@@ -112,6 +113,7 @@ class Projects extends Component {
                                     </Col>
                                 </Row>
                                 <Row className={'list'}>
+                                    <Loading show={this.state.loading}>Projects Loading</Loading>
                                     {projects}
                                 </Row>
                             </div>
