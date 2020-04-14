@@ -2,7 +2,7 @@ import Welcome from "./Pages/Welcome";
 import Login from "./Pages/Auth/Login";
 import Register from "./Pages/Auth/Register";
 import Dashboard from "./Pages/Dashboard";
-import Projects from "./Pages/Projects";
+import Projects, {View as ProjectDetail} from "./Pages/Projects";
 
 const APP_NAME = 'React Application';
 const APP_TITLE = ' - '+APP_NAME;
@@ -12,6 +12,7 @@ const routes = [
     {path: '/register', component : Register, isPublic: true,meta: {title: 'Register'+ APP_TITLE}},
     {path: '/dashboard', component : Dashboard, meta: {title: 'Dashboard'+ APP_TITLE}},
     {path: '/projects', component : Projects, meta: {title: 'Projects List'+ APP_TITLE}},
+    {path: '/projects/:id', component : ProjectDetail, meta: {title: 'Projects Detail'+ APP_TITLE}},
     {path: '/', component : Welcome, isPublic: true, meta: {title: 'Home'+ APP_TITLE}}
 ];
 

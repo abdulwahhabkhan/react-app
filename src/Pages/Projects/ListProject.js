@@ -1,4 +1,5 @@
 import React from "react";
+import {Link} from "react-router-dom";
 import {Col, ProgressBar, Row} from "react-bootstrap";
 import Avatar from "react-avatar";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
@@ -11,9 +12,11 @@ const ListProject = (props) => {
                 <div className="panel-body">
                     <Row>
                         <Col>
-                            <div className={'title-link'}>{props.projectInfo.name}</div>
+                            <div className={'title-link'}>
+                                <Link to={'projects/'+props.projectInfo.id}>{props.projectInfo.name}</Link>
+                            </div>
                             <div className={'project-details'}>
-                                {props.projectInfo.description}
+                                <Link to={'projects/'+props.projectInfo.id}>{props.projectInfo.description}</Link>
                             </div>
                             <Row className={'project-actions'}>
                                 <Col sm={2}>

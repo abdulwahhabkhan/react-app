@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Row, Col} from "react-bootstrap";
+
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPlusCircle} from "@fortawesome/free-solid-svg-icons";
 import SortFilter from "../../Components/UI/Filters/Sort";
@@ -7,8 +8,9 @@ import DashboardLayout from "../../Layouts/Dashboard";
 import project from "../../services/projects";
 import ListProject from "./ListProject";
 import storage from "../../Config/storage";
-import ProjectSidebar from "./ProjectSidebar";
+import ProjectSidebar from "./Sidebars/ProjectSidebar";
 import Loading from "../../Components/UI/Loader/Loading";
+import View from "./View";
 
 class Projects extends Component {
 
@@ -127,3 +129,4 @@ class Projects extends Component {
 }
 
 export default  Projects;
+export {Projects, View}
