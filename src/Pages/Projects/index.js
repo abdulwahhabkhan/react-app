@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, Suspense, lazy} from 'react';
 import {Row, Col} from "react-bootstrap";
 
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
@@ -11,6 +11,7 @@ import storage from "../../Config/storage";
 import ProjectSidebar from "./Sidebars/ProjectSidebar";
 import Loading from "../../Components/UI/Loader/Loading";
 import View from "./View";
+const ProjectForm= lazy(() => import('./Form'));
 
 class Projects extends Component {
 
@@ -18,7 +19,8 @@ class Projects extends Component {
         loading: true,
         sortOrder: storage.get('project_order_by') || 'asc',
         sort: storage.get('project_sort_by')||'id',
-        projects : {data:[]}
+        projects : {data:[]},
+        showProjectForm : false
     };
 
     sortOptions = [
@@ -60,6 +62,12 @@ class Projects extends Component {
 
     }
 
+    projectFormHandler = (flag)=>{
+        this.setState({showProjectForm : flag})
+    }
+
+
+
     render() {
         let projects = (
             this.state.projects.data.map((project, index) => {
@@ -69,6 +77,7 @@ class Projects extends Component {
             })
         );
         let sidebar = <ProjectSidebar></ProjectSidebar>
+        let projectForm = this.state.showProjectForm ? <ProjectForm show={true} onclose={this.projectFormHandler} project={{}}></ProjectForm> : null
         return (
             <React.Fragment>
                 <DashboardLayout sidebar={sidebar}>
@@ -77,7 +86,7 @@ class Projects extends Component {
                             <div className="list-options">
                                 <div className={'title'}>Current Projects</div>
                                 <div className="btn-options text-right">
-                                    <button className="btn btn-md btn-primary w-10">
+                                    <button className="btn btn-md btn-primary w-10" onClick={()=> this.projectFormHandler(true)}>
                                         <FontAwesomeIcon icon={faPlusCircle}></FontAwesomeIcon> Add Project
                                     </button>
                                 </div>
@@ -120,8 +129,11 @@ class Projects extends Component {
                                 </Row>
                             </div>
                         </Col>
-
                     </Row>
+
+                    <Suspense fallback={<div>Loading...</div>}>
+                    {projectForm}
+                    </Suspense>
                 </DashboardLayout>
             </React.Fragment>
         );
