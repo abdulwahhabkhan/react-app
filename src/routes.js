@@ -13,7 +13,8 @@ const routes = [
     {path: '/dashboard', component : Dashboard, meta: {title: 'Dashboard'+ APP_TITLE}},
     {path: ["/projects", "/projects/current", "/projects/completed"], component : Projects, meta: {title: 'Projects List'+ APP_TITLE}},
     //{path: "/projects", component : Projects, meta: {title: 'Projects List'+ APP_TITLE}, children: true},
-    {path: '/projects/:id/tickets', component : ProjectDetail, meta: {title: 'Projects Detail'+ APP_TITLE}},
+    {path: '/projects/:id', component : ProjectDetail, children:true, meta: {title: 'Projects Detail'+ APP_TITLE}},
+    //{path: '/projects/:id/tickets', component : ProjectDetail, meta: {title: 'Projects Detail'+ APP_TITLE}},
     {path: '/', component : Welcome, isPublic: true, meta: {title: 'Home'+ APP_TITLE}}
 ];
 
