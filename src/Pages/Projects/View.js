@@ -2,10 +2,11 @@ import React, {Component} from "react";
 import DashboardLayout from "../../Layouts/Dashboard";
 import {NavLink, Route} from "react-router-dom";
 import {Row, Col} from "react-bootstrap";
-//import {FontAwesomeIcon}  from "@fortawesome/react-fontawesome";
-//import {faEdit} from "@fortawesome/free-solid-svg-icons";
 import ProjectSideBar from './Sidebars/View';
-
+import ProjectTickets from './Tickets';
+import ProjectFiles from './Files';
+import ProjectSummary from './Summary';
+import ProjectTimes from './Times';
 
 class View extends Component {
     state = {}
@@ -18,18 +19,7 @@ class View extends Component {
         return(
             <React.Fragment>
                 <DashboardLayout sidebar={<ProjectSideBar></ProjectSideBar>}>
-                    {/*<div className="small-header">
-                        <div className="panel dark">
-                            <div className="panel-heading">
-                                Young, Stewart and Morgan
-                                <div className="panel-tools">
-                                    <a href="">
-                                        <FontAwesomeIcon icon={faEdit}></FontAwesomeIcon>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>*/}
+
                     <Row>
                         <Col sm={12}>
                             <div className="nav-htabs">
@@ -50,10 +40,10 @@ class View extends Component {
                             </div>
                         </Col>
                     </Row>
-                    <Route path={this.baseRoute+'/summary'} component={()=><h2>Summary Comp</h2>}></Route>
-                    <Route path={this.baseRoute+'/tickets'} component={()=><h2>Tickets Comp</h2>}></Route>
-                    <Route path={this.baseRoute+'/times'} component={()=><h2>Times Comp</h2>}></Route>
-                    <Route path={this.baseRoute+'/files'} component={()=><h2>Files Comp</h2>}></Route>
+                    <Route path={this.baseRoute+'/summary'} exact component={ProjectSummary}></Route>
+                    <Route path={this.baseRoute+'/tickets'} exact component={ProjectTickets} />
+                    <Route path={this.baseRoute+'/times'} exact component={ProjectTimes}></Route>
+                    <Route path={this.baseRoute+'/files'} exact component={ProjectFiles}></Route>
                 </DashboardLayout>
             </React.Fragment>
         )
