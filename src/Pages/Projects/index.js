@@ -1,17 +1,20 @@
 import React, {Component, Suspense, lazy} from 'react';
 import {Row, Col} from "react-bootstrap";
-
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPlusCircle} from "@fortawesome/free-solid-svg-icons";
 import SortFilter from "../../Components/UI/Filters/Sort";
 import DashboardLayout from "../../Layouts/Dashboard";
 import project from "../../services/projects";
-import ListProject from "./ListProject";
+import ListProject from "./List/Project";
 import storage from "../../Config/storage";
 import ProjectSidebar from "./Sidebars/ProjectSidebar";
 import Loading from "../../Components/UI/Loader/Loading";
 import View from "./View";
+import {NavLink} from 'react-router-dom';
 const ProjectForm= lazy(() => import('./Form'));
+
+
+
 
 class Projects extends Component {
 
@@ -20,8 +23,10 @@ class Projects extends Component {
         sortOrder: storage.get('project_order_by') || 'asc',
         sort: storage.get('project_sort_by')||'id',
         projects : {data:[]},
-        showProjectForm : false
+        showProjectForm : false,
+        completed: this.props.match.path === "/projects/completed" ? 1 : 0
     };
+
 
     sortOptions = [
         {value: 'id', text:'Default'},
@@ -31,10 +36,10 @@ class Projects extends Component {
         {value: 'due_date', text:'Due Date'}
     ];
 
-    getProjects(){
+    getProjects= (completed)=>{
         this.setState({loading: true})
         project.getProjects({
-            completed: 0,
+            completed: completed,
             sort: this.state.sort,
             order: this.state.sortOrder
         }).then(response => {
@@ -46,13 +51,16 @@ class Projects extends Component {
     componentDidMount() {
         window.settings.setTitle('Current Projects');
         project.init();
-        this.getProjects();
+        this.getProjects(this.state.completed);
+    }
+    componentDidUpdate(prevProps, prevState, snapshot){
+        if(prevProps.match.path !== this.props.match.path)
+            this.getProjects(this.props.match.path === '/projects/completed' ? 1 : 0 );
     }
 
     sortHandler = (option) =>{
         storage.set('project_sort_by', option.value)
         this.setState({sort : option.value }, () => this.getProjects())
-
     }
 
     sortOrderHandler= (sorder) =>{
@@ -96,18 +104,15 @@ class Projects extends Component {
                             <div className="nav-htabs">
                                 <ul className="nav nav-tabs">
                                     <li className={'nav-item'}>
-                                        <div className="nav-link active">Current</div>
+                                        <NavLink to={'/projects/current'} className={'nav-link'}>Current</NavLink>
                                     </li>
                                     <li className={'nav-item'}>
-                                        <div className="nav-link">Completed</div>
+                                        <NavLink to={'/projects/completed'} className={'nav-link'}>Completed</NavLink>
                                     </li>
                                 </ul>
 
                             </div>
                             <div className="tab-content">
-                                <Row>
-                                    <Col sm={12}></Col>
-                                </Row>
                                 <Row>
                                     <Col sm={12}>
                                         <div className="list-options">
