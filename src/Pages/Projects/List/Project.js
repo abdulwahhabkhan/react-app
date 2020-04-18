@@ -5,7 +5,7 @@ import Avatar from "react-avatar";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faEllipsisV} from "@fortawesome/free-solid-svg-icons";
 
-const ListProject = (props) => {
+const Project = (props) => {
     return (
         <Col lg={4} className={'projects'}>
             <div className="panel green">
@@ -13,10 +13,10 @@ const ListProject = (props) => {
                     <Row>
                         <Col>
                             <div className={'title-link'}>
-                                <Link to={'projects/'+props.projectInfo.id}>{props.projectInfo.name}</Link>
+                                <Link to={'/projects/'+props.projectInfo.id+'/tickets'}>{props.projectInfo.name}</Link>
                             </div>
                             <div className={'project-details'}>
-                                <Link to={'projects/'+props.projectInfo.id}>{props.projectInfo.description}</Link>
+                                <Link to={'/projects/'+props.projectInfo.id+'/tickets'}>{props.projectInfo.description}</Link>
                             </div>
                             <Row className={'project-actions'}>
                                 <Col sm={2}>
@@ -58,4 +58,4 @@ const ListProject = (props) => {
     );
 };
 
-export default ListProject;
+export default Project;
