@@ -80,7 +80,7 @@ a {
   transition: all 0.4s ease 0s;
 }
 .list-options {display:flex; padding: 0px 0px 10px 0px;}
-.list-options h2, .list-options .title {flex:1; font-size:1.85em; font-weight:500;}
+.list-options h2, .list-options .title {flex:1; font-size:1.5em; font-weight:500; line-height: 1.8em; margin-bottom: 0px}
 .list-options .btn-options {flex:1; }
 .w-10{min-width: 10rem;}
 .sort-filter {
