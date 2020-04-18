@@ -13,9 +13,6 @@ import View from "./View";
 import {NavLink} from 'react-router-dom';
 const ProjectForm= lazy(() => import('./Form'));
 
-
-
-
 class Projects extends Component {
 
     state = {
@@ -49,13 +46,17 @@ class Projects extends Component {
     }
 
     componentDidMount() {
-        window.settings.setTitle('Current Projects');
+        const title = this.state.completed ? 'Completed' : 'Current'
+        window.settings.setTitle(title+' Projects');
         project.init();
         this.getProjects(this.state.completed);
     }
     componentDidUpdate(prevProps, prevState, snapshot){
+        const completed = this.props.match.path === '/projects/completed' ? 1 : 0
+        const title = completed ? 'Completed' : 'Current'
+        window.settings.setTitle(title+' Projects');
         if(prevProps.match.path !== this.props.match.path)
-            this.getProjects(this.props.match.path === '/projects/completed' ? 1 : 0 );
+            this.getProjects(completed );
     }
 
     sortHandler = (option) =>{
