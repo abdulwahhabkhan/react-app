@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import DashboardLayout from "../../Layouts/Dashboard";
-import {NavLink, Route} from "react-router-dom";
+import {NavLink, Route, Switch, Redirect} from "react-router-dom";
 import {Row, Col} from "react-bootstrap";
 import ProjectSideBar from './Sidebars/View';
 import ProjectTickets from './Tickets';
@@ -40,10 +40,14 @@ class View extends Component {
                             </div>
                         </Col>
                     </Row>
-                    <Route path={this.baseRoute+'/summary'} exact component={ProjectSummary}></Route>
-                    <Route path={this.baseRoute+'/tickets'} exact component={ProjectTickets} />
-                    <Route path={this.baseRoute+'/times'} exact component={ProjectTimes}></Route>
-                    <Route path={this.baseRoute+'/files'} exact component={ProjectFiles}></Route>
+                    <Switch>
+                        <Route path={this.baseRoute+'/summary'} exact component={ProjectSummary}></Route>
+                        <Route path={this.baseRoute+'/tickets'} exact component={ProjectTickets} />
+                        <Route path={this.baseRoute+'/times'} exact component={ProjectTimes}></Route>
+                        <Route path={this.baseRoute+'/files'} exact component={ProjectFiles}></Route>
+                        <Redirect to={'/dashboard'}></Redirect>
+                    </Switch>
+
                 </DashboardLayout>
             </React.Fragment>
         )
