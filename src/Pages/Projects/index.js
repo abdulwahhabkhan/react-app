@@ -46,6 +46,9 @@ class Projects extends Component {
     }
 
     componentDidMount() {
+        if(this.props.match.path === '/projects')
+            this.props.history.push('/projects/current');
+
         const title = this.state.completed ? 'Completed' : 'Current'
         window.settings.setTitle(title+' Projects');
         project.init();
@@ -54,6 +57,9 @@ class Projects extends Component {
     componentDidUpdate(prevProps, prevState, snapshot){
         const completed = this.props.match.path === '/projects/completed' ? 1 : 0
         const title = completed ? 'Completed' : 'Current'
+        if(this.props.match.path === '/projects')
+            this.props.history.push('/projects/current');
+
         window.settings.setTitle(title+' Projects');
         if(prevProps.match.path !== this.props.match.path)
             this.getProjects(completed );
@@ -87,6 +93,7 @@ class Projects extends Component {
         );
         let sidebar = <ProjectSidebar></ProjectSidebar>
         let projectForm = this.state.showProjectForm ? <ProjectForm show={true} onclose={this.projectFormHandler} project={{}}></ProjectForm> : null
+
         return (
             <React.Fragment>
                 <DashboardLayout sidebar={sidebar}>
