@@ -1,5 +1,6 @@
 import Welcome from "./Pages/Welcome";
 import Login from "./Pages/Auth/Login";
+import Logout from "./Pages/Auth/Logout";
 import Register from "./Pages/Auth/Register";
 import Dashboard from "./Pages/Dashboard";
 import Projects, {View as ProjectDetail} from "./Pages/Projects";
@@ -9,6 +10,7 @@ const APP_TITLE = ' - '+APP_NAME;
 
 const routes = [
     {path: '/login', component : Login, isPublic: true, meta: {title: 'Login'+ APP_TITLE}},
+    {path: '/logout', component : Logout, isPublic: true, meta: {title: 'Logout'+ APP_TITLE}},
     {path: '/register', component : Register, isPublic: true,meta: {title: 'Register'+ APP_TITLE}},
     {path: '/dashboard', component : Dashboard, meta: {title: 'Dashboard'+ APP_TITLE}},
     {path: ["/projects", "/projects/current", "/projects/completed"], component : Projects, meta: {title: 'Projects List'+ APP_TITLE}},

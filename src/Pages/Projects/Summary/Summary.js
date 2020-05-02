@@ -8,7 +8,7 @@ class Summary extends Component{
           <Row>
             <Col sm={12}>
               <div className="list-options">
-                <h2>Files</h2>
+                <h2>Project Summary</h2>
               </div>
             </Col>
           </Row>

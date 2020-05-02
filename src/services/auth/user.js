@@ -36,7 +36,20 @@ class  user {
 
     logout = () => {
         this.setSession(null);
+        localStorage.removeItem('user');
     };
+
+    getLoggedInUser = () => {
+        const user = localStorage.getItem('user');
+        if (user)
+            return JSON.parse(user);
+        return null;
+    }
+
+    //is user is logged in
+    isUserAuthenticated = () => {
+        return this.getLoggedInUser() !== null;
+    }
 
     setAxiosAuth = ()=>{
         let token = this.getAccessToken();
@@ -77,6 +90,7 @@ class  user {
                 if ( response.data.user )
                 {
                     this.setSession(response.data.access_token);
+                    localStorage.setItem('user', JSON.stringify(response.data.user))
                     resolve(response.data.user);
                 }
                 else
