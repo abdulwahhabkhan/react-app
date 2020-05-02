@@ -2,8 +2,10 @@ import React, {Component} from 'react';
 import {Link, NavLink} from "react-router-dom";
 import logo from "../../images/logos/logo.svg";
 import Sidebar from "../../Components/UI/Sidebar/Sidebar";
+import Auth from "../../services/auth"
 
 const Header = (props) =>{
+
     return(
         <div className="navbar fixed-top bg-dark top-nav navbar-expand-md">
             <div className="navbar-header">
@@ -28,8 +30,9 @@ const Header = (props) =>{
                     <ul className="nav navbar-nav no-borders">
                         <li className="nav-item dropdown dropdown-authentication show">
                             <div  className="nav-link dropdown-toggle user-nav no-caret">
-                                <span>Holly Ross</span>
+                                <span>{props.user.name}</span>
                             </div>
+
                         </li>
                     </ul>
                 </div>
@@ -42,11 +45,12 @@ const Header = (props) =>{
 class DashboardLayout extends Component {
 
     state = {
-        settings : window.settings
+        settings : window.settings,
+        user : Auth.getLoggedInUser()
     }
 
     render() {
-        let header = <Header/>;
+        let header = <Header user={this.state.user}/>;
         let sidebar = this.props.sidebar ? <Sidebar>{this.props.sidebar}</Sidebar> : null
         const wrapperclass = ['fixed-navbar', 'private']
         if (this.state.settings.sidebarMinified) wrapperclass.push('mini-sidebar')
