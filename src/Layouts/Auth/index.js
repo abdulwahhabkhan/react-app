@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
-import {Link, Redirect} from "react-router-dom";
+import {Link} from "react-router-dom";
 import logo from "../../images/logos/logo.svg";
 import {Container, Navbar,Nav, NavItem, NavLink} from "react-bootstrap";
-import auth from '../../services/auth'
 
 const Header = (props) =>{
     return(
@@ -33,20 +32,7 @@ const Header = (props) =>{
 class AuthLayout extends Component {
 
     state = {
-        isLogin: false
-    }
-
-    componentDidMount() {
-        //check user already login redirect to dashboard
-        auth.checkUserLogin()
-            .then(
-                user =>{
-                    this.setState({isLogin: true})
-                },
-                err => {
-                    this.setState({isLogin: false})
-                }
-            )
+        isLogin: true
     }
 
     render() {
@@ -56,14 +42,12 @@ class AuthLayout extends Component {
 
 
         return (
-            this.state.isLogin ?
-                <Redirect to={'/dashboard'} /> :
-                <div>
-                    { header }
-                    <div className={this.props.type  === 'welcome' ? 'content has-bg home' : 'content auth-bg'}>
-                        {this.props.children}
-                    </div>
+            <div>
+                { header }
+                <div className={this.props.type  === 'welcome' ? 'content has-bg home' : 'content auth-bg'}>
+                    {this.props.children}
                 </div>
+            </div>
 
         );
     }
