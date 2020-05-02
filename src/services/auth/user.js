@@ -46,6 +46,10 @@ class  user {
         return null;
     }
 
+    setLoggedInUser = (user) => {
+        localStorage.setItem('user', JSON.stringify(user))
+    }
+
     //is user is logged in
     isUserAuthenticated = () => {
         return this.getLoggedInUser() !== null;
@@ -59,6 +63,8 @@ class  user {
     getAccessToken = () => {
         return window.localStorage.getItem('jwt_access_token');
     };
+
+    g
 
     createUser = (data) => {
         return new Promise((resolve, reject) => {
@@ -90,7 +96,7 @@ class  user {
                 if ( response.data.user )
                 {
                     this.setSession(response.data.access_token);
-                    localStorage.setItem('user', JSON.stringify(response.data.user))
+                    this.setLoggedInUser(response.data.user)
                     resolve(response.data.user);
                 }
                 else
