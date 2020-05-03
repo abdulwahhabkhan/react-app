@@ -1,11 +1,12 @@
 import React from "react";
 import {Link} from "react-router-dom";
-import {Col, ProgressBar, Row} from "react-bootstrap";
+import {Col, ProgressBar, Row, Popover, OverlayTrigger} from "react-bootstrap";
 import Avatar from "react-avatar";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faEllipsisV} from "@fortawesome/free-solid-svg-icons";
+import {faEllipsisV, faTimes, faPencilAlt, faCheck} from "@fortawesome/free-solid-svg-icons";
 
 const Project = (props) => {
+
     return (
         <Col lg={4} className={'projects'}>
             <div className="panel green">
@@ -44,10 +45,35 @@ const Project = (props) => {
                                     <div className={'project-label'}>
                                         &nbsp;
                                     </div>
-                                    <span className={'btn btn-sm btn-circle btn-default'}>
-                                        <FontAwesomeIcon icon={faEllipsisV} />
+                                    <OverlayTrigger
+                                        trigger="focus"
+                                        placement="left"
+                                        overlay={
+                                            <Popover>
+                                                <Popover.Content>
+                                                    <ul className="popover-actions">
+                                                        <li>
+                                                            <FontAwesomeIcon icon={faTimes} size={'2x'} />
+                                                            Delete
+                                                        </li>
+                                                        <li>
+                                                            <FontAwesomeIcon icon={faPencilAlt} size={'2x'} />
+                                                            Edit
+                                                        </li>
+                                                        <li>
+                                                            <FontAwesomeIcon icon={faCheck} size={'2x'}  />
+                                                            Complete
+                                                        </li>
+                                                    </ul>
+                                                </Popover.Content>
+                                            </Popover>
+                                        }
+                                    >
+                                        <button className={'btn btn-sm btn-circle btn-default'}>
+                                            <FontAwesomeIcon icon={faEllipsisV} />
+                                        </button>
+                                    </OverlayTrigger>
 
-                                    </span>
                                 </Col>
                             </Row>
                         </Col>
