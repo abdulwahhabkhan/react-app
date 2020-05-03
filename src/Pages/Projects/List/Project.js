@@ -2,8 +2,10 @@ import React from "react";
 import {Link} from "react-router-dom";
 import {Col, ProgressBar, Row, Popover, OverlayTrigger} from "react-bootstrap";
 import Avatar from "react-avatar";
+import Moment from 'react-moment';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faEllipsisV, faTimes, faPencilAlt, faCheck} from "@fortawesome/free-solid-svg-icons";
+import settings from "../../../Config/settings";
 
 const Project = (props) => {
 
@@ -32,7 +34,9 @@ const Project = (props) => {
                                         DEADLINE
                                     </div>
                                     <small>
-                                        { props.projectInfo.end_date }
+                                        <Moment
+                                            format={settings.DATEFROMAT}
+                                            date={props.projectInfo.end_date} />
                                     </small>
                                 </Col>
                                 <Col sm={4}>
@@ -58,7 +62,7 @@ const Project = (props) => {
                                                             <FontAwesomeIcon icon={faTimes} size={'2x'} />
                                                             Delete
                                                         </li>
-                                                        <li onClick={()=>{props.onEdit(props.projectInfo.id)}}>
+                                                        <li onClick={()=>{props.onEdit(props.projectInfo)}}>
                                                             <FontAwesomeIcon icon={faPencilAlt} size={'2x'} />
                                                             Edit
                                                         </li>

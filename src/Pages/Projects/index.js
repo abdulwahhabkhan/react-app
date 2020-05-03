@@ -21,6 +21,8 @@ class Projects extends Component {
         sort: storage.get('project_sort_by')||'id',
         projects : {data:[]},
         showProjectForm : false,
+        projectID : 0,
+        project: null,
         completed: this.props.match.path === "/projects/completed" ? 1 : 0
     };
 
@@ -78,21 +80,34 @@ class Projects extends Component {
     }
 
     projectFormHandler = (flag)=>{
-        this.setState({showProjectForm : flag})
+        this.setState({showProjectForm : flag, project: null})
     }
 
+    editProjectHandler = (project)=>{
+        console.log('edit request', project);
+        this.setState({showProjectForm: true, project: project})
+    }
+    deleteProjectHandler = (id)=>{
+        //ask for confirmation and delete the project
 
+    }
+    completeProjectHandler = (id)=>{
+        //mark the project as completed
+    }
 
     render() {
         let projects = (
             this.state.projects.data.map((project, index) => {
                 return <ListProject
                         projectInfo={project}
+                        onEdit={this.editProjectHandler}
+                        onDelete={this.deleteProjectHandler}
+                        onComplete={this.completeProjectHandler}
                         key={project.id} />
             })
         );
         let sidebar = <ProjectSidebar></ProjectSidebar>
-        let projectForm = this.state.showProjectForm ? <ProjectForm show={true} onclose={this.projectFormHandler} project={{}}></ProjectForm> : null
+        let projectForm = this.state.showProjectForm ? <ProjectForm show={true} onclose={this.projectFormHandler} project={this.state.project}></ProjectForm> : null
 
         return (
             <React.Fragment>

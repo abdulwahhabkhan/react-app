@@ -6,14 +6,15 @@ import DatePicker from "react-datepicker/es";
 import "react-datepicker/dist/react-datepicker.css";
 
 const CalendarInput = (props) => {
-    const [startDate, setStartDate] = useState(new Date());
+    //const [startDate, setStartDate] = useState(new Date());
 
     return (
         <InputGroup className="mb-3">
             <DatePicker
-                selected={startDate}
+                selected={props.value}
                 className={'form-control'}
-                onChange={date => setStartDate(date)}
+                onChange={date => props.changeHandler(props.name, date)}
+                name={props.name}
                 fixedHeight />
             <InputGroup.Append>
                 <InputGroup.Text>
