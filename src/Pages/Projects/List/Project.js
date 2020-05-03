@@ -45,22 +45,24 @@ const Project = (props) => {
                                     <div className={'project-label'}>
                                         &nbsp;
                                     </div>
+
                                     <OverlayTrigger
-                                        trigger="focus"
+                                        trigger={['focus']}
                                         placement="left"
+                                        delay={200}
                                         overlay={
                                             <Popover>
                                                 <Popover.Content>
                                                     <ul className="popover-actions">
-                                                        <li>
+                                                        <li onClick={()=>{props.onDelete(props.projectInfo.id)}}>
                                                             <FontAwesomeIcon icon={faTimes} size={'2x'} />
                                                             Delete
                                                         </li>
-                                                        <li>
+                                                        <li onClick={()=>{props.onEdit(props.projectInfo.id)}}>
                                                             <FontAwesomeIcon icon={faPencilAlt} size={'2x'} />
                                                             Edit
                                                         </li>
-                                                        <li>
+                                                        <li onClick={()=>{props.onComplete(props.projectInfo.id)}}>
                                                             <FontAwesomeIcon icon={faCheck} size={'2x'}  />
                                                             Complete
                                                         </li>
