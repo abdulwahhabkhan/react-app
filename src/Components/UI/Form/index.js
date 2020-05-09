@@ -7,11 +7,12 @@ import "react-datepicker/dist/react-datepicker.css";
 
 const CalendarInput = (props) => {
     //const [startDate, setStartDate] = useState(new Date());
+    const  c_date = props.value ? new Date(props.value) : '';
 
     return (
         <InputGroup className="mb-3">
             <DatePicker
-                selected={props.value}
+                selected={c_date}
                 className={'form-control'}
                 onChange={date => props.changeHandler(props.name, date)}
                 name={props.name}
