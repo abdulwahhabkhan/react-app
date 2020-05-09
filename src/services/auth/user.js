@@ -125,6 +125,16 @@ class  user {
         });
         return token ? res : Promise.reject({}) ;
     };
+
+    getUsers =() =>{
+        return new Promise( (resolve, reject) =>{
+            axios.get('users/list')
+                .then(response => {
+                    resolve(response.data)
+                })
+                .catch(err => reject(err))
+        })
+    }
 }
 
 const instance = new user();
