@@ -1,7 +1,9 @@
 import React, {Component} from "react";
 import {Button, Modal, Form, Tabs, Tab, Row, Col} from "react-bootstrap";
 import CalenderInput from '../../../Components/UI/Form';
+import Select  from "react-select";
 import settings from "../../../Config/settings";
+import user from '../../../services/auth'
 
 class ProjectForm extends Component {
 
@@ -10,13 +12,27 @@ class ProjectForm extends Component {
         description : '',
         start_date: '',
         end_date: '',
-        owner: '',
+        owner: {'id':0},
+        users : [],
+        loading: false,
         ...this.props.project
     }
+
     handleChange = (e)=>{
         const { name, value } = e.target;
         this.setState({ [name]: value });
     };
+
+    componentDidMount() {
+        if(!this.props.project) {
+            console.log("Add project")
+        }
+        user.getUsers()
+            .then(response => {
+                this.setState({'users': response})
+            })
+    }
+
     handleDate = (name, val) =>{
         this.setState({ [name]: val });
     }
@@ -55,7 +71,7 @@ class ProjectForm extends Component {
                                                 <CalenderInput
                                                     placeholder={''}
                                                     name={'start_date'}
-                                                    value={''}
+                                                    value={this.state.start_date}
                                                     formate={settings.FORMDATEFROMAT}
                                                     changeHandler={this.handleDate}
                                                 />
@@ -67,7 +83,7 @@ class ProjectForm extends Component {
                                                 <Form.Label>End Date</Form.Label>
                                                 <CalenderInput
                                                     name={'end_date'}
-                                                    value={''}
+                                                    value={this.state.end_date}
                                                     changeHandler={this.handleDate}
                                                 />
                                             </Form.Group>
@@ -75,7 +91,18 @@ class ProjectForm extends Component {
                                     </Row>
                                 </Tab>
                                 <Tab eventKey="owner" title="Owner">
-                                    Tab data
+                                    <Form.Group>
+                                        <Form.Label>Owner</Form.Label>
+                                        <Select
+                                            options={this.state.users}
+                                            isLoading={this.state.loading}
+                                            isClearable
+                                            defaultValue={[this.state.owner]}
+                                            getOptionValue={option => option['id']}
+                                            getOptionLabel={option => option['name']}
+                                            name={'owner'}
+                                        />
+                                    </Form.Group>
                                 </Tab>
                                 <Tab eventKey="progress" title="Progress">
                                     Tab data
