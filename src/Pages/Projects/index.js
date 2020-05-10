@@ -83,6 +83,10 @@ class Projects extends Component {
         this.setState({showProjectForm : flag, project: null})
     }
 
+    projectUpdateHandler= (data) =>{
+        this.getProjects(this.state.completed);
+    }
+
     editProjectHandler = (project)=>{
         console.log('edit request', project);
         this.setState({showProjectForm: true, project: project})
@@ -107,7 +111,7 @@ class Projects extends Component {
             })
         );
         let sidebar = <ProjectSidebar></ProjectSidebar>
-        let projectForm = this.state.showProjectForm ? <ProjectForm show={true} onclose={this.projectFormHandler} project={this.state.project}></ProjectForm> : null
+        let projectForm = this.state.showProjectForm ? <ProjectForm show={true} onClose={this.projectFormHandler} onUpdate={this.projectUpdateHandler} project={this.state.project}></ProjectForm> : null
 
         return (
             <React.Fragment>

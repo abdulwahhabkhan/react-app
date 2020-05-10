@@ -12,14 +12,32 @@ class Projects {
         return new Promise((resolve, reject)=>{
             axios({
                 method: 'get',
-                url: 'http://laravel.we:8180/api/v1/projects?'+params
+                url: 'projects?'+params
             }).then(response => {
                 if(response.data) {
                     resolve(response.data);
                 } else {
                     reject(response.data);
                 }
+            }).catch(res =>{
+                reject(res.response.data);
             });
+        })
+    }
+
+    saveProject = (data)=>{
+        const method = data.id ? 'PUT' : 'POST';
+        const url = data.id ? 'project/'+data.id : 'project'
+        return new Promise((resolve, reject)=>{
+            axios({
+                method: method,
+                url: url,
+                data: data
+            }).then(response =>{
+                resolve(response.data);
+            }).catch(res =>{
+                reject(res.response);
+            })
         })
     }
 }

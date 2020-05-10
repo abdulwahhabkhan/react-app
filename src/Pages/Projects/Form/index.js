@@ -3,17 +3,22 @@ import {Button, Modal, Form, Tabs, Tab, Row, Col} from "react-bootstrap";
 import CalenderInput from '../../../Components/UI/Form';
 import Select  from "react-select";
 import settings from "../../../Config/settings";
-import user from '../../../services/auth'
+import user from '../../../services/auth';
+import SubmitButton from "../../../Components/Form/ButtonLoader";
+import project from '../../../services/projects';
+
 
 class ProjectForm extends Component {
 
     state = {
+        id: 0,
         name: '',
         description : '',
         start_date: '',
         end_date: '',
-        owner: {'id':0},
+        owner: {'id':''},
         users : [],
+        progress: 0,
         loading: false,
         ...this.props.project
     }
@@ -24,9 +29,7 @@ class ProjectForm extends Component {
     };
 
     componentDidMount() {
-        if(!this.props.project) {
-            console.log("Add project")
-        }
+        project.init();
         user.getUsers()
             .then(response => {
                 this.setState({'users': response})
@@ -35,6 +38,44 @@ class ProjectForm extends Component {
 
     handleDate = (name, val) =>{
         this.setState({ [name]: val });
+    }
+
+    saveFormHandler = () =>{
+        this.setState({'loading': true});
+        const data = {...this.state};
+        data.owner = data.owner ? data.owner.id : '';
+
+        project.saveProject(data)
+            .then(response => {
+                this.setState({'loading': false});
+                console.log(response);
+                //todo: show success message
+                this.props.onClose(false);
+                this.props.onUpdate(response);
+            })
+            .catch(response => {
+                this.setState({'loading': false});
+                //todo: show errors
+            })
+    }
+
+    updateOwnerHandler = (val, action) =>{
+        console.log('form ', val, action);
+
+        switch (action.action) {
+            case 'remove-value':
+            case 'clear':
+                this.setState({'owner': {'id': ''}});
+                break;
+
+            case "select-option":
+                this.setState({'owner': val});
+                console.log(this.state);
+                break;
+
+            default:
+                break;
+        }
     }
     activeTab = 'description'
 
@@ -100,6 +141,7 @@ class ProjectForm extends Component {
                                             defaultValue={[this.state.owner]}
                                             getOptionValue={option => option['id']}
                                             getOptionLabel={option => option['name']}
+                                            onChange={this.updateOwnerHandler}
                                             name={'owner'}
                                         />
                                     </Form.Group>
@@ -113,12 +155,10 @@ class ProjectForm extends Component {
                     </form>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" className={'mr-auto'} onClick={() => this.props.onclose(false)}>
+                    <Button variant="secondary" className={'mr-auto'} onClick={() => this.props.onClose(false)}>
                         Close
                     </Button>
-                    <Button variant="success">
-                        Save Changes
-                    </Button>
+                    <SubmitButton className={'btn btn-form'} type={'submit'} onClick={()=>this.saveFormHandler()} loading={this.state.loading}>Save Changes</SubmitButton>
                 </Modal.Footer>
             </Modal>
         );
