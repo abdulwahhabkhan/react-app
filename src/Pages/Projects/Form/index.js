@@ -20,6 +20,7 @@ class ProjectForm extends Component {
         users : [],
         progress: 0,
         loading: false,
+        activeTab : this.props.tab ? this.props.tab: 'description',
         ...this.props.project
     }
 
@@ -77,7 +78,7 @@ class ProjectForm extends Component {
                 break;
         }
     }
-    activeTab = 'description'
+
 
     render() {
         const title = this.props.project ? 'Edit Project' : 'Add Project';
@@ -95,7 +96,7 @@ class ProjectForm extends Component {
                                           onChange={this.handleChange} />
                         </Form.Group>
                         <div className="nav-htabs">
-                            <Tabs defaultActiveKey={this.activeTab} id="project_form_tabs">
+                            <Tabs defaultActiveKey={this.state.activeTab} id="project_form_tabs">
                                 <Tab eventKey="description" title="Description">
                                     <Form.Group>
                                         <Form.Label>Provide a Description </Form.Label>
