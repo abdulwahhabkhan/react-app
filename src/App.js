@@ -9,7 +9,7 @@ import routes from "./routes";
 import settings from "./Config/settings";
 import NotFound from './Pages/Error/NotFound'
 
-window.settings = settings;
+document.settings = settings;
 
 class App extends Component {
 

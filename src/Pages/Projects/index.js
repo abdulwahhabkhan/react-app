@@ -12,7 +12,6 @@ import Loading from "../../Components/UI/Loader/Loading";
 import View from "./View";
 import {NavLink} from 'react-router-dom';
 import {store as notify} from 'react-notifications-component';
-import settings from "../../Config/settings";
 const ProjectForm= lazy(() => import('./Form'));
 
 class Projects extends Component {
@@ -54,7 +53,7 @@ class Projects extends Component {
             this.props.history.push('/projects/current');
 
         const title = this.state.completed ? 'Completed' : 'Current'
-        window.settings.setTitle(title+' Projects');
+        document.settings.setTitle(title+' Projects');
         project.init();
         this.getProjects(this.state.completed);
     }
@@ -64,7 +63,7 @@ class Projects extends Component {
         if(this.props.match.path === '/projects')
             this.props.history.push('/projects/current');
 
-        window.settings.setTitle(title+' Projects');
+        document.settings.setTitle(title+' Projects');
         if(prevProps.match.path !== this.props.match.path)
             this.getProjects(completed );
     }
@@ -88,7 +87,7 @@ class Projects extends Component {
     projectUpdateHandler= (data) =>{
         this.getProjects(this.state.completed);
         return notify.addNotification({
-            ...settings.NOTIFY,
+            ...document.settings.NOTIFY,
             type: 'success',
             title: "Success",
             message: "Project save successfully"

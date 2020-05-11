@@ -5,7 +5,7 @@ import DashboardLayout from "../../Layouts/Dashboard";
 class Dashboard extends Component {
 
     componentDidMount() {
-        window.settings.setTitle('Dashboard');
+        document.settings.setTitle('Dashboard');
     }
 
     render() {

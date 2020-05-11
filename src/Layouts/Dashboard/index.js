@@ -47,7 +47,7 @@ const Header = (props) =>{
 class DashboardLayout extends Component {
 
     state = {
-        settings : window.settings,
+        settings : document.settings,
         user : Auth.getLoggedInUser()
     }
 
