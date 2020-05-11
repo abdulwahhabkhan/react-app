@@ -17,6 +17,16 @@ const settings = {
     sidebarMinified: localStorage.getItem('sidebar_minified') ? (localStorage.getItem('sidebar_minified') === 'true'? true: false)  : false,
     setTitle: (t)=>{
         document.title = t ? t + ' - '+ title :  title;
+    },
+    NOTIFY: {
+        insert: "bottom",
+        container: "bottom-right",
+        animationIn: ["animated", "fadeIn"],
+        animationOut: ["animated", "fadeOut"],
+        type: 'default',
+        dismiss: {
+            duration:  5000, onScreen: true, showIcon: true, pauseOnHover: true
+        }
     }
 }
 axios.defaults.baseURL = baseurl+apiversion+'/';

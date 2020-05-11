@@ -11,6 +11,8 @@ import ProjectSidebar from "./Sidebars/ProjectSidebar";
 import Loading from "../../Components/UI/Loader/Loading";
 import View from "./View";
 import {NavLink} from 'react-router-dom';
+import {store as notify} from 'react-notifications-component';
+import settings from "../../Config/settings";
 const ProjectForm= lazy(() => import('./Form'));
 
 class Projects extends Component {
@@ -85,10 +87,15 @@ class Projects extends Component {
 
     projectUpdateHandler= (data) =>{
         this.getProjects(this.state.completed);
+        return notify.addNotification({
+            ...settings.NOTIFY,
+            type: 'success',
+            title: "Success",
+            message: "Project save successfully"
+        });
     }
 
     editProjectHandler = (project)=>{
-        console.log('edit request', project);
         this.setState({showProjectForm: true, project: project})
     }
     deleteProjectHandler = (id)=>{
@@ -127,6 +134,7 @@ class Projects extends Component {
                                 </div>
                             </div>
                         </Col>
+
                         <Col sm={12}>
                             <div className="nav-htabs">
                                 <ul className="nav nav-tabs">
