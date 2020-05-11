@@ -3,6 +3,8 @@ import {Link, NavLink} from "react-router-dom";
 import logo from "../../images/logos/logo.svg";
 import Sidebar from "../../Components/UI/Sidebar/Sidebar";
 import Auth from "../../services/auth"
+import ReactNotification from 'react-notifications-component';
+import 'react-notifications-component/dist/theme.css'
 
 const Header = (props) =>{
 
@@ -59,6 +61,7 @@ class DashboardLayout extends Component {
         return (
             <div className={wrapperclass.join(' ')}>
                 { header }
+                <ReactNotification />
                 <div className={''} id={'page-container'}>
                     <div className="content-wrapper">
                         {sidebar}
@@ -67,6 +70,7 @@ class DashboardLayout extends Component {
                         </div>
                     </div>
                 </div>
+
             </div>
 
         );
