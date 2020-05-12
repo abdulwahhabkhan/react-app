@@ -40,6 +40,22 @@ class Projects {
             })
         })
     }
+
+    completeProject = (data)=>{
+        const url =  'project/'+data.id+'/complete'
+        return new Promise((resolve, reject)=>{
+            axios({
+                method: 'PUT',
+                url: url,
+                data: data
+            }).then(response =>{
+                resolve(response.data);
+            }).catch(res =>{
+                reject(res.response);
+            })
+        })
+    }
+
 }
 
 const instance = new Projects();

@@ -103,6 +103,20 @@ class Projects extends Component {
     }
     completeProjectHandler = (id)=>{
         //mark the project as completed
+        project.completeProject({id: id})
+            .then(response=>{
+                this.getProjects(this.state.completed)
+                return notify.addNotification({
+                    ...document.settings.NOTIFY,
+                    type: 'success',
+                    title: "Success",
+                    message: "Project complete status updated successfully"
+                });
+            })
+            .catch(response=>{
+
+            })
+
     }
 
     render() {
