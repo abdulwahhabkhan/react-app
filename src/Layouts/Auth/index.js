@@ -42,7 +42,7 @@ class AuthLayout extends Component {
 
 
         return (
-            <div>
+            <div className={this.props.type}>
                 { header }
                 <div className={this.props.type  === 'welcome' ? 'content has-bg home' : 'content auth-bg'}>
                     {this.props.children}

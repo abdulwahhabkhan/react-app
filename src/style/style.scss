@@ -73,6 +73,18 @@ a {
     color: #9d9fa2;
   }
 }
+.welcome{
+  .nav-link{
+
+    &:hover{
+      border-bottom-color: #192d3e;
+      color: #53a8c1!important;
+    }
+    &.active{
+      color: #53a8c1;
+    }
+  }
+}
 .content {
   padding: 20px 20px 20px 20px;
   min-width: 320px;
