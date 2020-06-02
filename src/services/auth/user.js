@@ -35,8 +35,20 @@ class  user {
     };
 
     logout = () => {
-        this.setSession(null);
-        localStorage.removeItem('user');
+
+        return new Promise((resolve, reject) => {
+            axios({method: 'post',url:'logout'})
+                .then(response => {
+                    this.setSession(null);
+                    localStorage.removeItem('user');
+                    resolve(response)
+                })
+                .catch(res =>{
+                    this.setSession(null);
+                    localStorage.removeItem('user');
+                    resolve(res.response.data);
+                })
+        })
     };
 
     getLoggedInUser = () => {

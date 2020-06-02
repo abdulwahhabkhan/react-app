@@ -85,6 +85,18 @@ a {
     }
   }
 }
+.user-nav{
+  &:hover{
+    cursor: pointer;
+    border-bottom-color: transparent!important;
+  }
+  .user-img{
+    float: left;
+    width: 30px;
+    height: 30px;
+    margin: -5px 0 0 0;
+  }
+}
 .content {
   padding: 20px 20px 20px 20px;
   min-width: 320px;
