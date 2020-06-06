@@ -9,7 +9,8 @@ import Sidebar from "../../Components/UI/Sidebar/Sidebar"
 import Auth from "../../services/auth"
 import ReactNotification from 'react-notifications-component'
 import {faPowerOff, faUser} from "@fortawesome/free-solid-svg-icons";
-
+import pageOptions from "../../Config/pageOptions";
+import storage from "../../Config/storage";
 
 const Header = (props) =>{
 
@@ -79,7 +80,9 @@ class DashboardLayout extends Component {
 
     state = {
         settings : document.settings,
-        user : Auth.getLoggedInUser()
+        user : Auth.getLoggedInUser(),
+        sidebarMinified : pageOptions.pageSidebarMinified,
+        hideSideBar : pageOptions.pageSidebarHidden
     }
 
     logoutHandler=()=>{
@@ -89,11 +92,22 @@ class DashboardLayout extends Component {
         });
     }
 
+    toggleSidebar =()=>{
+        let sidebarMinified = !pageOptions.pageSidebarMinified;
+        storage.set('sidebar_minified', sidebarMinified);
+        pageOptions.pageSidebarMinified = sidebarMinified;
+        this.setState({'sidebarMinified': sidebarMinified})
+
+    }
+
     render() {
         let header = <Header user={this.state.user} logout={this.logoutHandler}/>;
-        let sidebar = this.props.sidebar ? <Sidebar>{this.props.sidebar}</Sidebar> : null
-        const wrapperclass = ['fixed-navbar', 'private']
-        if (this.state.settings.sidebarMinified) wrapperclass.push('mini-sidebar')
+        let sidebar = this.props.sidebar ? <Sidebar toggleSiderbar={this.toggleSidebar} toggled={this.state.sidebarMinified}>{this.props.sidebar}</Sidebar> : null
+        const wrapperclass = [
+            'fixed-navbar',
+            'private'
+        ]
+        if (this.state.sidebarMinified) wrapperclass.push('mini-sidebar')
         if (this.state.settings.hideSideBar) wrapperclass.push('no-sidebar')
         let logout = this.state.user ? '' : <Redirect  to={'/'}/>
 

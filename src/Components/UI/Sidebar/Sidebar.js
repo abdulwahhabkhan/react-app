@@ -3,10 +3,10 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faAngleDoubleRight, faAngleDoubleLeft} from "@fortawesome/free-solid-svg-icons";
 
 const Sidebar = (props)=>{
-    let icon =  1 > 2 ? faAngleDoubleLeft : faAngleDoubleRight;
+    let icon =  !props.toggled ? faAngleDoubleLeft : faAngleDoubleRight;
     return(
         <div id={'sidebar'} className={'sidebar'}>
-            <span id={'sidebar-toggle'}>
+            <span id={'sidebar-toggle'} onClick={()=> props.toggleSiderbar() }>
                 <FontAwesomeIcon icon={icon}></FontAwesomeIcon>
             </span>
             <div className="sidebar-content">
