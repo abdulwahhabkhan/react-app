@@ -91,8 +91,9 @@ class ProjectForm extends Component {
                     <form action="" className="form-horizontal">
                         <Form.Group>
                             <Form.Label>Project title is:</Form.Label>
-                            <Form.Control placeholder={''} value={this.state.name}
+                            <Form.Control value={this.state.name}
                                           name={'name'}
+                                          placeholder={'like react application'}
                                           onChange={this.handleChange} />
                         </Form.Group>
                         <div className="nav-htabs">

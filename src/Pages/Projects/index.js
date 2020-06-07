@@ -12,6 +12,7 @@ import Loading from "../../Components/UI/Loader/Loading";
 import View from "./View";
 import {NavLink} from 'react-router-dom';
 import {store as notify} from 'react-notifications-component';
+
 const ProjectForm= lazy(() => import('./Form'));
 
 class Projects extends Component {
@@ -23,6 +24,15 @@ class Projects extends Component {
         projects : {data:[]},
         showProjectForm : false,
         projectID : 0,
+        filters : {
+            'keyword': 'project 12',
+            'owner': {},
+            'created_at': 'range',
+            'due_at': 'range',
+            'Created_start_date': new Date(),
+            'created_end': '',
+            'due_date': {}
+        },
         project: null,
         completed: this.props.match.path === "/projects/completed" ? 1 : 0
     };
@@ -114,9 +124,16 @@ class Projects extends Component {
                 });
             })
             .catch(response=>{
-
             })
+    }
 
+    searchProject = (data)=>{
+
+        console.log(data)
+    }
+
+    resetSearch = (data)=>{
+       console.log(data)
     }
 
     render() {
@@ -130,7 +147,10 @@ class Projects extends Component {
                         key={project.id} />
             })
         );
-        let sidebar = <ProjectSidebar></ProjectSidebar>
+        let sidebar = <ProjectSidebar
+            filters={this.state.filters}
+            search={this.searchProject}
+            reset={this.resetSearch} />
         let projectForm = this.state.showProjectForm ? <ProjectForm show={true} onClose={this.projectFormHandler} onUpdate={this.projectUpdateHandler} project={this.state.project}></ProjectForm> : null
 
         return (

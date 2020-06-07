@@ -9,16 +9,38 @@ import ProjectSummary from './Summary';
 import ProjectTimes from './Times';
 
 class View extends Component {
-    state = {}
+    state = {
+        filters : {
+            'keyword': 'project 1',
+            'owner': {},
+            'created_date': {},
+            'due_date': {}
+        }
+    }
     baseRoute = this.props.match.url
     componentDidMount() {
         console.log(this.props.match)
     }
 
+    searchProject = (e)=>{
+        e.preventDefault()
+        console.log(e)
+    }
+
+    resetSearch = (e)=>{
+        e.preventDefault()
+        console.log(e)
+    }
+
     render() {
         return(
             <React.Fragment>
-                <DashboardLayout sidebar={<ProjectSideBar></ProjectSideBar>}>
+                <DashboardLayout sidebar={
+                    <ProjectSideBar
+                    filters={this.state.filters}
+                    search={this.searchProject}
+                    reset={this.resetSearch} />
+                }>
 
                     <Row>
                         <Col sm={12}>
