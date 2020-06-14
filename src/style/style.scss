@@ -133,6 +133,7 @@ a {
 .fixed-navbar.mini-sidebar .content {
   margin-left: 30px;
 }
+.fixed-navbar.no-sidebar .content { margin-left: 0px !important;}
 .form-label{font-weight: 600;}
 .popover-actions{
   text-align: center;

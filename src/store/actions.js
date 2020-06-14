@@ -15,3 +15,10 @@ export const TICKET = {
     DELETE: 'DELETE',
     VIEW: 'VIEW',
 }
+
+//Settings for layout
+export const SETTINGS = {
+    NOSIDEBAR: 'NOSIDEBAR',
+    TOGGLESIDEBAR: 'TOGGLESIDEBAR',
+    SIDEBARMINIFIED: 'SIDEBARMINIFIED'
+}

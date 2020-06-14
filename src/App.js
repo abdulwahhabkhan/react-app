@@ -3,6 +3,8 @@ import React, {Component} from 'react';
 import './style/app.scss';
 import {BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom';
 import user from './services/auth'
+import PublicLayout from './Layouts/Public'
+import PrivateLayout from './Layouts/Private'
 
 //import Person from './Pages/Person/Person';
 import routes from "./routes";
@@ -15,23 +17,20 @@ class App extends Component {
 
 
     render() {
-        const PrivateRoute = ({component: Component, ...rest}) => (
-            <Route {...rest} render={(props) => (
-                user.isUserAuthenticated() === true
-                    ? <Component {...props} />
-                    : <Redirect to='/logout'/>
-            )}/>
-        )
+        console.log("[App.js render]")
         return (
             <Router>
                 <Switch>
-                    {routes.map((route, idx) =>
-                        route.isPublic ?
-                            <Route path={route.path} component={route.component} key={idx} exact={!route.children}/> :
-                            <PrivateRoute path={route.path} component={route.component} key={idx} exact={!route.children} />
-                    )}
-                    <Route component={NotFound}></Route>
+                    <Route path={['/login', '/register']}>
+                        <PublicLayout />
+                    </Route>
+                    <Route path={'/app'}>
+                        <PrivateLayout />
+                    </Route>
+                    <Route path="*" component={NotFound}></Route>
                 </Switch>
+
+
             </Router>
 
         );

@@ -38,10 +38,11 @@ const ProjectSidebar = (props)=>{
                         {
                             created_at === 'range' && (
                                 <DateRange label={'Created'}
-                                           start={''}
-                                           end={''}
+                                           start={new Date()}
+                                           end={new Date()}
                                            startChanged={(data)=> console.log(data)}
                                            endChanged={(data)=> console.log(data)}
+                                           register={register}
                                 />
                             )
                         }
@@ -61,11 +62,11 @@ const ProjectSidebar = (props)=>{
                         {
                             due_at === 'range' && (
                                 <DateRange label={'Due'}
-                                           start={''}
-                                           end={''}
+                                           start={new Date()}
+                                           end={new Date()}
                                            startChanged={(data)=> console.log(data)}
                                            endChanged={(data)=> console.log(data)}
-
+                                           register={register}
                                 />
                             )
                         }

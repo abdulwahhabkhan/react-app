@@ -155,8 +155,7 @@ class Projects extends Component {
 
         return (
             <React.Fragment>
-                <DashboardLayout sidebar={sidebar}>
-                    <Row>
+                <Row>
                         <Col className={''} sm={12}>
                             <div className="list-options">
                                 <div className={'title'}>Current Projects</div>
@@ -202,12 +201,10 @@ class Projects extends Component {
                                 </Row>
                             </div>
                         </Col>
-                    </Row>
-
-                    <Suspense fallback={<div>Loading...</div>}>
-                    {projectForm}
-                    </Suspense>
-                </DashboardLayout>
+                </Row>
+                <Suspense fallback={<div>Loading...</div>}>
+                {projectForm}
+                </Suspense>
             </React.Fragment>
         );
     }
