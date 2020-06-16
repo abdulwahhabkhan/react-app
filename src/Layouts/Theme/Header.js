@@ -21,10 +21,10 @@ const Header = ({user, logout})=>{
                 <div className="collapse navbar-collapse" id={'navbarCollapse'}>
                     <ul className="navbar-nav mr-auto">
                         <li className="nav-item">
-                            <NavLink to="/app/dashboard" activeClassName={'active'} className="nav-link">Dashboard</NavLink>
+                            <NavLink to="/dashboard" activeClassName={'active'} className="nav-link">Dashboard</NavLink>
                         </li>
                         <li className="nav-item">
-                            <NavLink to="/app/projects" className="nav-link">Projects</NavLink>
+                            <NavLink to="/projects" className="nav-link">Projects</NavLink>
                         </li>
                     </ul>
                     <div className="navbar-right pull-right">

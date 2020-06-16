@@ -9,24 +9,27 @@ import Sidebar from "../../Components/UI/Sidebar/Sidebar";
 import {SETTINGS} from "../../store/actions";
 
 
-function PrivateLayout(props){
+
+function Theme(props){
     const location = useLocation()
     const dispatch = useDispatch()
 
     const settings = useSelector(({app})=>app.settings )
     React.useEffect(()=>{
-        const matched = matchRoutes(routes, props.location.pathname)[0];
+        const matched = matchRoutes(routes, location.pathname)[0];
         if ( matched && matched.route.sidebar ){
             dispatch({type: SETTINGS.SIDEBAR, value: matched.route.sidebar})
-            //show sidebar
-            console.log("showsidebar")
         } else {
             dispatch({type: SETTINGS.SIDEBAR, value: ''})
-            //hidesidebar
-            console.log("hidesidebar")
         }
 
-    }, [location])
+        if ( matched && matched.route.noHeader ){
+            dispatch({type: SETTINGS.HEADER, value: false})
+        } else {
+            dispatch({type: SETTINGS.HEADER, value: true})
+        }
+
+    }, [location, dispatch])
 
     const logout = 'this.state.user' ? '' : <Redirect  to={'/'}/>
 
@@ -42,13 +45,17 @@ function PrivateLayout(props){
     }
 
     const classes = ['fixed-navbar', 'app-layout',
-        settings.pageSidebar ? '': 'no-sidebar'
+        settings.pageSidebar ? '': 'no-sidebar',
+        settings.pageHeader ? '': 'no-header',
     ]
 
     return(
         <div className={classes.join(' ')}>
             {logout}
-            <Header logout={logoutHandler} user={{'name': 'abdul'}}/>
+            {settings.pageHeader && (
+                <Header logout={logoutHandler} user={{'name': 'abdul'}}/>
+            )}
+
             <ReactNotification />
             <div className={''} id={'page-container'}>
                 <div className="content-wrapper">
@@ -72,4 +79,4 @@ function PrivateLayout(props){
     )
 }
 
-export default withRouter(React.memo(PrivateLayout));
+export default withRouter(React.memo(Theme));
