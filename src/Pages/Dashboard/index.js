@@ -8,11 +8,11 @@ class Dashboard extends Component {
 
     componentDidMount() {
         document.settings.setTitle('Dashboard')
-        this.props.hideSideBar()
+        //this.props.hideSideBar()
     }
 
     componentWillUnmount() {
-        this.props.showSideBar()
+       // this.props.showSideBar()
     }
 
     render() {

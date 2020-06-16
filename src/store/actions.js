@@ -18,7 +18,7 @@ export const TICKET = {
 
 //Settings for layout
 export const SETTINGS = {
-    NOSIDEBAR: 'NOSIDEBAR',
+    SIDEBAR: 'SIDEBAR',
     TOGGLESIDEBAR: 'TOGGLESIDEBAR',
     SIDEBARMINIFIED: 'SIDEBARMINIFIED'
 }

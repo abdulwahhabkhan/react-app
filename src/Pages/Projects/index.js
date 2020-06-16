@@ -3,7 +3,6 @@ import {Row, Col} from "react-bootstrap";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPlusCircle} from "@fortawesome/free-solid-svg-icons";
 import SortFilter from "../../Components/UI/Filters/Sort";
-import DashboardLayout from "../../Layouts/Dashboard";
 import project from "../../services/projects";
 import ListProject from "./List/Project";
 import storage from "../../Config/storage";

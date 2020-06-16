@@ -1,16 +1,16 @@
 import {SETTINGS} from '../../actions'
 
 const initialState = {
-    pageSidebar: true,
+    pageSidebar: '',
     pageSidebarMinify: false,
 }
 
 const settings = function (state = initialState, action) {
     switch (action.type) {
-        case SETTINGS.NOSIDEBAR:
+        case SETTINGS.SIDEBAR:
             return {
                 ...state,
-                pageSidebar: !action.value
+                pageSidebar: action.value
             }
 
         default:
