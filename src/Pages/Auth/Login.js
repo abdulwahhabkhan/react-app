@@ -1,101 +1,64 @@
-import React, {Component} from "react";
-import {Link} from "react-router-dom";
-import AuthLayout from "../../Layouts/Auth";
-import Auth from '../../services/auth';
-import Button from "../../Components/Form/ButtonLoader";
-
+import React from "react"
+import {Link, useHistory} from "react-router-dom"
+import {useSelector, useDispatch} from 'react-redux'
+import { useForm } from "react-hook-form"
+import Button from "../../Components/Form/ButtonLoader"
 import logo from '../../logo.svg'
+import * as authActions from '../Auth/store/actions'
 
-class  Login extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            email: '',
-            password: '',
-            submitted: false,
-            error : ''
-        };
-
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-        Auth.init();
-    }
-
-    handleChange = (e)=>{
-        const { name, value } = e.target;
-        this.setState({ [name]: value });
+function  Login() {
+    const { handleSubmit, register, errors } = useForm()
+    const dispatch = useDispatch()
+    const history = useHistory()
+    const login = useSelector(({auth})=> auth.login )
+    const onSubmit = values => {
+        dispatch(authActions.login(values))
+            .then(()=>{
+               // history.push('/dashboard')
+                console.log('Login successfull')
+            })
     };
+    return (
+        <React.Fragment>
+            <div className="auth-content">
+                    <div className="greetings">
+                        <img src={logo} alt="React Logo" className="w-128"/>
+                        <h3>Welcome to ReactJS</h3>
+                        <p>Connecting the ReactJS application with Restful APIs</p>
+                    </div>
+                    <div className="form" onSubmit={handleSubmit(onSubmit)}>
 
-    handleSubmit(e) {
-        e.preventDefault();
-
-        this.setState({ submitted: true });
-        const { email, password} = this.state;
-
-        // stop here if form is invalid
-        if (!(email && password)) {
-            return;
-        }
-        Auth.signInWithEmailAndPassword(email, password)
-            .then(
-                user => {
-                    const { from } = this.props.location.state || { from: { pathname: "/dashboard" } };
-                    this.props.history.push(from);
-                },
-                error => {
-                    this.setState({'error': error.error})
-                    this.setState({ submitted: false })
-                }
-            )
-        ;
-    }
-
-    render() {
-        const { email, password, submitted,  error } = this.state;
-
-        return (
-            <React.Fragment>
-                <AuthLayout type="auth">
-                    <div className="auth-content">
-                        <div className="greetings">
-                            <img src={logo} alt="React Logo" className="w-128"/>
-                            <h3>Welcome to ReactJS</h3>
-                            <p>Connecting the ReactJS application with Laravel APIs</p>
-                        </div>
-                        <div className="form" onSubmit={this.handleSubmit}>
-
-                            <div className="p-30 pt-128">
-                                <h6 className="mb-36">LOGIN TO YOUR ACCOUNT</h6>
-                                <form action="" className="">
-                                    <div className={'form-group' + (submitted && !email ? ' has-error' : '')}>
-                                        <label htmlFor="email" className="">Username</label>
-                                        <input type="text" name="email" id="email" value={email} className="form-control" onChange={this.handleChange}/>
-                                    </div>
-                                    <div className={'form-group' + (submitted && !password ? ' has-error' : '')}>
-                                        <label htmlFor="password" className="">Password</label>
-                                        <input type="password" name="password" id="password" value={password} className="form-control" onChange={this.handleChange}/>
-                                    </div>
-                                    <div className="form-group">
-                                        <Button className={'btn btn-form btn-block'} type={'submit'} loading={this.state.submitted}>Login</Button>
-                                    </div>
-                                    {error &&
-                                    <div className={'alert alert-danger'}>{error}</div>
-                                    }
-                                </form>
-                                <div className="flex flex-column items-center justify-center pt-32">
-                                    <span className="font-medium">Don't have an account?</span>
-                                    <Link to="/register" className="font-medium">Create an Account</Link>
-                                    <Link to="/" className="font-medium">Back to Dashboard</Link>
+                        <div className="p-30 pt-128">
+                            <h6 className="mb-36">LOGIN TO YOUR ACCOUNT</h6>
+                            <form action="" className="">
+                                <div className={'form-group '+(errors.username? 'has-error':'')}>
+                                    <label htmlFor="username" className="">Username</label>
+                                    <input type="text" name="username" id="username"  className="form-control" ref={register({required: true})} />
                                 </div>
+                                <div className={'form-group ' + (errors.password? 'has-error':'')}>
+                                    <label htmlFor="password" className="">Password</label>
+                                    <input type="password" name="password" id="password" className="form-control" ref={register({required: true, minLength:3})}/>
+                                </div>
+                                <div className="form-group">
+                                    <Button className={'btn btn-form btn-block'} type={'submit'} loading={login.loading}>Login</Button>
+                                </div>
+                                {login.error &&
+                                <div className={'alert alert-danger'}>{login.error}</div>
+                                }
+                            </form>
+                            <div className="flex flex-column items-center justify-center pt-32">
+                                <span className="font-medium">Don't have an account?</span>
+                                <Link to="/register" className="font-medium">Create an Account</Link>
+                                <Link to="/" className="font-medium">Back to Dashboard</Link>
                             </div>
-
                         </div>
 
                     </div>
-                </AuthLayout>
-            </React.Fragment>
-        );
-    }
+
+                </div>
+        </React.Fragment>
+    )
 }
+
 
 export default Login;

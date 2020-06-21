@@ -2,7 +2,16 @@ import {applyMiddleware, compose, createStore} from 'redux'
 import thunk from 'redux-thunk'
 
 import createReducer from './reducers'
-
+/*const logger = store => {
+    return next => {
+        return action => {
+            console.log('[Middleware] Dispatching', action);
+            const result = next(action);
+            console.log('[Middleware] next state', store.getState());
+            return result;
+        }
+    }
+};*/
 
 const composeEnhancers =
     process.env.NODE_ENV !== 'production' &&
