@@ -13,7 +13,7 @@ class  Register extends Component {
                         <div className="greetings">
                             <img src={logo} alt="React Logo" className="w-128"/>
                             <h3>Welcome to ReactJS</h3>
-                            <p>Connecting the ReactJS application with Laravel APIs</p>
+                            <p>Connecting the ReactJS application with Restful APIs</p>
                         </div>
                         <div className="form">
                             <div className="p-30 pt-128">

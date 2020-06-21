@@ -14,7 +14,7 @@ class  Welcome extends Component {
                     </div>
                     <div className="container home-content">
                         <h1>Welcome to ReactJS Application</h1>
-                        <h3>Connecting the ReactJS application with Laravel APIs</h3>
+                        <h3>Connecting the ReactJS application with Restful APIs</h3>
                     </div>
                 </AuthLayout>
             </div>

@@ -14,7 +14,7 @@ function  Login() {
     const onSubmit = values => {
         dispatch(authActions.login(values))
             .then(()=>{
-               // history.push('/dashboard')
+                history.push('/dashboard')
                 console.log('Login successfull')
             })
     };
