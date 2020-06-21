@@ -1,14 +1,13 @@
 import React, {Component} from "react";
-
 import background from '../images/bg/home-bg.jpg';
-import AuthLayout from "../Layouts/Auth";
-
+import GuestHeader from "../Layouts/Theme/headers/Guest";
 
 class  Welcome extends Component {
     render() {
         return (
             <div>
-                <AuthLayout type="welcome">
+                <GuestHeader />
+                <div className="content has-bg home">
                     <div className="content-bg">
                         <img src={background} alt="home background"/>
                     </div>
@@ -16,7 +15,7 @@ class  Welcome extends Component {
                         <h1>Welcome to ReactJS Application</h1>
                         <h3>Connecting the ReactJS application with Restful APIs</h3>
                     </div>
-                </AuthLayout>
+                </div>
             </div>
         );
     }
