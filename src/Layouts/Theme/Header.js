@@ -4,8 +4,11 @@ import logo from "../../images/logos/logo.svg";
 import {Dropdown} from "react-bootstrap";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPowerOff, faUser} from "@fortawesome/free-solid-svg-icons";
+import {useSelector} from "react-redux";
 
-const Header = ({user, logout})=>{
+const Header = ({logout})=>{
+    const user = useSelector(({auth})=> auth.user )
+    const userInfo = user.data ? user.data : {}
     return(
         <React.Fragment>
             <div className="navbar fixed-top bg-dark top-nav navbar-expand-md">
@@ -37,8 +40,8 @@ const Header = ({user, logout})=>{
                             <li>
                                 <Dropdown alignRight>
                                     <Dropdown.Toggle id="dropdown-custom-1" className={'user-nav nav-link'} as={'div'}>
-                                        <img src={logo} alt={user.name} className={'user-img rounded-circle'}/>
-                                        <span>{user.name}</span>
+                                        <img src={userInfo.photo} alt={userInfo.name} className={'user-img rounded-circle'}/>
+                                        <span>{userInfo.name}</span>
                                     </Dropdown.Toggle>
                                     <Dropdown.Menu >
                                         <Dropdown.Item disabled>
