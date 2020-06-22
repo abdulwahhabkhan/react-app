@@ -41,9 +41,18 @@ const Header = ({logout})=>{
                                 <Dropdown alignRight>
                                     <Dropdown.Toggle id="dropdown-custom-1" className={'user-nav nav-link'} as={'div'}>
                                         <img src={userInfo.photo} alt={userInfo.name} className={'user-img rounded-circle'}/>
-                                        <span>{userInfo.name}</span>
+
                                     </Dropdown.Toggle>
                                     <Dropdown.Menu >
+                                        <div className={'dropdown-item'}>
+                                            <div className="user-block">
+                                                <img src={userInfo.photo} alt={userInfo.name} className={'user-img rounded-circle'}/>
+                                                <div className={'name-block'}>
+                                                    <span className={'name'}>{userInfo.name}</span>
+                                                </div>
+                                            </div>
+
+                                        </div>
                                         <Dropdown.Item disabled>
                                             <FontAwesomeIcon icon={faUser}></FontAwesomeIcon> <span>Profile</span>
                                         </Dropdown.Item>

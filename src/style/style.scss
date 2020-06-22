@@ -75,6 +75,22 @@ a {
     }
   }
 }
+.user-img{
+  max-width: 50px;
+}
+.user-block{
+  display: flex;
+  -webkit-box-align: center;
+  .name-block{
+    display: flex;
+    flex-direction: column;
+    padding-left: .5em;
+    justify-content: center;
+    .name{
+      font-weight: 600;
+    }
+  }
+}
   .bg-dark{
     background: #2c3e50!important;
   }
