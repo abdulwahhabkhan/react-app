@@ -1,10 +1,13 @@
 import {GET_USER, SET_USER} from '../actions/userActions'
 
 //const initialState = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : {}
-const initialState = {}
+const initialState = {
+    data: null
+}
 
 export function user(state=initialState, action) {
     switch (action.type) {
+
         case GET_USER:
             return {
                 ...initialState
@@ -13,7 +16,7 @@ export function user(state=initialState, action) {
         case SET_USER:
             return {
                 ...initialState,
-                ...action.payload
+                data: {...action.payload}
             }
 
         default:

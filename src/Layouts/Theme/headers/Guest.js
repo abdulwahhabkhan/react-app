@@ -18,14 +18,14 @@ const GuestHeader = ()=>{
                     <Navbar.Collapse>
                         <Nav className={'nav ml-md-auto'}>
                             {
-                                user.name && (
+                                user.data && (
                                     <NavItem>
                                         <NavLink as={Link} to="/dashboard">Dashboard</NavLink>
                                     </NavItem>
                                 )
                             }
                             {
-                                !user.name && (
+                                !user.data && (
                                     <NavItem>
                                         <NavLink as={Link} to="/login">Login</NavLink>
                                     </NavItem>
