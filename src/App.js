@@ -3,7 +3,8 @@ import React, {Component} from 'react';
 import './style/app.scss';
 import {BrowserRouter as Router} from 'react-router-dom';
 //import PublicLayout from './Layouts/Public'
-import PrivateLayout from './Layouts/Theme'
+import Theme from './Layouts/Theme'
+import Auth from './Pages/Auth'
 import settings from "./Config/settings";
 //import NotFound from './Pages/Error/NotFound'
 
@@ -14,9 +15,10 @@ class App extends Component {
     render() {
         return (
             <Router>
-                <PrivateLayout />
+                <Auth>
+                    <Theme />
+                </Auth>
             </Router>
-
         );
     }
 }

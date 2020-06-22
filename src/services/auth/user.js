@@ -124,18 +124,21 @@ class  user {
 
     checkUserLogin = () => {
         let token = this.getAccessToken();
-        let res = new Promise((resolve, reject) => {
+        if(!token)
+            return Promise.reject({}) ;
+
+        return new Promise((resolve, reject) => {
             axios.get('user', {
                 data: {
 
                 }
             })
                 .then(response => {
-                    resolve(response.data.user);
+                    resolve(response.data);
                 })
                 .catch(err =>  reject(err) );
         });
-        return token ? res : Promise.reject({}) ;
+
     };
 
     getUsers =() =>{
