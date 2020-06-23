@@ -1,5 +1,8 @@
 import * as PActions from './index'
 import projects from '../../../../services/projects'
+import storage from "../../../../Config/storage";
+
+
 export function getProjects(params){
     return (dispatch)=>{
         dispatch({type:PActions.LOADING_PROJECTS})
@@ -21,6 +24,25 @@ export function deleteProject(id) {
 
 }
 
-export function applyfilters(filters) {
-    return {type: PActions.PROJECT_FILTERS, payload: filters}
+export const applyfilters = (payload) => (dispatch)=>{
+    dispatch({type: PActions.PROJECT_FILTERS, payload})
+}
+
+export const resetfilters = (payload) => (dispatch)=>{
+    dispatch({type: PActions.PROJECT_FILTERS_RESET, payload})
+}
+
+export const applySort = (payload)=> (dispatch)=>{
+    storage.set(PActions.PROJECT_SORT, payload)
+    dispatch({type: PActions.PROJECT_SORT, payload })
+}
+
+export const applyOrder = (payload) => (dispatch)=>{
+    storage.set(PActions.PROJECT_ORDER, payload)
+    dispatch({type: PActions.PROJECT_ORDER, payload })
+}
+
+export const getNextPage = (payload) => (dispatch)=>{
+    storage.set(PActions.PROJECT_PAGINATION, payload)
+    dispatch({type: PActions.PROJECT_PAGINATION, payload })
 }

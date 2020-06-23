@@ -1,20 +1,23 @@
 import React from "react";
-import {useForm, Controller} from "react-hook-form";
+import {useForm} from "react-hook-form";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faFilter, faRetweet} from "@fortawesome/free-solid-svg-icons";
 import {DateRange} from "../../../Components/UI/Form";
+import {useSelector} from "react-redux";
 
 
 const ProjectSidebar = (props)=>{
     const defaultValues = {...props.filters}
+    const filters = useSelector(({projects})=> projects.project.filters )
     /*const handleSubmit = (event)=>{
         event.preventDefault()
         props.search(filters)
     }*/
-    const { handleSubmit, register, watch } = useForm({defaultValues})
+    const { handleSubmit, register, watch } = useForm({filters})
     const onSubmit = data => console.log(data)
     const created_at = watch('created_at')
     const due_at = watch('due_at')
+    console.log(filters, defaultValues)
     return(
         <div className={'project-filter-list'}>
             <form action="" onSubmit={handleSubmit(onSubmit)}>
