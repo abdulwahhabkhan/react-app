@@ -5,13 +5,13 @@ const initialState = {
     loading: false,
     sortBy: storage.get(PActions.PROJECT_SORT) || 'id',
     orderBy: storage.get(PActions.PROJECT_ORDER) || 'desc',
-    filters: storage.get(PActions.PROJECT_FILTERS) || filters,
+    filters: JSON.parse(storage.get(PActions.PROJECT_FILTERS)) || filters,
     data:{},
     pagination: pagination
 }
 
-export function project(state=initialState, type) {
-    switch (type.action) {
+export function project(state=initialState, action) {
+    switch (action.type) {
         case PActions.LOADING_PROJECTS:
             return {
                 ...state,
@@ -30,21 +30,25 @@ export function project(state=initialState, type) {
         case PActions.PROJECT_SORT:
             return {
                 ...state,
-                sortBy: type.payload
+                sortBy: action.payload
             }
 
         case PActions.PROJECT_ORDER:
             return {
                 ...state,
-                orderBy: type.payload
+                orderBy: action.payload
             }
 
         case PActions.PROJECT_PAGINATION:
             return {
                 ...state,
-                pagination: type.payload
+                pagination: action.payload
             }
-
+        case PActions.PROJECT_FILTERS:
+            return {
+                ...state,
+                filters: action.payload
+            }
         default:
             return state
     }

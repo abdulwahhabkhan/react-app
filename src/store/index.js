@@ -2,7 +2,7 @@ import {applyMiddleware, compose, createStore} from 'redux'
 import thunk from 'redux-thunk'
 
 import createReducer from './reducers'
-/*const logger = store => {
+const logger = store => {
     return next => {
         return action => {
             console.log('[Middleware] Dispatching', action);
@@ -11,7 +11,7 @@ import createReducer from './reducers'
             return result;
         }
     }
-};*/
+};
 
 const composeEnhancers =
     process.env.NODE_ENV !== 'production' &&
@@ -22,7 +22,7 @@ const composeEnhancers =
         }) : compose;
 
 const enhancer = composeEnhancers(
-    applyMiddleware(thunk)
+    applyMiddleware(thunk, logger)
 )
 
 const store = createStore(createReducer(), enhancer)

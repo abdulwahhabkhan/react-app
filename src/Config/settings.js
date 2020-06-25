@@ -10,7 +10,7 @@ const settings = {
     APIURL: baseurl+apiversion,
     DATEFROMAT: 'MMM Do YYYY',
     FULLDATEFROMAT: 'dd Do MMMM YYYY, hh:mmA',
-    FORMDATEFROMAT: 'MM/DD/YYYY',
+    FORMDATEFROMAT: 'MM/dd/yyyy',
     TIMEFROMAT: 'hh:mm a',
     FROMFUllFROMAT: 'MM/DD/YYYY hh:mm a',
     hideSideBar: false,
@@ -27,6 +27,9 @@ const settings = {
         dismiss: {
             duration:  5000, onScreen: true, showIcon: true, pauseOnHover: true
         }
+    },
+    getFormattedDate: (date, format)=>{
+        return
     }
 }
 axios.defaults.baseURL = baseurl+apiversion+'/';

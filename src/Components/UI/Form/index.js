@@ -4,6 +4,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCalendar} from "@fortawesome/free-solid-svg-icons";
 import DatePicker from "react-datepicker/es";
 import "react-datepicker/dist/react-datepicker.css";
+import settings from "../../../Config/settings";
 
 const CalendarInput = (props) => {
     //const [startDate, setStartDate] = useState(new Date());
@@ -16,6 +17,7 @@ const CalendarInput = (props) => {
                 className={'form-control'}
                 onChange={date => props.changeHandler(props.name, date)}
                 name={props.name}
+                dateFormat={''}
                 fixedHeight />
             <InputGroup.Append>
                 <InputGroup.Text>
@@ -26,68 +28,57 @@ const CalendarInput = (props) => {
     )
 }
 
-export const DateRange = (props) => {
-    const label = props.label
-    const start_name = label+'_start_date'
-    const end_name = label+'_start_date'
+export const DateRange = ({label, startChanged, start, end, endChanged, control, Controller }) => {
 
+    const start_name = label.toLowerCase()+'_start_date'
+    const end_name = label.toLowerCase()+'_end_date'
 
     return (
         <div className="date-range">
             <div className="date-range-block">
                 <div className="input-group date">
-                    <label className="label">{props.label} After</label>
+                    <label className="label">{label} After</label>
                     <div className="input-group input-group-sm">
                         <div className="input-group-prepend">
                             <div className="input-group-text">
                                 <FontAwesomeIcon icon={faCalendar} />
                             </div>
                         </div>
-                        <DatePicker
-                            onChange={(data) => props.startChanged(data)}
-                            name={start_name}
-                            selected={props.start}
-                            className="form-control form-control-sm"
-                            placeholderText="Select date"
-                            ref={props.register}
-                        />
-                        {/*<Controller
+                        <Controller
                             as={DatePicker}
+                            dateFormat={settings.FORMDATEFROMAT}
+                            defaultValue={start ? new Date(start) : start}
+                            fixedHeight
                             control={control}
-
-                            onChange={([selected]) => props.startChanged(selected)}
+                            valueName="selected" // DateSelect value's name is selected
+                            onChange={([selected]) => selected}
                             name={start_name}
                             className="form-control form-control-sm"
                             placeholderText="Select date"
-                        />*/}
+                        />
                     </div>
                 </div>
             </div>
             <div className="date-range-block">
-                <label className="label">{props.label} Before</label>
+                <label className="label">{label} Before</label>
                 <div role="group" className="input-group input-group-sm">
                     <div  className="input-group-prepend">
                         <div className="input-group-text">
                             <FontAwesomeIcon icon={faCalendar} />
                         </div>
                     </div>
-                    <DatePicker
-                        onChange={(data) => props.startChanged(data)}
-                        name={end_name}
-                        selected={props.end}
-                        className="form-control form-control-sm"
-                        placeholderText="Select date"
-                        ref={props.register}
-                    />
-                    {/*<Controller
+                    <Controller
                         as={DatePicker}
+                        dateFormat={settings.FORMDATEFROMAT}
+                        fixedHeight
+                        valueName="selected" // DateSelect value's name is selected
+                        onChangeRaw={([selected]) => selected}
                         control={control}
-
-                        onChange={([selected]) => props.endChanged(selected)}
                         name={end_name}
+                        defaultValue={end ? new Date(end) : end}
                         className="form-control form-control-sm"
                         placeholderText="Select date"
-                    />*/}
+                    />
                 </div>
             </div>
         </div>

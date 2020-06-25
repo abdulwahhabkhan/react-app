@@ -5,6 +5,7 @@ import storage from "../../../../Config/storage";
 
 export function getProjects(params){
     return (dispatch)=>{
+
         dispatch({type:PActions.LOADING_PROJECTS})
         projects.getProjects().then(res => {
             return dispatch({type: PActions.GET_PROJECTS,  payload: res})
@@ -25,6 +26,8 @@ export function deleteProject(id) {
 }
 
 export const applyfilters = (payload) => (dispatch)=>{
+    console.log(payload)
+    //storage.set(PActions.PROJECT_FILTERS, JSON.stringify(payload))
     dispatch({type: PActions.PROJECT_FILTERS, payload})
 }
 
