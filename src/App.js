@@ -6,6 +6,11 @@ import {BrowserRouter as Router} from 'react-router-dom';
 import Theme from './Layouts/Theme'
 import Auth from './Pages/Auth'
 import settings from "./Config/settings";
+import moment from "moment";
+
+Date.prototype.toJSON = function(){
+    return moment(this.getTime()).format("YYYY-MM-DD");
+};
 //import NotFound from './Pages/Error/NotFound'
 
 document.settings = settings;

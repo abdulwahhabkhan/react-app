@@ -7,12 +7,13 @@ class Projects {
         auth.setAxiosAuth();
     }
 
-    getProjects = ({completed= 0, sort= 'id', order = 'asc', ...rest}) => {
-        let params = 'completed='+completed+'&sortby='+sort+'&orderby='+order;
+    getProjects = (filters) => {
+        const params = {completed:0, sort: 'id', order: 'asc', ...filters};
+        const qry_str = Object.keys(params).map(key => key + "="+encodeURI(params[key])).join('&');//'completed='+completed+'&sortby='+sort+'&orderby='+order;
         return new Promise((resolve, reject)=>{
             axios({
                 method: 'get',
-                url: 'projects?'+params
+                url: 'projects?'+qry_str
             }).then(response => {
                 if(response.data) {
                     resolve(response.data);

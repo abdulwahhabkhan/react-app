@@ -2,7 +2,7 @@ import React from "react";
 import {InputGroup} from "react-bootstrap";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCalendar} from "@fortawesome/free-solid-svg-icons";
-import DatePicker from "react-datepicker/es";
+import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import settings from "../../../Config/settings";
 
@@ -17,7 +17,7 @@ const CalendarInput = (props) => {
                 className={'form-control'}
                 onChange={date => props.changeHandler(props.name, date)}
                 name={props.name}
-                dateFormat={''}
+                dateFormat={settings.FORMDATEFROMAT}
                 fixedHeight />
             <InputGroup.Append>
                 <InputGroup.Text>
@@ -72,7 +72,7 @@ export const DateRange = ({label, startChanged, start, end, endChanged, control,
                         dateFormat={settings.FORMDATEFROMAT}
                         fixedHeight
                         valueName="selected" // DateSelect value's name is selected
-                        onChangeRaw={([selected]) => selected}
+                        onChange={([selected]) => selected}
                         control={control}
                         name={end_name}
                         defaultValue={end ? new Date(end) : end}

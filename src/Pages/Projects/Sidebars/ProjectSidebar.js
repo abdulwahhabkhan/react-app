@@ -10,11 +10,9 @@ const ProjectSidebar = (props)=>{
 
     const filters = useSelector(({projects})=> projects.project.filters )
     const dispatch = useDispatch()
-    const { handleSubmit, register, watch, control } = useForm({defaultValues: filters})
+    const { handleSubmit, register, watch, control} = useForm({defaultValues: filters})
     const onSubmit = data => {
-        dispatch(applyfilters({...data,
-            created_start_date: data.created_start_date ? data.created_start_date : ''
-        }))
+        dispatch(applyfilters(data))
     }
     const created_at = watch('created_at')
     const due_at = watch('due_at')

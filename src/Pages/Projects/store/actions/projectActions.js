@@ -7,7 +7,7 @@ export function getProjects(params){
     return (dispatch)=>{
 
         dispatch({type:PActions.LOADING_PROJECTS})
-        projects.getProjects().then(res => {
+        projects.getProjects(params).then(res => {
             return dispatch({type: PActions.GET_PROJECTS,  payload: res})
         })
     }
@@ -26,9 +26,9 @@ export function deleteProject(id) {
 }
 
 export const applyfilters = (payload) => (dispatch)=>{
-    console.log(payload)
-    //storage.set(PActions.PROJECT_FILTERS, JSON.stringify(payload))
+    storage.set(PActions.PROJECT_FILTERS, JSON.stringify(payload))
     dispatch({type: PActions.PROJECT_FILTERS, payload})
+    dispatch(getProjects(payload))
 }
 
 export const resetfilters = (payload) => (dispatch)=>{
