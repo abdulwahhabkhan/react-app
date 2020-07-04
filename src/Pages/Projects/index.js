@@ -5,37 +5,23 @@ import {faPlusCircle} from "@fortawesome/free-solid-svg-icons";
 import SortFilter from "../../Components/UI/Filters/Sort";
 import project from "../../services/projects";
 import ListProject from "./List/Project";
-import storage from "../../Config/storage";
-import ProjectSidebar from "./Sidebars/ProjectSidebar";
 import Loading from "../../Components/UI/Loader/Loading";
 import View from "./View";
 import {NavLink} from 'react-router-dom';
 import {store as notify} from 'react-notifications-component';
-
+import {applyOrder, applySort, getProjects} from './store/actions'
+import {connect} from "react-redux";
 const ProjectForm= lazy(() => import('./Form'));
 
-class Projects extends Component {
-
+class ProjectsList extends Component {
     state = {
-        loading: true,
-        sortOrder: storage.get('project_order_by') || 'asc',
-        sort: storage.get('project_sort_by')||'id',
-        projects : {data:[]},
         showProjectForm : false,
         projectID : 0,
-        filters : {
-            'keyword': 'project 12',
-            'owner': {},
-            'created_at': 'range',
-            'due_at': 'range',
-            'Created_start_date': new Date(),
-            'created_end': '',
-            'due_date': {}
-        },
-        project: null,
-        completed: this.props.match.path === "/projects/completed" ? 1 : 0
-    };
 
+    };
+    //projects = this.props.projects.rows
+
+    completed = this.props.match.path === "/projects/completed" ? 1 : 0
 
     sortOptions = [
         {value: 'id', text:'Default'},
@@ -45,16 +31,15 @@ class Projects extends Component {
         {value: 'due_date', text:'Due Date'}
     ];
 
-    getProjects= (completed)=>{
-        this.setState({loading: true})
-        project.getProjects({
-            completed: completed,
-            sort: this.state.sort,
-            order: this.state.sortOrder
-        }).then(response => {
-            this.setState({loading: false})
-            this.setState({projects : response});
-        });
+    getProjects= (params)=>{
+        this.props.loadProjects({
+            completed: this.completed,
+            ...this.props.projects.filters,
+            sortBy: this.props.projects.sortBy,
+            orderBy: this.props.projects.orderBy,
+            page: this.props.projects.pagination.page,
+            ...params
+        })
     }
 
     componentDidMount() {
@@ -64,7 +49,7 @@ class Projects extends Component {
         const title = this.state.completed ? 'Completed' : 'Current'
         document.settings.setTitle(title+' Projects');
         project.init();
-        this.getProjects(this.state.completed);
+        this.getProjects({completed: this.state.completed});
     }
     componentDidUpdate(prevProps, prevState, snapshot){
         const completed = this.props.match.path === '/projects/completed' ? 1 : 0
@@ -74,19 +59,18 @@ class Projects extends Component {
 
         document.settings.setTitle(title+' Projects');
         if(prevProps.match.path !== this.props.match.path)
-            this.getProjects(completed );
+            this.getProjects({completed} );
     }
 
     sortHandler = (option) =>{
-        storage.set('project_sort_by', option.value)
-        this.setState({sort : option.value }, () => this.getProjects())
+        this.props.applySort(option.value)
+        this.getProjects({sortBy:option.value })
     }
 
     sortOrderHandler= (sorder) =>{
         let norder = sorder === 'asc' ? 'desc' : 'asc';
-        storage.set('project_order_by', norder)
-        this.setState({sortOrder: norder}, () => this.getProjects())
-
+        this.props.applyOrder(norder)
+        this.getProjects({orderBy:norder })
     }
 
     projectFormHandler = (flag)=>{
@@ -94,7 +78,7 @@ class Projects extends Component {
     }
 
     projectUpdateHandler= (data) =>{
-        this.getProjects(this.state.completed);
+        this.getProjects({completed: this.state.completed});
         return notify.addNotification({
             ...document.settings.NOTIFY,
             type: 'success',
@@ -136,8 +120,10 @@ class Projects extends Component {
     }
 
     render() {
-        let projects = (
-            this.state.projects.data.map((project, index) => {
+        const {rows, pagination, sortBy, orderBy} = this.props.projects
+
+        let projectsList = (
+            rows.map((project, index) => {
                 return <ListProject
                         projectInfo={project}
                         onEdit={this.editProjectHandler}
@@ -146,10 +132,6 @@ class Projects extends Component {
                         key={project.id} />
             })
         );
-        let sidebar = <ProjectSidebar
-            filters={this.state.filters}
-            search={this.searchProject}
-            reset={this.resetSearch} />
         let projectForm = this.state.showProjectForm ? <ProjectForm show={true} onClose={this.projectFormHandler} onUpdate={this.projectUpdateHandler} project={this.state.project}></ProjectForm> : null
 
         return (
@@ -182,12 +164,12 @@ class Projects extends Component {
                                 <Row>
                                     <Col sm={12}>
                                         <div className="list-options">
-                                            <div>{ this.state.projects.total ? this.state.projects.total: '...' } results</div>
+                                            <div>{ pagination.totalRecords ? pagination.totalRecords: '...' } results</div>
                                             <div className="btn-options text-right">
                                                 <SortFilter
                                                     options={this.sortOptions}
-                                                    sortOrder={this.state.sortOrder}
-                                                    sort={this.state.sort}
+                                                    sortOrder={orderBy}
+                                                    sort={sortBy}
                                                     sortHandler={this.sortHandler}
                                                     orderHandler={this.sortOrderHandler} ></SortFilter>
                                             </div>
@@ -195,8 +177,8 @@ class Projects extends Component {
                                     </Col>
                                 </Row>
                                 <Row className={'list'}>
-                                    <Loading show={this.state.loading}>Projects Loading</Loading>
-                                    {projects}
+                                    <Loading show={this.props.projects.loading}>Projects Loading</Loading>
+                                    {projectsList}
                                 </Row>
                             </div>
                         </Col>
@@ -208,6 +190,21 @@ class Projects extends Component {
         );
     }
 }
+
+function mapDispatchToProps(dispatch) {
+    return {
+        loadProjects: params => dispatch(getProjects(params)),
+        applySort: params => dispatch(applySort(params)),
+        applyOrder: params => dispatch(applyOrder(params)),
+    };
+}
+const mapStateToProps = state => {
+    return {
+        projects :  state.projects.project
+    };
+}
+
+const Projects = connect(mapStateToProps, mapDispatchToProps)(ProjectsList)
 
 export default  Projects;
 export {Projects, View}

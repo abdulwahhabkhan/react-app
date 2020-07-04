@@ -2,12 +2,13 @@ import * as PActions from './index'
 import projects from '../../../../services/projects'
 import storage from "../../../../Config/storage";
 
-
 export function getProjects(params){
+    const queryString = {
+        ...params
+    }
     return (dispatch)=>{
-
         dispatch({type:PActions.LOADING_PROJECTS})
-        projects.getProjects(params).then(res => {
+        projects.getProjects(queryString).then(res => {
             return dispatch({type: PActions.GET_PROJECTS,  payload: res})
         })
     }
@@ -28,7 +29,6 @@ export function deleteProject(id) {
 export const applyfilters = (payload) => (dispatch)=>{
     storage.set(PActions.PROJECT_FILTERS, JSON.stringify(payload))
     dispatch({type: PActions.PROJECT_FILTERS, payload})
-    dispatch(getProjects(payload))
 }
 
 export const resetfilters = (payload) => (dispatch)=>{

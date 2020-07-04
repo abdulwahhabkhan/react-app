@@ -4,16 +4,35 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faFilter, faRetweet} from "@fortawesome/free-solid-svg-icons";
 import {DateRange} from "../../../Components/UI/Form";
 import {useDispatch, useSelector} from "react-redux";
-import {applyfilters} from '../store/actions'
+import {applyfilters, getProjects} from '../store/actions'
 
 const ProjectSidebar = (props)=>{
 
     const filters = useSelector(({projects})=> projects.project.filters )
+    const sortBy = useSelector(({projects})=> projects.project.sortBy )
+    const orderBy = useSelector(({projects})=> projects.project.orderBy )
+    const page = useSelector(({projects})=> projects.project.pagination.page )
     const dispatch = useDispatch()
-    const { handleSubmit, register, watch, control} = useForm({defaultValues: filters})
+    const { handleSubmit, register, watch, control, reset} = useForm({defaultValues: filters})
     const onSubmit = data => {
         dispatch(applyfilters(data))
+        dispatch(getProjects({
+            page: page,
+            sortBy: sortBy,
+            orderBy: orderBy,
+            ...data
+        }))
     }
+    const resetFilters = ()=>{
+        reset({})
+        dispatch(applyfilters({}))
+        dispatch(getProjects({
+            page: page,
+            sortBy: sortBy,
+            orderBy: orderBy
+        }))
+    }
+
     const created_at = watch('created_at')
     const due_at = watch('due_at')
 
@@ -83,7 +102,7 @@ const ProjectSidebar = (props)=>{
                         <button type="submit" className="btn btn-primary pull-right btn-sm">
                             <FontAwesomeIcon icon={faFilter}></FontAwesomeIcon> Apply Filter
                         </button>
-                        <button className="btn btn-default btn-sm" onClick={()=> props.reset({})} type={"button"}>
+                        <button className="btn btn-default btn-sm" onClick={()=> resetFilters() } type={"button"}>
                             <FontAwesomeIcon icon={faRetweet}></FontAwesomeIcon> Reset Filter
                         </button>
                     </div>
