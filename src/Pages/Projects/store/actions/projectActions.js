@@ -31,10 +31,6 @@ export const applyfilters = (payload) => (dispatch)=>{
     dispatch({type: PActions.PROJECT_FILTERS, payload})
 }
 
-export const resetfilters = (payload) => (dispatch)=>{
-    dispatch({type: PActions.PROJECT_FILTERS_RESET, payload})
-}
-
 export const applySort = (payload)=> (dispatch)=>{
     storage.set(PActions.PROJECT_SORT, payload)
     dispatch({type: PActions.PROJECT_SORT, payload })

@@ -68,7 +68,7 @@ class ProjectsList extends Component {
     }
 
     sortOrderHandler= (sorder) =>{
-        let norder = sorder === 'asc' ? 'desc' : 'asc';
+        let norder = sorder == 'asc' ? 'desc' : 'asc';
         this.props.applyOrder(norder)
         this.getProjects({orderBy:norder })
     }

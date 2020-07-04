@@ -30,13 +30,13 @@ export function project(state=initialState, action) {
         case PActions.PROJECT_SORT:
             return {
                 ...state,
-                sortby: action.payload
+                sortBy: action.payload
             }
 
         case PActions.PROJECT_ORDER:
             return {
                 ...state,
-                orderby: action.payload
+                orderBy: action.payload
             }
 
         case PActions.PROJECT_PAGINATION:
