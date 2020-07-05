@@ -20,6 +20,7 @@ function Theme(props){
         const matched =  matches.filter(route => route.route.exact)[0] || matches[0]
 
         if ( matched && matched.route.sidebar ){
+            document.settings.setTitle(matched.route.meta.title);
             dispatch({type: SETTINGS.SIDEBAR, value: matched.route.sidebar})
         } else {
             dispatch({type: SETTINGS.SIDEBAR, value: ''})
