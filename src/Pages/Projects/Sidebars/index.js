@@ -1,3 +1,4 @@
 import ProjectSidebar from './ProjectSidebar'
+import View from "./View";
 
-export {ProjectSidebar}
+export {ProjectSidebar, View}

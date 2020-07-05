@@ -3,8 +3,10 @@ import Login from "./Pages/Auth/Login";
 import Logout from "./Pages/Auth/Logout";
 import Register from "./Pages/Auth/Register";
 import Dashboard from "./Pages/Dashboard";
-import Projects, {View as ProjectDetail, ProjectsWrapper} from "./Pages/Projects";
-import {ProjectSidebar} from "./Pages/Projects/Sidebars";
+import * as Projects from "./Pages/Projects";
+
+
+import * as ProjectSideBars from "./Pages/Projects/Sidebars";
 
 const APP_NAME = 'React Application';
 const APP_TITLE = ' - '+APP_NAME;
@@ -15,14 +17,25 @@ const routes = [
         component : Projects, meta: {title: 'Projects List'+ APP_TITLE},
         sidebar: ProjectSidebar
     },*/
-    {path: '/projects', component: ProjectsWrapper, exact: false, meta: {title: 'Projects List'+ APP_TITLE}, sidebar: '',
+    {path: '/projects', component: Projects.ProjectsWrapper, exact: false, meta: {title: 'Projects List'+ APP_TITLE}, sidebar: '',
         routes: [
-            {path: '/projects/current', component: Projects, exact: true, completed: 0,
-                sidebar: ProjectSidebar, meta: {title: 'Projects List'+ APP_TITLE} },
-            {path: '/projects/completed', component: Projects, exact: true, completed: 1,
-                sidebar: ProjectSidebar, meta: {title: 'Projects List'+ APP_TITLE} },
-            {path: '/projects/:id', component : ProjectDetail, exact: false,
-                sidebar: '', meta: {title: 'Projects Detail'+ APP_TITLE} }
+            {path: '/projects/current', component: Projects.default, exact: true, completed: 0,
+                sidebar: ProjectSideBars.ProjectSidebar, meta: {title: 'Projects List'+ APP_TITLE} },
+            {path: '/projects/completed', component: Projects.default, exact: true, completed: 1,
+                sidebar: ProjectSideBars.ProjectSidebar, meta: {title: 'Projects List'+ APP_TITLE} },
+            {path: '/projects/:id', component : Projects.View, exact: false,
+                sidebar: '', meta: {title: 'Projects Detail'+ APP_TITLE},
+                routes: [
+                    {path: '/projects/:id/tickets', component : Projects.Tickets, exact:true,
+                        sidebar: ProjectSideBars.View, meta: {title: 'Project Tickets'+ APP_TITLE}},
+                    {path: '/projects/:id/summary', component : Projects.Summary, exact:true,
+                        sidebar: ProjectSideBars.View, meta: {title: 'Project Summary'+ APP_TITLE}},
+                    {path: '/projects/:id/files', component : Projects.Files, exact:true,
+                        sidebar: ProjectSideBars.View, meta: {title: 'Project Files'+ APP_TITLE}},
+                    {path: '/projects/:id/times', component : Projects.Times, exact:true,
+                        sidebar: ProjectSideBars.View, meta: {title: 'Project Time'+ APP_TITLE}}
+                ]
+            }
         ]
     },
     //{path: "/projects", component : Projects, meta: {title: 'Projects List'+ APP_TITLE}, children: true},

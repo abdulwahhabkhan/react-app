@@ -7,6 +7,10 @@ import project from "../../services/projects";
 import ListProject from "./List/Project";
 import Loading from "../../Components/UI/Loader/Loading";
 import View from "./View";
+import Files from "./Files";
+import Times from "./Times";
+import Tickets from "./Tickets";
+import Summary from "./Summary";
 import {NavLink, Redirect} from 'react-router-dom';
 import {store as notify} from 'react-notifications-component';
 import {applyOrder, applySort, getProjects} from './store/actions'
@@ -208,4 +212,4 @@ const ProjectsWrapper = ({route, location})=>{
     )
 }
 
-export {ProjectsWrapper, View}
+export {ProjectsWrapper, View, Summary, Tickets, Times, Files}
