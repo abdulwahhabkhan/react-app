@@ -198,9 +198,8 @@ const mapStateToProps = state => {
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProjectsList)
 
-const ProjectsWrapper = ({route})=>{
-
-    const redirect = route.path === '/projects' ? <Redirect to={route.path+'/current'} /> : '';
+const ProjectsWrapper = ({route, location})=>{
+    const redirect = location.pathname === '/projects' ? <Redirect to={route.path+'/current'} /> : '';
     return (
         <React.Fragment>
             {redirect}
