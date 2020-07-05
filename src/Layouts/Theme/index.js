@@ -1,7 +1,7 @@
 import React from "react"
-import {Redirect, Route, Switch, useLocation, withRouter} from "react-router-dom"
+import {Redirect, useLocation, withRouter} from "react-router-dom"
 import {useSelector, useDispatch} from 'react-redux'
-import {matchRoutes} from 'react-router-config'
+import {matchRoutes, renderRoutes} from 'react-router-config'
 import routes from "../../routes"
 import Header from "./Header";
 import ReactNotification from 'react-notifications-component'
@@ -16,7 +16,9 @@ function Theme(props){
 
     const settings = useSelector(({app})=>app.settings )
     React.useEffect(()=>{
-        const matched = matchRoutes(routes, location.pathname)[0];
+        const matches = matchRoutes(routes, location.pathname);
+        const matched =  matches.filter(route => route.route.exact)[0] || matches[0]
+
         if ( matched && matched.route.sidebar ){
             dispatch({type: SETTINGS.SIDEBAR, value: matched.route.sidebar})
         } else {
@@ -65,11 +67,12 @@ function Theme(props){
                         </Sidebar>
                         )}
                     <div className="content animate-panel">
-                        <Switch>
+                        {renderRoutes(routes)}
+                        {/*<Switch>
                             {routes.map((route, idx) =>
-                                <Route path={route.path} component={route.component} key={idx} exact={!route.children}/>
+                                <Route path={route.path} component={route.component} key={idx} exact={route.exact || !route.children}/>
                             )}
-                        </Switch>
+                        </Switch>*/}
                     </div>
                 </div>
             </div>

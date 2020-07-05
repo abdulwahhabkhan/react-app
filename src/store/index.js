@@ -23,6 +23,7 @@ const composeEnhancers =
 
 const enhancer = composeEnhancers(
     applyMiddleware(thunk, logger)
+    //applyMiddleware(thunk)
 )
 
 const store = createStore(createReducer(), enhancer)

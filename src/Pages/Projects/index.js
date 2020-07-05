@@ -7,21 +7,23 @@ import project from "../../services/projects";
 import ListProject from "./List/Project";
 import Loading from "../../Components/UI/Loader/Loading";
 import View from "./View";
-import {NavLink} from 'react-router-dom';
+import {NavLink, Redirect} from 'react-router-dom';
 import {store as notify} from 'react-notifications-component';
 import {applyOrder, applySort, getProjects} from './store/actions'
 import {connect} from "react-redux";
+
+import {renderRoutes} from "react-router-config";
 const ProjectForm= lazy(() => import('./Form'));
 
 class ProjectsList extends Component {
     state = {
         showProjectForm : false,
         projectID : 0,
-
+        completed : this.props.route.completed
     };
     //projects = this.props.projects.rows
 
-    completed = this.props.match.path === "/projects/completed" ? 1 : 0
+
 
     sortOptions = [
         {value: 'id', text:'Default'},
@@ -32,8 +34,9 @@ class ProjectsList extends Component {
     ];
 
     getProjects= (params)=>{
+
         this.props.loadProjects({
-            completed: this.completed,
+            completed: this.state.completed,
             ...this.props.projects.filters,
             sortBy: this.props.projects.sortBy,
             orderBy: this.props.projects.orderBy,
@@ -51,16 +54,6 @@ class ProjectsList extends Component {
         project.init();
         this.getProjects({completed: this.state.completed});
     }
-    componentDidUpdate(prevProps, prevState, snapshot){
-        const completed = this.props.match.path === '/projects/completed' ? 1 : 0
-        const title = completed ? 'Completed' : 'Current'
-        if(this.props.match.path === '/projects')
-            this.props.history.push('/projects/current');
-
-        document.settings.setTitle(title+' Projects');
-        if(prevProps.match.path !== this.props.match.path)
-            this.getProjects({completed} );
-    }
 
     sortHandler = (option) =>{
         this.props.applySort(option.value)
@@ -68,7 +61,7 @@ class ProjectsList extends Component {
     }
 
     sortOrderHandler= (sorder) =>{
-        let norder = sorder == 'asc' ? 'desc' : 'asc';
+        let norder = sorder === 'asc' ? 'desc' : 'asc';
         this.props.applyOrder(norder)
         this.getProjects({orderBy:norder })
     }
@@ -137,51 +130,50 @@ class ProjectsList extends Component {
         return (
             <React.Fragment>
                 <Row>
-                        <Col className={''} sm={12}>
-                            <div className="list-options">
-                                <div className={'title'}>Current Projects</div>
-                                <div className="btn-options text-right">
-                                    <button className="btn btn-md btn-primary w-10" onClick={()=> this.projectFormHandler(true)}>
-                                        <FontAwesomeIcon icon={faPlusCircle}></FontAwesomeIcon> Add Project
-                                    </button>
-                                </div>
+                    <Col className={''} sm={12}>
+                        <div className="list-options">
+                            <div className={'title'}>Current Projects</div>
+                            <div className="btn-options text-right">
+                                <button className="btn btn-md btn-primary w-10" onClick={()=> this.projectFormHandler(true)}>
+                                    <FontAwesomeIcon icon={faPlusCircle}></FontAwesomeIcon> Add Project
+                                </button>
                             </div>
-                        </Col>
+                        </div>
+                    </Col>
+                    <Col sm={12}>
+                        <div className="nav-htabs">
+                            <ul className="nav nav-tabs">
+                                <li className={'nav-item'}>
+                                    <NavLink to={'/projects/current'} className={'nav-link'}>Current</NavLink>
+                                </li>
+                                <li className={'nav-item'}>
+                                    <NavLink to={'/projects/completed'} className={'nav-link'}>Completed</NavLink>
+                                </li>
+                            </ul>
 
-                        <Col sm={12}>
-                            <div className="nav-htabs">
-                                <ul className="nav nav-tabs">
-                                    <li className={'nav-item'}>
-                                        <NavLink to={'/projects/current'} className={'nav-link'}>Current</NavLink>
-                                    </li>
-                                    <li className={'nav-item'}>
-                                        <NavLink to={'/projects/completed'} className={'nav-link'}>Completed</NavLink>
-                                    </li>
-                                </ul>
-
-                            </div>
-                            <div className="tab-content">
-                                <Row>
-                                    <Col sm={12}>
-                                        <div className="list-options">
-                                            <div>{ pagination.totalRecords ? pagination.totalRecords: '...' } results</div>
-                                            <div className="btn-options text-right">
-                                                <SortFilter
-                                                    options={this.sortOptions}
-                                                    sortOrder={orderBy}
-                                                    sort={sortBy}
-                                                    sortHandler={this.sortHandler}
-                                                    orderHandler={this.sortOrderHandler} ></SortFilter>
-                                            </div>
+                        </div>
+                        <div className="tab-content">
+                            <Row>
+                                <Col sm={12}>
+                                    <div className="list-options">
+                                        <div>{ pagination.totalRecords ? pagination.totalRecords: '...' } results</div>
+                                        <div className="btn-options text-right">
+                                            <SortFilter
+                                                options={this.sortOptions}
+                                                sortOrder={orderBy}
+                                                sort={sortBy}
+                                                sortHandler={this.sortHandler}
+                                                orderHandler={this.sortOrderHandler} ></SortFilter>
                                         </div>
-                                    </Col>
-                                </Row>
-                                <Row className={'list'}>
-                                    <Loading show={this.props.projects.loading}>Projects Loading</Loading>
-                                    {projectsList}
-                                </Row>
-                            </div>
-                        </Col>
+                                    </div>
+                                </Col>
+                            </Row>
+                            <Row className={'list'}>
+                                <Loading show={this.props.projects.loading}>Projects Loading</Loading>
+                                {projectsList}
+                            </Row>
+                        </div>
+                    </Col>
                 </Row>
                 <Suspense fallback={<div>Loading...</div>}>
                 {projectForm}
@@ -204,7 +196,17 @@ const mapStateToProps = state => {
     };
 }
 
-const Projects = connect(mapStateToProps, mapDispatchToProps)(ProjectsList)
+export default connect(mapStateToProps, mapDispatchToProps)(ProjectsList)
 
-export default  Projects;
-export {Projects, View}
+const ProjectsWrapper = ({route})=>{
+
+    const redirect = route.path === '/projects' ? <Redirect to={route.path+'/current'} /> : '';
+    return (
+        <React.Fragment>
+            {redirect}
+            {renderRoutes(route.routes)}
+        </React.Fragment>
+    )
+}
+
+export {ProjectsWrapper, View}
