@@ -7,6 +7,23 @@ class Projects {
         auth.setAxiosAuth();
     }
 
+    getProject = (id)=>{
+        return new Promise((resolve, reject)=>{
+            axios({
+                method: 'get',
+                url: 'project/'+id
+            }).then(response => {
+                if(response.data) {
+                    resolve(response.data);
+                } else {
+                    reject(response.data);
+                }
+            }).catch(res =>{
+                reject(res.response.data);
+            });
+        })
+    }
+
     getProjects = (filters) => {
         const params = {completed:0, sort: 'id', order: 'asc', ...filters};
         const qry_str = Object.keys(params).map(key => key.toLowerCase() + "="+encodeURI(params[key])).join('&');
