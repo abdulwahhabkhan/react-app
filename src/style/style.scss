@@ -33,7 +33,7 @@ a {
 .mb-40{margin-bottom: 4.0rem;}
 .pt-28{padding-top: 2.8rem;}
 .pt-24{padding-top: 2.4rem;}
-.btn{font-size: 1.0rem; line-height: 1.75;}
+.btn-sm{font-size: 1.0rem; line-height: 1.75;}
 .form-control{font-size: 1.0rem; line-height: 1.75;}
 .btn-form {
   color: #fff;
@@ -137,7 +137,7 @@ a {
   transition: all 0.4s ease 0s;
 }
 .list-options {display:flex; padding: 0px 0px 10px 0px;}
-.list-options h2, .list-options .title {flex:1; font-size:1.5em; font-weight:500; line-height: 1.8em; margin-bottom: 0px}
+.list-options h2, .list-options .title {flex:1; font-size:1.5em; font-weight:400; line-height: 1.8em; margin-bottom: 0px}
 .list-options .btn-options {flex:1; }
 .w-10{min-width: 10rem;}
 .sort-filter {
@@ -156,10 +156,10 @@ a {
   color: #6a6c6f;
 }
 .bold, .text-bold{font-weight: 600;}
-.btn-sm, .btn-group-sm > .btn {
+/*.btn-sm, .btn-group-sm > .btn {
   font-size: 0.9275rem;
   line-height: 1.5;
-}
+}*/
 .btn.loading.disabled, .btn.loading:disabled{opacity: 0.85; cursor: auto;}
 .fixed-navbar .content {
   margin-left: 300px;
