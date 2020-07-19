@@ -76,6 +76,16 @@ a {
     }
   }
 }
+#navbarCollapse {
+  .navbar-nav {
+    & > li {
+      & > a.nav-link {
+        font-size: 1.2em; line-height: 1.2em;
+        font-weight: 400;border-bottom: 0px;
+      }
+    }
+  }
+}
 .user-img{
   max-width: 50px;
 }
