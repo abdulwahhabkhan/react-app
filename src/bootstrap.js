@@ -19,7 +19,8 @@ axios.interceptors.response.use(response => {
         }
         throw err*/
         //dispatch({type: ERRORS.SERVERERROR, value: err})
-        if(err && err.response && err.response.status > 400){
+        const ignoreCodes = [422]
+        if(err && err.response && err.response.status > 400 && ignoreCodes.indexOf(err.response.status) === -1){
             const response = err.response
             exception.addException({
                 status: response.status,
@@ -27,6 +28,8 @@ axios.interceptors.response.use(response => {
                 info: JSON.stringify(response.data, null, 2),
             })
         }
+
+        throw err
 
     });
 });
