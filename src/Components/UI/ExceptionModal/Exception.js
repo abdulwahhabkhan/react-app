@@ -33,7 +33,9 @@ class Exception extends Component {
                         <Modal.Title>{exception.status}: {exception.message}</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        {exception.details}
+                        <pre>
+                            {exception.info}
+                        </pre>
                     </Modal.Body>
                 </Modal>
             )
