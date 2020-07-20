@@ -7,7 +7,7 @@ import Header from "./Header";
 import ReactNotification from 'react-notifications-component'
 import Sidebar from "../../Components/UI/Sidebar/Sidebar";
 import {SETTINGS} from "../../store/actions";
-
+import Exception from "../../Components/UI/ExceptionModal";
 
 
 function Theme(props){
@@ -60,6 +60,7 @@ function Theme(props){
             )}
 
             <ReactNotification />
+            <Exception />
             <div className={''} id={'page-container'}>
                 <div className="content-wrapper">
                     {settings.pageSidebar && (
