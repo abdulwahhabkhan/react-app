@@ -19,7 +19,7 @@ class Projects {
                     reject(response.data);
                 }
             }).catch(res =>{
-                reject(res.response.data);
+                reject(res);
             });
         })
     }
@@ -38,7 +38,7 @@ class Projects {
                     reject(response.data);
                 }
             }).catch(res =>{
-                reject(res.response.data);
+                reject(res);
             });
         })
     }
@@ -54,7 +54,7 @@ class Projects {
             }).then(response =>{
                 resolve(response.data);
             }).catch(res =>{
-                reject(res.response);
+                reject(res);
             })
         })
     }
@@ -69,7 +69,7 @@ class Projects {
             }).then(response =>{
                 resolve(response.data);
             }).catch(res =>{
-                reject(res.response);
+                reject(res);
             })
         })
     }

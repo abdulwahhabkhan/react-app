@@ -7,18 +7,20 @@ class  user {
     }
 
     interceptor = () => {
-        axios.interceptors.response.use(response => {
+        /*axios.interceptors.response.use(response => {
             return response;
         }, err => {
+            console.log("error server side");
             return new Promise((resolve, reject) => {
-                if ( err && err.response.status === 401 && err.config && !err.config.__isRetryRequest )
+                /!*if ( err && err.response.status === 401 && err.config && !err.config.__isRetryRequest )
                 {
                     // if you ever get an unauthorized response, logout the user
                     this.setSession(null);
                 }
-                throw err
+                throw err*!/
+                console.log("error server side");
             });
-        });
+        });*/
     };
 
     setSession = access_token => {

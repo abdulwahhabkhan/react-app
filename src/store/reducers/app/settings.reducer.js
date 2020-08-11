@@ -1,9 +1,10 @@
 import {SETTINGS} from '../../actions'
+import storage from "../../../Config/storage";
 
 const initialState = {
     pageSidebar: '',
     pageHeader: true,
-    pageSidebarMinify: false,
+    pageSidebarMinify: JSON.parse(storage.get('sidebar_minified')) || false,
 }
 
 const settings = function (state = initialState, action) {
@@ -19,7 +20,12 @@ const settings = function (state = initialState, action) {
                 ...state,
                 pageSidebar: action.value
             }
+        case SETTINGS.SIDEBARMINIFIED:
 
+            return {
+                ...state,
+                pageSidebarMinify: action.value
+            }
         default:
             return state
     }

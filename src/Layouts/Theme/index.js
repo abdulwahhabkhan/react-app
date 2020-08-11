@@ -8,6 +8,7 @@ import ReactNotification from 'react-notifications-component'
 import Sidebar from "../../Components/UI/Sidebar/Sidebar";
 import {SETTINGS} from "../../store/actions";
 import Exception from "../../Components/UI/ExceptionModal";
+import storage from "../../Config/storage";
 
 
 function Theme(props){
@@ -37,6 +38,9 @@ function Theme(props){
     const logout = 'this.state.user' ? '' : <Redirect  to={'/'}/>
 
     function toggleSidebar(){
+        let sidebarMinified = !settings.pageSidebarMinify;
+        storage.set('sidebar_minified', sidebarMinified);
+        dispatch({type: SETTINGS.SIDEBARMINIFIED, value: sidebarMinified})
         /*let sidebarMinified = !pageOptions.pageSidebarMinified;
         storage.set('sidebar_minified', sidebarMinified);
         pageOptions.pageSidebarMinified = sidebarMinified;
@@ -50,6 +54,7 @@ function Theme(props){
     const classes = ['fixed-navbar', 'app-layout',
         settings.pageSidebar ? '': 'no-sidebar',
         settings.pageHeader ? '': 'no-header',
+        settings.pageSidebarMinify ? 'mini-sidebar': '',
     ]
 
     return(
@@ -64,7 +69,7 @@ function Theme(props){
             <div className={''} id={'page-container'}>
                 <div className="content-wrapper">
                     {settings.pageSidebar && (
-                        <Sidebar toggleSiderbar={toggleSidebar} toggled={false}>
+                        <Sidebar toggleSiderbar={toggleSidebar} toggled={settings.pageSidebarMinify}>
                             <settings.pageSidebar />
                         </Sidebar>
                         )}

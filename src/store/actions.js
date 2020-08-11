@@ -23,3 +23,9 @@ export const SETTINGS = {
     TOGGLESIDEBAR: 'TOGGLESIDEBAR',
     SIDEBARMINIFIED: 'SIDEBARMINIFIED'
 }
+
+//errors
+
+export const ERRORS = {
+    SERVERERROR: 'SERVERERROR'
+}
