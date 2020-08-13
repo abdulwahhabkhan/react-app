@@ -282,3 +282,13 @@ body.fullscreen-panel-mode {
 .panel.fullscreen .panel-body {
   min-height: calc(100% - 77px);
 }
+
+.forum-box{
+  &.panel {
+    .panel-body{
+      border-bottom: 0px;
+      border-right: 0px;
+      border-left: 0px;
+    }
+  }
+}
