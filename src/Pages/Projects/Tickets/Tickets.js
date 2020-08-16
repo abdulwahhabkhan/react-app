@@ -6,6 +6,12 @@ import BlankSlate from "../../../Components/UI/Slate/BlankSlate";
 import listing from '../../../images/icons/listings.svg'
 import {useSelector} from "react-redux";
 import TicketForm from "./Form";
+import {connect} from "react-redux";
+import { getTickets } from "./store/actions";
+import ticket from "../../../services/tickets";
+import Loading from "../../../Components/UI/Loader/Loading";
+import TicketList from "./List";
+
 
 const BlankTickets = (props)=>{
     const user = useSelector(({auth})=> auth.user )
@@ -23,22 +29,36 @@ const BlankTickets = (props)=>{
 
 class Tickets extends Component{
     state = {
-        tickets: [],
         showAddTicket: false
+    }
+
+    componentDidMount() {
+        ticket.init()
+        this.getTickets({})
     }
 
     addTicketHandler = ()=>{
         this.setState({showAddTicket: true})
     }
 
+    getTickets = (params)=>{
+        this.props.loadTickets(params)
+    }
 
     render() {
+        const {rows} = this.props.tickets
         let ticketsList = '';
-        if(this.state.tickets.length > 0)
-            ticketsList = <div>Ticket Listing will be displayed here</div>
-        else if(!this.state.showAddTicket)
+        if(rows.length > 0)
+            ticketsList = (
+                rows.map((ticket, index) => {
+                    return <TicketList
+                        ticketInfo={ticket}
+                        key={ticket.id}
+                    />
+                })
+            )
+        else if(!this.state.showAddTicket && !this.props.tickets.loading)
             ticketsList = <BlankTickets addTicket={this.addTicketHandler}  />
-        const loading = '';
 
         let ticketform = '';
         if(this.state.showAddTicket)
@@ -62,9 +82,10 @@ class Tickets extends Component{
                     <Col sm={12}>
                         <div className="panel forum-box">
                             <div className="panel-body">
-                                <div className="ticketslist">
-                                    { loading }
+                                <div className="tickets-list">
+                                    <Loading show={this.props.tickets.loading}>Tickets Loading</Loading>
                                     { ticketform }
+
                                     { ticketsList }
                                 </div>
                             </div>
@@ -77,4 +98,16 @@ class Tickets extends Component{
     }
 }
 
-export default Tickets
+const mapStateToProps = state => {
+    return {
+        tickets :  state.tickets.ticket
+    };
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        loadTickets: params => dispatch(getTickets(params)),
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Tickets)
