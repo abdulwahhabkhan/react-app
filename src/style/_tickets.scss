@@ -2,7 +2,7 @@
 
     .ticket-row {
         position: relative;
-        padding: 5px 30px 5px 195px;
+        padding: 8px 30px 8px 195px;
         line-height: 22px;
         .estimate {position: absolute; right: 0px;background: #e7e9ea; border-radius:4px; padding: 1px 5px;}
         .ticket-heading {
@@ -34,12 +34,12 @@
         }
         .ticket-controls{
             position: absolute;right: auto;left: 0px; width: 190px;padding-right:95px;
-            span{opacity: 0;}
+            button{opacity: 0;}
         }
     }
     .ticket-row:hover{
         .ticket-controls{
-            span{opacity: 1;}
+            button{opacity: 1;}
         }
     }
     .ticket-description{
@@ -71,3 +71,5 @@
         }
     }
 }
+
+.no-padding{padding: 0px;}

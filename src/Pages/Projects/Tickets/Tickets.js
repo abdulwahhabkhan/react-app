@@ -31,10 +31,11 @@ class Tickets extends Component{
     state = {
         showAddTicket: false
     }
+    params = this.props.match.params
 
     componentDidMount() {
         ticket.init()
-        this.getTickets({})
+        this.getTickets({project_id : this.params.id})
     }
 
     addTicketHandler = ()=>{

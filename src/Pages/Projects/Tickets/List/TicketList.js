@@ -10,18 +10,18 @@ const TicketList = (props)=>{
             <div className="ticket-row">
                 <div className="ticket-controls">
 
-                        <span className={'edit'}>
+                        <button className={'edit btn no-padding'}>
                             <FontAwesomeIcon icon={faPencilAlt} />
-                        </span>
-                        <span className={'delete'}>
+                        </button> &nbsp;
+                        <button className={'delete btn no-padding'}>
                             <FontAwesomeIcon icon={faTrashAlt} />
-                        </span>
+                        </button>
 
                 </div>
                 <div className="estimate">10 Hours</div>
                 <div className="ticket-heading">
                     <div className="assignedto">
-                        <span>{ assigned_to.name }</span>
+                        <span>{ assigned_to.name || 'Any one' }</span>
                     </div>
                     <div className="ticket-title">
                         <p className={'title'}>{title}</p>
