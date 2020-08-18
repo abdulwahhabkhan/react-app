@@ -42,6 +42,10 @@ class Tickets extends Component{
         this.setState({showAddTicket: true})
     }
 
+    closeTicketForm =() =>{
+        this.setState({showAddTicket: false})
+    }
+
     getTickets = (params)=>{
         this.props.loadTickets(params)
     }
@@ -59,11 +63,11 @@ class Tickets extends Component{
                 })
             )
         else if(!this.state.showAddTicket && !this.props.tickets.loading)
-            ticketsList = <BlankTickets addTicket={this.addTicketHandler}  />
+            ticketsList = <BlankTickets addTicket={this.addTicketHandler}   />
 
         let ticketform = '';
         if(this.state.showAddTicket)
-            ticketform = <TicketForm />
+            ticketform = <TicketForm show={true} onClose={this.closeTicketForm} />
 
         return(
             <React.Fragment>
