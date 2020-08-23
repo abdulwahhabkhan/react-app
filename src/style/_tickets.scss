@@ -35,12 +35,12 @@
         }
         .ticket-controls{
             position: absolute;right: auto;left: 0px; width: 190px;padding-right:95px;
-            button{opacity: 0; color:#6a6c6f;}
+            .btn{opacity: 0; color:#6a6c6f;}
         }
     }
     .ticket-row:hover{
         .ticket-controls{
-            button{opacity: 1;
+            .btn{opacity: 1;
                 &:hover{
                     color: #535756;
                 }

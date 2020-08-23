@@ -10,12 +10,12 @@ const TicketList = (props)=>{
             <div className="ticket-row">
                 <div className="ticket-controls">
 
-                        <button className={'edit btn no-padding'}>
+                        <span className={'edit btn no-padding'}>
                             <FontAwesomeIcon icon={faPencilAlt} />
-                        </button> &nbsp;
-                        <button className={'delete btn no-padding'}>
+                        </span> &nbsp;
+                        <span className={'delete btn no-padding'}>
                             <FontAwesomeIcon icon={faTrashAlt} />
-                        </button>
+                        </span>
 
                 </div>
                 <div className="estimate">10 Hours</div>
