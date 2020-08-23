@@ -4,13 +4,13 @@
         position: relative;
         padding: 8px 30px 8px 195px;
         line-height: 22px;
-        .estimate {position: absolute; right: 0px;background: #e7e9ea; border-radius:4px; padding: 1px 5px;}
+        .estimate {position: absolute; right: 0px;background: #e7e9ea; border-radius:4px; padding: 1px 5px; font-size: 90%;}
         .ticket-heading {
             padding-right:70px;
             position:relative;
             .ticket-title{
                 cursor: pointer;
-                .title{display:inline-block; margin-bottom:0px;}
+                .title{display:inline-block; margin-bottom:0px; font-size: 95%;}
                 .form-control{height: 28px;padding: 2px 12px;border:0px; font-size:1.2rem;}
                 .ticket-options{
                     display: inline;
@@ -30,16 +30,21 @@
                 white-space: nowrap;
                 overflow: hidden;
                 top: 1px;
+                font-size: 88%;
             }
         }
         .ticket-controls{
             position: absolute;right: auto;left: 0px; width: 190px;padding-right:95px;
-            button{opacity: 0;}
+            button{opacity: 0; color:#6a6c6f;}
         }
     }
     .ticket-row:hover{
         .ticket-controls{
-            button{opacity: 1;}
+            button{opacity: 1;
+                &:hover{
+                    color: #535756;
+                }
+            }
         }
     }
     .ticket-description{
