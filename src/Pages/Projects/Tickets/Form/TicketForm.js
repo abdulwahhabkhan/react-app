@@ -110,7 +110,6 @@ const TicketForm = (props) =>{
                                             <Form.Label>Assigned To </Form.Label>
                                             <Controller
                                                 as={Select}
-                                                isClearable
                                                 options={users}
                                                 name="assigned"
                                                 isClearable
