@@ -1,5 +1,5 @@
-/*body{font-size: 13px; font-family: "Open Sans", Helvetica, Arial, sans-serif; color: $color-text; }*/
-body{font-size: 14px;  font-family:'Hind', sans-serif; color: $color-text; }
+body{font-size: 14px; font-family: "Open Sans", Helvetica, Arial, sans-serif; color: $color-text; }
+/*body{font-size: 14px;  font-family:'Hind', sans-serif; color: $color-text; }*/
 
 .content-wrapper{position: relative;min-height: calc(100vh - 50px);}
 
@@ -81,7 +81,7 @@ a {
     & > li {
       & > a.nav-link {
         font-size: 1.143em; line-height: 1.143em;
-        font-weight: 300;border-bottom: 0px;
+        font-weight: 500;border-bottom: 0px;
       }
     }
   }
