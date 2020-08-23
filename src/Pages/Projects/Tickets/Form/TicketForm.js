@@ -7,12 +7,12 @@ import {useForm, Controller} from "react-hook-form";
 import Select  from "react-select";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import ticket from "../../../../services/tickets"
+import TicketService from "../../../../services/tickets"
 import {store as notify} from 'react-notifications-component';
 
 const TicketForm = (props) =>{
 
-    ticket.init()
+    TicketService.init()
 
     const ticketInfo = {
         'title': '',
@@ -21,7 +21,7 @@ const TicketForm = (props) =>{
         'end_date': '',
         'assigned': {id: '', 'label': 'Anyone', 'img': ''}
     };
-    const { handleSubmit, register, control} = useForm({defaultValues: ticketInfo})
+    const { handleSubmit, register, control, errors} = useForm({defaultValues: ticketInfo})
 
     const state = {
         loading: false,
@@ -36,9 +36,9 @@ const TicketForm = (props) =>{
     const onSubmit = data => {
         state.loading = true;
 
-        ticket.saveTicket({...data, project_id : props.project_id, 'assigned_to': data.assigned.id})
+        TicketService.saveTicket({...data, project_id : props.project_id, 'assigned_to': data.assigned.id})
             .then(response => {
-                //this.setState({'loading': false});
+                state.loading = false;
                 notify.addNotification({
                     ...document.settings.NOTIFY,
                     type: 'success',
@@ -72,11 +72,13 @@ const TicketForm = (props) =>{
                     <Form.Group>
                         <Form.Label>Ticket title is:</Form.Label>
                         <Form.Control value={state.name}
+                                      className={
+                                          {'is-invalid' : errors.title}
+                                      }
                                       name={'title'}
                                       ref={register({required: "Required"})}
                                       placeholder={'What needs to be done?'}
                         />
-                        {/*<Form.Control type={'hidden'} name={'project_id'} ref={register} />*/}
                     </Form.Group>
                     <div className="nav-htabs">
                         <Tabs defaultActiveKey={state.activeTab} id="ticket_form_tabs">
