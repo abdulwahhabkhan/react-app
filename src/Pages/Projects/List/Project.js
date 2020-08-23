@@ -19,7 +19,7 @@ const Project = (props) => {
                                 <Link to={'/projects/'+props.projectInfo.id+'/tickets'}>{props.projectInfo.name}</Link>
                             </div>
                             <div className={'project-details'}>
-                                <Link to={'/projects/'+props.projectInfo.id+'/tickets'}>{props.projectInfo.description}</Link>
+                                {props.projectInfo.description}
                             </div>
                             <Row className={'project-actions'}>
                                 <Col sm={2}>
