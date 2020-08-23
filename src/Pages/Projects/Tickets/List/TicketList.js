@@ -21,7 +21,7 @@ const TicketList = (props)=>{
                 <div className="estimate">10 Hours</div>
                 <div className="ticket-heading">
                     <div className="assignedto">
-                        <span>{ assigned_to.name || 'Any one' }</span>
+                        <span>{ assigned_to ? assigned_to.name : 'Any one' }</span>
                     </div>
                     <div className="ticket-title">
                         <p className={'title'}>{title}</p>

@@ -8,7 +8,7 @@ import Select  from "react-select";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import ticket from "../../../../services/tickets"
-
+import {store as notify} from 'react-notifications-component';
 
 const TicketForm = (props) =>{
 
@@ -39,7 +39,13 @@ const TicketForm = (props) =>{
         ticket.saveTicket({...data, project_id : props.project_id, 'assigned_to': data.assigned.id})
             .then(response => {
                 //this.setState({'loading': false});
-                this.props.onClose(false);
+                notify.addNotification({
+                    ...document.settings.NOTIFY,
+                    type: 'success',
+                    title: "Success",
+                    message: "Ticket save successfully"
+                })
+                props.onClose(false);
             })
             .catch(response => {
                 //this.setState({'loading': false});
