@@ -25,6 +25,23 @@ class Tickets {
             });
         })
     }
+
+    saveTicket= (data) => {
+        const method = data.id ? 'PUT' : 'POST'
+        const url = data.id ? 'ticket/'+data.id : 'ticket'
+
+        return new Promise((resolve, reject)=>{
+            axios({
+                method: method,
+                url: url,
+                data: data
+            }).then(response =>{
+                resolve(response.data);
+            }).catch(res =>{
+                reject(res);
+            })
+        })
+    }
 }
 
 const instance = new Tickets();

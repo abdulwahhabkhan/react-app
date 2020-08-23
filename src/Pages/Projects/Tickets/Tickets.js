@@ -67,7 +67,7 @@ class Tickets extends Component{
 
         let ticketform = '';
         if(this.state.showAddTicket)
-            ticketform = <TicketForm show={true} onClose={this.closeTicketForm} />
+            ticketform = <TicketForm show={true} project_id={this.params.id} onClose={this.closeTicketForm} />
 
         return(
             <React.Fragment>
