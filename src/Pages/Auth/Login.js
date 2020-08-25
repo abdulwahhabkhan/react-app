@@ -13,9 +13,9 @@ function  Login() {
     const login = useSelector(({auth})=> auth.login )
     const onSubmit = values => {
         dispatch(authActions.login(values))
-            .then(()=>{
-                history.push('/dashboard')
-                console.log('Login successfull')
+            .then((res)=>{
+                if(res.type == authActions.LOGIN_SUCCESS)
+                    history.push('/dashboard')
             })
     };
     return (
