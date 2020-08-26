@@ -1,5 +1,5 @@
 import React from "react"
-import {Link, useHistory} from "react-router-dom"
+import {Link, useHistory, Redirect} from "react-router-dom"
 import {useSelector, useDispatch} from 'react-redux'
 import { useForm } from "react-hook-form"
 import Button from "../../Components/Form/ButtonLoader"
@@ -11,6 +11,7 @@ function  Login() {
     const dispatch = useDispatch()
     const history = useHistory()
     const login = useSelector(({auth})=> auth.login )
+    const user = useSelector(({auth})=> auth.user.data )
     const onSubmit = values => {
         dispatch(authActions.login(values))
             .then((res)=>{
@@ -18,9 +19,11 @@ function  Login() {
                     history.push('/dashboard')
             })
     };
+    const redirect = user ? '' : <Redirect to={'/dashboard'} />
     return (
         <React.Fragment>
             <div className="auth-content">
+                {redirect}
                     <div className="greetings">
                         <img src={logo} alt="React Logo" className="w-128"/>
                         <h3>Welcome to ReactJS</h3>
