@@ -17,7 +17,6 @@ export function getUser(){
 
 export function setUser(user) {
     return (dispatch)=>{
-        console.log("set user Called")
         return dispatch({type: SET_USER,  payload: user})
     }
 }

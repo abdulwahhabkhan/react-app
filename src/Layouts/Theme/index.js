@@ -1,5 +1,5 @@
 import React from "react"
-import {Redirect, useLocation, withRouter} from "react-router-dom"
+import {Redirect, useLocation, withRouter, useHistory} from "react-router-dom"
 import {useSelector, useDispatch} from 'react-redux'
 import {matchRoutes, renderRoutes} from 'react-router-config'
 import routes from "../../routes"
@@ -9,11 +9,13 @@ import Sidebar from "../../Components/UI/Sidebar/Sidebar";
 import {SETTINGS} from "../../store/actions";
 import Exception from "../../Components/UI/ExceptionModal";
 import storage from "../../Config/storage";
+import * as authActions from "../../Pages/Auth/store/actions"
 
 
 function Theme(props){
     const location = useLocation()
     const dispatch = useDispatch()
+    const history = useHistory();
 
     const settings = useSelector(({app})=>app.settings )
     React.useEffect(()=>{
@@ -47,8 +49,9 @@ function Theme(props){
         this.setState({'sidebarMinified': sidebarMinified})*/
     }
 
-    function logoutHandler() {
-
+    const logoutHandler= ()=>{
+        //dispatch(authActions.logout())
+        history.push('/')
     }
 
     const classes = ['fixed-navbar', 'app-layout',
