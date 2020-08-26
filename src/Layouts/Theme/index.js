@@ -50,8 +50,8 @@ function Theme(props){
     }
 
     const logoutHandler= ()=>{
-        //dispatch(authActions.logout())
-        history.push('/')
+        dispatch(authActions.logout())
+        history.push('/login')
     }
 
     const classes = ['fixed-navbar', 'app-layout',
