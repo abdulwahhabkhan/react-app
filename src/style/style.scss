@@ -76,6 +76,19 @@ a {
     }
   }
 }
+.alert {
+  &.alert-filter {
+    background-color: #ebeff1;
+    border-radius: 5px 0px 0px 5px;
+    border-left: 5px solid #3e89e4;
+    margin-bottom: 10px;
+    padding: 5px 15px;
+    .btn-sm{
+      line-height: 1.45; margin-left: .5rem;
+    }
+  }
+}
+
 #navbarCollapse {
   .navbar-nav {
     & > li {

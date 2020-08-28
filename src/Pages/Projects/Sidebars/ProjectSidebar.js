@@ -33,8 +33,8 @@ const ProjectSidebar = (props)=>{
         }))
     }
 
-    const created_at = watch('created_at')
-    const due_at = watch('due_at')
+    const created_at = watch('created_range')
+    const due_at = watch('due_date_range')
 
     return(
         <div className={'project-filter-list'}>
@@ -52,12 +52,12 @@ const ProjectSidebar = (props)=>{
                 <div className="filter-block">
                     <div className="filter-header">Created Date</div>
                     <div className="filter-body">
-                        <select className={'form-control form-control-sm'} name={'created_at'} ref={register}>
+                        <select className={'form-control form-control-sm'} name={'created_range'} ref={register}>
                             <option value="">Any Date</option>
-                            <option value="range">Custom Range</option>
+                            <option value="1">Custom Range</option>
                         </select>
                         {
-                            created_at === 'range' && (
+                            created_at === '1' && (
                                 <DateRange label={'Created'}
                                            start={filters.created_start_date}
                                            end={filters.created_end_date}
@@ -72,15 +72,15 @@ const ProjectSidebar = (props)=>{
                 <div className="filter-block">
                     <div className="filter-header">Due Date</div>
                     <div className="filter-body">
-                        <select className={'form-control form-control-sm'} name={'due_at'} ref={register}>
+                        <select className={'form-control form-control-sm'} name={'due_date_range'} ref={register}>
                             <option value="">Any Date</option>
-                            <option value="no-start">No Start Date</option>
-                            <option value="no-due">No Due Date</option>
-                            <option value="no-start-due">No Start/Due Date</option>
-                            <option value="range">Custom Range</option>
+                            <option value="2">No Start Date</option>
+                            <option value="1">No Due Date</option>
+                            <option value="3">No Start/Due Date</option>
+                            <option value="4">Custom Range</option>
                         </select>
                         {
-                            due_at === 'range' && (
+                            due_at === "4" && (
                                 <DateRange label={'Due'}
                                            start={filters.due_start_date}
                                            end={filters.due_end_date}

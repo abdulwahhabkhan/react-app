@@ -13,10 +13,12 @@ import Tickets from "./Tickets";
 import Summary from "./Summary";
 import {NavLink, Redirect} from 'react-router-dom';
 import {store as notify} from 'react-notifications-component';
-import {applyOrder, applySort, getProjects} from './store/actions'
+import {applyfilters, applyOrder, applySort, getProjects} from './store/actions'
 import {connect} from "react-redux";
-
+import {filters as defaultFilters} from "./config";
 import {renderRoutes} from "react-router-config";
+import {isEmpty, every, values} from "lodash"
+
 const ProjectForm= lazy(() => import('./Form'));
 
 class ProjectsList extends Component {
@@ -112,12 +114,14 @@ class ProjectsList extends Component {
         console.log(data)
     }
 
-    resetSearch = (data)=>{
-       console.log(data)
+    resetSearch = ()=>{
+       console.log("reset")
+        this.props.resetFilters(defaultFilters)
+        this.getProjects({completed: this.state.completed, ...defaultFilters});
     }
 
     render() {
-        const {rows, pagination, sortBy, orderBy} = this.props.projects
+        const {rows, pagination, sortBy, orderBy, filters} = this.props.projects
 
         let projectsList = (
             rows.map((project, index) => {
@@ -129,6 +133,18 @@ class ProjectsList extends Component {
                         key={project.id} />
             })
         );
+
+        const filter = every(filters, (v)=> v=="range"||isEmpty(v) ) ? '': (
+            <div className={'filter'}>
+                <div className="alert alert-filter">
+                    you are view {pagination.totalRecords} filtered results
+                    <button className="btn btn-default btn-sm" onClick={()=>{this.resetSearch()}}>
+                        Clear Filter
+                    </button>
+                </div>
+
+            </div>
+        )
         let projectForm = this.state.showProjectForm ? <ProjectForm show={true} onClose={this.projectFormHandler} onUpdate={this.projectUpdateHandler} project={this.state.project}></ProjectForm> : null
 
         return (
@@ -158,9 +174,12 @@ class ProjectsList extends Component {
                         </div>
                         <div className="tab-content">
                             <Row>
+                                <Col>
+                                    {filter}
+                                </Col>
                                 <Col sm={12}>
                                     <div className="list-options">
-                                        <div>{ pagination.totalRecords ? pagination.totalRecords: '...' } results</div>
+                                        <div>{ pagination.totalRecords } results</div>
                                         <div className="btn-options text-right">
                                             <SortFilter
                                                 options={this.sortOptions}
@@ -171,6 +190,7 @@ class ProjectsList extends Component {
                                         </div>
                                     </div>
                                 </Col>
+
                             </Row>
                             <Row className={'list'}>
                                 <Loading show={this.props.projects.loading}>Projects Loading</Loading>
@@ -192,6 +212,7 @@ function mapDispatchToProps(dispatch) {
         loadProjects: params => dispatch(getProjects(params)),
         applySort: params => dispatch(applySort(params)),
         applyOrder: params => dispatch(applyOrder(params)),
+        resetFilters: params=> dispatch(applyfilters({}))
     };
 }
 const mapStateToProps = state => {
