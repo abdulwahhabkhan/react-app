@@ -5,6 +5,9 @@ import {faFilter, faRetweet} from "@fortawesome/free-solid-svg-icons";
 import {DateRange} from "../../../Components/UI/Form";
 import {useDispatch, useSelector} from "react-redux";
 import {applyfilters, getProjects} from '../store/actions'
+import Select from "react-select";
+import settings from "../../../Config/settings";
+import PersonSelect from "../../../Components/Form/PersonSelect";
 
 const ProjectSidebar = (props)=>{
 
@@ -13,7 +16,8 @@ const ProjectSidebar = (props)=>{
     const orderBy = useSelector(({projects})=> projects.project.orderBy )
     const page = useSelector(({projects})=> projects.project.pagination.page )
     const dispatch = useDispatch()
-    const { handleSubmit, register, watch, control, reset} = useForm({defaultValues: filters})
+    const { handleSubmit, register, watch, control, reset, setValue} = useForm({defaultValues: filters})
+
     const onSubmit = data => {
         dispatch(applyfilters(data))
         dispatch(getProjects({
@@ -94,7 +98,22 @@ const ProjectSidebar = (props)=>{
                 <div className="filter-block">
                     <div className="filter-header">Owner</div>
                     <div className="filter-body">
-                        <input type="text" className={'form-control form-control-sm'} name={'owner'} ref={register}/>
+                        <PersonSelect options={[
+                            {name: 'Swedish', value: 'sv'},
+                            {name: 'English', value: 'en'},
+                            {name: 'Abdul Wahhab Khan', value: 'ur'},
+                            {name: 'Hindi', value: 'hi'},
+                        ]}
+                        value={'en'}
+                        search
+                        multiple={true}
+                        placeholder={'select project owner'}
+                        />
+                        <Select
+                            isClearable
+                            name={'owner'}
+                        />
+                        {/*<input type="text" className={'form-control form-control-sm'} name={'owner'} ref={register}/>*/}
                     </div>
                 </div>
                 <div className="filter-block">
