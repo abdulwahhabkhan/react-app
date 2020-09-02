@@ -1,23 +1,28 @@
 import React, {useState} from 'react';
-import { useSelect } from 'react-select-search';
-import SelectSearch from 'react-select-search';
-import {instanceOf} from "prop-types";
+import SelectSearch, { useSelect } from 'react-select-search';
+import noPhoto from "../../images/icons/noPhoto2.png"
 
-const PersonSelect = ({ options, value, multiple, disabled }) => {
+const PersonSelect = ({ options, value, multiple, disabled, placeholder, onChange }) => {
 
+    const [snapshot, valueProps, optionProps, doSearch] = useSelect({
+        options: options,
+        value,
+        onChange,
+        multiple,
+        disabled,
+        placeholder,
+        closeOnSelect: false,
+        search: true
+    });
+
+    const [state, setState] = useState('')
 
     function renderOption(props, option, snapshot, className) {
-        const imgStyle = {
-            borderRadius: '50%',
-            verticalAlign: 'middle',
-            marginRight: 10,
-        };
-        console.log(props)
+        const optionClass = 'filter-items__item-block '+className
         return (
             <React.Fragment >
-
-                <button {...props} className={'filter-items__item-block'} type={'button'} href={'#'}>
-                    <img src="https://support.webequator.com/images/noPhoto2.png" alt="sample-img" className="filter-items__item-image"/>
+                <button {...props} className={optionClass} type={'button'} >
+                    <img src={noPhoto} alt="sample-img" className="filter-items__item-image"/>
                     {option.name}
                 </button>
             </React.Fragment>
@@ -25,55 +30,76 @@ const PersonSelect = ({ options, value, multiple, disabled }) => {
         );
     }
 
-    function renderFriend(props, option, snapshot, className) {
-        const imgStyle = {
-            borderRadius: '50%',
-            verticalAlign: 'middle',
-            marginRight: 10,
-        };
-
-        return (
-            <button {...props} className={'dropdown-item'} type="button">
-
-                <span><span>{option.name}</span></span>
-            </button>
-        );
+    const removeOption =(e)=>{
+        optionProps.onMouseDown(e)
+        console.log("clear option event called")
     }
 
+    const imgStyle = {
+        borderRadius: '50%',
+        verticalAlign: 'middle',
+        marginRight: 10,
+    };
 
-    const [snapshot, valueProps, optionProps, doSearch] = useSelect({
-        options: options,
-        value,
-        multiple,
-        disabled,
-        closeOnSelect: false,
-        search: true
-    });
-
-    const [state, setState] = useState('')
+    const selectedValues =  Array.isArray(snapshot.value) ? snapshot.value : [snapshot.value]
 
     return (
         <div>
             {/*<div>
                 <div className="selected">
-                    { JSON.stringify(snapshot.value)}
+                    <ul className="filter-items-select">
+                        { selectedValues.map((option)=>{
+                            return (
+                                <li key={option._id}>
+                                    <button className="filter-items-item"
+                                            type={"button"} value={option.value}
+                                            onClick={(event)=> removeOption(event) }
+                                    >
+                                        <div className="filter-items-item-text">
+                                            <img src="https://support.webequator.com/images/noPhoto2.png" alt="sample-img" className="auto-complete-item-image"/>
+                                            <span className="auto-complete-item-title">
+                                                        {  option.name }
+                                                    </span>
+                                        </div>
+                                        <div className="filter-items-item-remove" >
+                                                    <span className="filter-items-item-clear">
+                                                        X
+                                                    </span>
+                                        </div>
+                                    </button>
+                                </li>
+                            )
+                        })}
+                    </ul>
                 </div>
-                <input {...valueProps} className={'form-control form-control-sm'} />
+                <input {...valueProps} className={'form-control form-control-sm'} placeholder={placeholder} />
                 {snapshot.focus && (
-                    <ul>
+                    <ul className={'select-search__options'}>
                         {snapshot.options.map((option) => (
-                            <li key={option.value}>
-                                <button {...optionProps} value={option.value} className={'dropdown-item'} type="button">{option.name}</button>
+                            <li key={option.value} className={''}>
+
+                                    <button {...optionProps} value={option.value} className={'filter-items__item-block'} type={'button'} >
+                                        <img src="https://support.webequator.com/images/noPhoto2.png" alt="sample-img" className="filter-items__item-image"/>
+                                        {option.name}
+                                    </button>
+
+
+                                <button {...optionProps} value={option.value}  type="button">{option.name}</button>
                             </li>
                         ))}
                     </ul>
                 )}
             </div>*/}
-            <SelectSearch
+
+           <SelectSearch
                 options={options}
                 value={value}
                 multiple={multiple}
                 search={true}
+                onChange={onChange}
+                placeholder={placeholder}
+                printOptions="on-focus"
+                closeOnSelect={false}
                 renderOption={renderOption}
                 renderValue={(valueProps, snapshot, className)=>{
 
@@ -83,21 +109,26 @@ const PersonSelect = ({ options, value, multiple, disabled }) => {
                         <div>
                             <ul className="filter-items-select">
                                 { values.map((option)=>{
-                                    return (
+                                    value = "";
+
+                                    return option && (
                                         <li key={option._id}>
-                                            <div className="filter-items-item">
+                                            <button className="filter-items-item"
+                                                    type={"button"} value={option.value}
+                                                    onClick={(event)=> removeOption(event) }
+                                            >
                                                 <div className="filter-items-item-text">
                                                     <img src="https://support.webequator.com/images/noPhoto2.png" alt="sample-img" className="auto-complete-item-image"/>
                                                     <span className="auto-complete-item-title">
                                                         {  option.name }
                                                     </span>
                                                 </div>
-                                                <div className="filter-items-item-remove">
+                                                <div className="filter-items-item-remove" >
                                                     <span className="filter-items-item-clear">
                                                         X
                                                     </span>
                                                 </div>
-                                            </div>
+                                            </button>
                                         </li>
                                     )
                                 })}
@@ -110,8 +141,8 @@ const PersonSelect = ({ options, value, multiple, disabled }) => {
                                     setState(t.target.value)
                                 }}
                                 onBlur={(e)=>{
-                                    //setState('')
-                                    //valueProps.onBlur(e)
+                                    setState('')
+                                    valueProps.onBlur(e)
                                 }}
                                 value={state} className={'form-control form-control-sm'} />
                         </div>

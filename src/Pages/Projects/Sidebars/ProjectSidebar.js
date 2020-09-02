@@ -1,14 +1,12 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import {useForm, Controller} from "react-hook-form";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faFilter, faRetweet} from "@fortawesome/free-solid-svg-icons";
 import {DateRange} from "../../../Components/UI/Form";
 import {useDispatch, useSelector} from "react-redux";
 import {applyfilters, getProjects} from '../store/actions'
-import Select from "react-select";
-import settings from "../../../Config/settings";
 import PersonSelect from "../../../Components/Form/PersonSelect";
-
+import User from "../../../services/auth";
 const ProjectSidebar = (props)=>{
 
     const filters = useSelector(({projects})=> projects.project.filters )
@@ -17,7 +15,13 @@ const ProjectSidebar = (props)=>{
     const page = useSelector(({projects})=> projects.project.pagination.page )
     const dispatch = useDispatch()
     const { handleSubmit, register, watch, control, reset, setValue} = useForm({defaultValues: filters})
-
+    //const users = User.getUsers()
+    const [users, setUsers] = useState([])
+    useEffect(() => {
+        User.getUsers().then(u=>{
+            setUsers( u.map( ({name, id})=> ({name, value:id}) ))
+        });
+    }, []);
     const onSubmit = data => {
         dispatch(applyfilters(data))
         dispatch(getProjects({
@@ -98,20 +102,14 @@ const ProjectSidebar = (props)=>{
                 <div className="filter-block">
                     <div className="filter-header">Owner</div>
                     <div className="filter-body">
-                        <PersonSelect options={[
-                            {name: 'Swedish', value: 'sv'},
-                            {name: 'English', value: 'en'},
-                            {name: 'Abdul Wahhab Khan', value: 'ur'},
-                            {name: 'Hindi', value: 'hi'},
-                        ]}
-                        value={'en'}
+                        <PersonSelect options={users || []}
+                                      value={9}
+                        onChange={(owners)=>{
+                            console.log(owners);
+                        }}
                         search
-                        multiple={true}
-                        placeholder={'select project owner'}
-                        />
-                        <Select
-                            isClearable
-                            name={'owner'}
+                        multiple={false}
+                        placeholder={'project owner'}
                         />
                         {/*<input type="text" className={'form-control form-control-sm'} name={'owner'} ref={register}/>*/}
                     </div>

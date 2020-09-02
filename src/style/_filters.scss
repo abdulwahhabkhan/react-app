@@ -51,7 +51,7 @@
   }
 
   .filter-items-item-remove{
-
+    display: none;
   }
 
   .filter-items-item-clear {
@@ -61,6 +61,7 @@
     text-decoration: none !important;
     color: #999 !important;
     margin-left: 5px;
+
   }
 
   .filter-items-item-clear{
@@ -122,6 +123,16 @@
   cursor: pointer;
   border: 0px solid transparent;
   width: 100%;
+
+  &.is-highlighted{
+    background-color: rgba(153,153,153,0.1);
+  }
+
+  &.is-selected{
+    color: #444 !important;
+    background-color: #337ab7;
+    color: #fff!important;
+  }
 }
 .filter-items__item-image{
   border-radius: 50%;
