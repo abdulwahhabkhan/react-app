@@ -15,20 +15,23 @@ const ProjectSidebar = (props)=>{
     const page = useSelector(({projects})=> projects.project.pagination.page )
     const dispatch = useDispatch()
     const { handleSubmit, register, watch, control, reset, setValue} = useForm({defaultValues: filters})
-    //const users = User.getUsers()
+
     const [users, setUsers] = useState([])
+    const [owners, setOwners] = useState(filters.owner)
+
     useEffect(() => {
         User.getUsers().then(u=>{
             setUsers( u.map( ({name, id})=> ({name, value:id}) ))
         });
     }, []);
     const onSubmit = data => {
-        dispatch(applyfilters(data))
+        dispatch(applyfilters({...data, owner: owners}))
         dispatch(getProjects({
             page: page,
             sortBy: sortBy,
             orderBy: orderBy,
-            ...data
+            ...data,
+            owner: owners
         }))
     }
     const resetFilters = ()=>{
@@ -102,14 +105,15 @@ const ProjectSidebar = (props)=>{
                 <div className="filter-block">
                     <div className="filter-header">Owner</div>
                     <div className="filter-body">
-                        <PersonSelect options={users || []}
-                                      value={9}
-                        onChange={(owners)=>{
-                            console.log(owners);
-                        }}
-                        search
-                        multiple={false}
-                        placeholder={'project owner'}
+
+                        <PersonSelect
+                            options={users || []}
+                            value={owners}
+                            name={'owner'}
+                            onChange={setOwners}
+                            search
+                            multiple={false}
+                            placeholder={'project owner'}
                         />
                         {/*<input type="text" className={'form-control form-control-sm'} name={'owner'} ref={register}/>*/}
                     </div>

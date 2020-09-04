@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import SelectSearch, { useSelect } from 'react-select-search';
 import noPhoto from "../../images/icons/noPhoto2.png"
 
-const PersonSelect = ({ options, value, multiple, disabled, placeholder, onChange }) => {
+const PersonSelect = ({ options, value, multiple, disabled, placeholder, name, onChange }) => {
 
     const [snapshot, valueProps, optionProps, doSearch] = useSelect({
         options: options,
@@ -34,66 +34,14 @@ const PersonSelect = ({ options, value, multiple, disabled, placeholder, onChang
         optionProps.onMouseDown(e)
         console.log("clear option event called")
     }
-
-    const imgStyle = {
-        borderRadius: '50%',
-        verticalAlign: 'middle',
-        marginRight: 10,
-    };
-
     const selectedValues =  Array.isArray(snapshot.value) ? snapshot.value : [snapshot.value]
 
     return (
         <div>
-            {/*<div>
-                <div className="selected">
-                    <ul className="filter-items-select">
-                        { selectedValues.map((option)=>{
-                            return (
-                                <li key={option._id}>
-                                    <button className="filter-items-item"
-                                            type={"button"} value={option.value}
-                                            onClick={(event)=> removeOption(event) }
-                                    >
-                                        <div className="filter-items-item-text">
-                                            <img src="https://support.webequator.com/images/noPhoto2.png" alt="sample-img" className="auto-complete-item-image"/>
-                                            <span className="auto-complete-item-title">
-                                                        {  option.name }
-                                                    </span>
-                                        </div>
-                                        <div className="filter-items-item-remove" >
-                                                    <span className="filter-items-item-clear">
-                                                        X
-                                                    </span>
-                                        </div>
-                                    </button>
-                                </li>
-                            )
-                        })}
-                    </ul>
-                </div>
-                <input {...valueProps} className={'form-control form-control-sm'} placeholder={placeholder} />
-                {snapshot.focus && (
-                    <ul className={'select-search__options'}>
-                        {snapshot.options.map((option) => (
-                            <li key={option.value} className={''}>
-
-                                    <button {...optionProps} value={option.value} className={'filter-items__item-block'} type={'button'} >
-                                        <img src="https://support.webequator.com/images/noPhoto2.png" alt="sample-img" className="filter-items__item-image"/>
-                                        {option.name}
-                                    </button>
-
-
-                                <button {...optionProps} value={option.value}  type="button">{option.name}</button>
-                            </li>
-                        ))}
-                    </ul>
-                )}
-            </div>*/}
-
            <SelectSearch
                 options={options}
                 value={value}
+                name={name}
                 multiple={multiple}
                 search={true}
                 onChange={onChange}
