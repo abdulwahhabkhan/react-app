@@ -17,7 +17,7 @@ import {applyfilters, applyOrder, applySort, getProjects} from './store/actions'
 import {connect} from "react-redux";
 import {filters as defaultFilters} from "./config";
 import {renderRoutes} from "react-router-config";
-import {isEmpty, every, values} from "lodash"
+import {isEqual} from "lodash"
 
 const ProjectForm= lazy(() => import('./Form'));
 
@@ -133,8 +133,8 @@ class ProjectsList extends Component {
                         key={project.id} />
             })
         );
-
-        const filter = every(filters, (v)=> v=="range"||isEmpty(v) ) ? '': (
+        console.log(filters, defaultFilters)
+        const filter =  (!filters || isEqual(filters, defaultFilters)) ? '': (
             <div className={'filter'}>
                 <div className="alert alert-filter">
                     you are view {pagination.totalRecords} filtered results
@@ -212,7 +212,7 @@ function mapDispatchToProps(dispatch) {
         loadProjects: params => dispatch(getProjects(params)),
         applySort: params => dispatch(applySort(params)),
         applyOrder: params => dispatch(applyOrder(params)),
-        resetFilters: params=> dispatch(applyfilters({}))
+        resetFilters: params=> dispatch(applyfilters(params))
     };
 }
 const mapStateToProps = state => {

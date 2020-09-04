@@ -1,6 +1,7 @@
 import * as PActions from './index'
 import projects from '../../../../services/projects'
 import storage from "../../../../Config/storage";
+import {filters} from "../../config";
 
 export function getProjects(params){
     const queryString = {
@@ -27,8 +28,9 @@ export function deleteProject(id) {
 }
 
 export const applyfilters = (payload) => (dispatch)=>{
-    storage.set(PActions.PROJECT_FILTERS, JSON.stringify(payload))
-    dispatch({type: PActions.PROJECT_FILTERS, payload})
+    const projectFilters = {...filters, ...payload}
+    storage.set(PActions.PROJECT_FILTERS, JSON.stringify(projectFilters))
+    dispatch({type: PActions.PROJECT_FILTERS, projectFilters})
 }
 
 export const applySort = (payload)=> (dispatch)=>{

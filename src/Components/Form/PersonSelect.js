@@ -47,7 +47,7 @@ const PersonSelect = ({ options, value, multiple, disabled, placeholder, name, o
                 onChange={onChange}
                 placeholder={placeholder}
                 printOptions="on-focus"
-                closeOnSelect={false}
+                closeOnSelect={!multiple}
                 renderOption={renderOption}
                 renderValue={(valueProps, snapshot, className)=>{
 

@@ -7,6 +7,8 @@ import {useDispatch, useSelector} from "react-redux";
 import {applyfilters, getProjects} from '../store/actions'
 import PersonSelect from "../../../Components/Form/PersonSelect";
 import User from "../../../services/auth";
+
+
 const ProjectSidebar = (props)=>{
 
     const filters = useSelector(({projects})=> projects.project.filters )
@@ -17,7 +19,7 @@ const ProjectSidebar = (props)=>{
     const { handleSubmit, register, watch, control, reset, setValue} = useForm({defaultValues: filters})
 
     const [users, setUsers] = useState([])
-    const [owners, setOwners] = useState(filters.owner)
+    const [owners, setOwners] = useState(filters && filters.owner)
 
     useEffect(() => {
         User.getUsers().then(u=>{
@@ -36,6 +38,7 @@ const ProjectSidebar = (props)=>{
     }
     const resetFilters = ()=>{
         reset({})
+        setOwners('');
         dispatch(applyfilters({}))
         dispatch(getProjects({
             page: page,
