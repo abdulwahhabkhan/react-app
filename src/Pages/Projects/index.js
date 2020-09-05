@@ -133,7 +133,6 @@ class ProjectsList extends Component {
                         key={project.id} />
             })
         );
-        console.log(filters, defaultFilters)
         const filter =  (!filters || isEqual(filters, defaultFilters)) ? '': (
             <div className={'filter'}>
                 <div className="alert alert-filter">

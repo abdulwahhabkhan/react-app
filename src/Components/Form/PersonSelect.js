@@ -1,10 +1,11 @@
 import React, {useState} from 'react';
 import SelectSearch, { useSelect } from 'react-select-search';
 import noPhoto from "../../images/icons/noPhoto2.png"
+import {remove} from "lodash";
 
 const PersonSelect = ({ options, value, multiple, disabled, placeholder, name, onChange }) => {
 
-    const [snapshot, valueProps, optionProps, doSearch] = useSelect({
+    const [snapshot] = useSelect({
         options: options,
         value,
         onChange,
@@ -30,10 +31,10 @@ const PersonSelect = ({ options, value, multiple, disabled, placeholder, name, o
         );
     }
 
-    const removeOption =(e)=>{
-        optionProps.onMouseDown(e)
-        console.log("clear option event called")
+    const removeOption =(val)=>{
+        onChange('')
     }
+
     const selectedValues =  Array.isArray(snapshot.value) ? snapshot.value : [snapshot.value]
 
     return (
@@ -63,7 +64,7 @@ const PersonSelect = ({ options, value, multiple, disabled, placeholder, name, o
                                         <li key={option._id}>
                                             <button className="filter-items-item"
                                                     type={"button"} value={option.value}
-                                                    onClick={(event)=> removeOption(event) }
+                                                    onClick={()=> removeOption(option.value) }
                                             >
                                                 <div className="filter-items-item-text">
                                                     <img src="https://support.webequator.com/images/noPhoto2.png" alt="sample-img" className="auto-complete-item-image"/>
@@ -85,11 +86,10 @@ const PersonSelect = ({ options, value, multiple, disabled, placeholder, name, o
                             <input
                                 {...valueProps}
                                 onChange={(t)=>{
-                                    valueProps.onChange(t);
+                                    //valueProps.onChange(t);
                                     setState(t.target.value)
                                 }}
                                 onBlur={(e)=>{
-                                    setState('')
                                     valueProps.onBlur(e)
                                 }}
                                 value={state} className={'form-control form-control-sm'} />

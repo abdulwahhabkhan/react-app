@@ -30,7 +30,7 @@ export function deleteProject(id) {
 export const applyfilters = (payload) => (dispatch)=>{
     const projectFilters = {...filters, ...payload}
     storage.set(PActions.PROJECT_FILTERS, JSON.stringify(projectFilters))
-    dispatch({type: PActions.PROJECT_FILTERS, projectFilters})
+    dispatch({type: PActions.PROJECT_FILTERS, payload: projectFilters})
 }
 
 export const applySort = (payload)=> (dispatch)=>{
