@@ -8,7 +8,7 @@ export const filters = {
     due_date_range: '',
     due_start_date: '',
     due_end_date: '',
-    owner: ''
+    owner: []
 }
 
 export const pagination = {

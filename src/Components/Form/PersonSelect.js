@@ -5,17 +5,6 @@ import {remove} from "lodash";
 
 const PersonSelect = ({ options, value, multiple, disabled, placeholder, name, onChange }) => {
 
-    const [snapshot] = useSelect({
-        options: options,
-        value,
-        onChange,
-        multiple,
-        disabled,
-        placeholder,
-        closeOnSelect: false,
-        search: true
-    });
-
     const [state, setState] = useState('')
 
     function renderOption(props, option, snapshot, className) {
@@ -31,11 +20,9 @@ const PersonSelect = ({ options, value, multiple, disabled, placeholder, name, o
         );
     }
 
-    const removeOption =(val)=>{
-        onChange('')
+    const removeOption =(val, values)=>{
+        onChange(values.map((r)=> r.value ).filter(v => v !== val))
     }
-
-    const selectedValues =  Array.isArray(snapshot.value) ? snapshot.value : [snapshot.value]
 
     return (
         <div>
@@ -64,7 +51,7 @@ const PersonSelect = ({ options, value, multiple, disabled, placeholder, name, o
                                         <li key={option._id}>
                                             <button className="filter-items-item"
                                                     type={"button"} value={option.value}
-                                                    onClick={()=> removeOption(option.value) }
+                                                    onClick={()=> removeOption(option.value, values) }
                                             >
                                                 <div className="filter-items-item-text">
                                                     <img src="https://support.webequator.com/images/noPhoto2.png" alt="sample-img" className="auto-complete-item-image"/>
@@ -86,8 +73,11 @@ const PersonSelect = ({ options, value, multiple, disabled, placeholder, name, o
                             <input
                                 {...valueProps}
                                 onChange={(t)=>{
-                                    //valueProps.onChange(t);
+                                    valueProps.onChange(t);
                                     setState(t.target.value)
+                                }}
+                                onFocus={()=>{
+
                                 }}
                                 onBlur={(e)=>{
                                     valueProps.onBlur(e)

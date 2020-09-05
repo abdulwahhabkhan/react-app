@@ -18,7 +18,7 @@ const ProjectSidebar = (props)=>{
     const dispatch = useDispatch()
     const { handleSubmit, register, watch, control, reset, setValue} = useForm({defaultValues: filters})
 
-    const [users, setUsers] = useState([])
+    const [users, setUsers] = useState("")
     const [owners, setOwners] = useState(filters && filters.owner)
 
     useEffect(() => {
@@ -49,7 +49,6 @@ const ProjectSidebar = (props)=>{
 
     const created_at = watch('created_range')
     const due_at = watch('due_date_range')
-
     return(
         <div className={'project-filter-list'}>
             <form action="" onSubmit={handleSubmit(onSubmit)}>
@@ -108,17 +107,19 @@ const ProjectSidebar = (props)=>{
                 <div className="filter-block">
                     <div className="filter-header">Owner</div>
                     <div className="filter-body">
-
-                        <PersonSelect
-                            options={users || []}
-                            value={owners}
-                            name={'owner'}
-                            onChange={setOwners}
-                            search
-                            multiple={false}
-                            placeholder={'project owner'}
-                        />
-                        {/*<input type="text" className={'form-control form-control-sm'} name={'owner'} ref={register}/>*/}
+                        {
+                            users && (
+                                <PersonSelect
+                                    options={users || []}
+                                    value={owners}
+                                    name={'owner'}
+                                    onChange={setOwners}
+                                    search
+                                    multiple={true}
+                                    placeholder={'project owner'}
+                                />
+                            )
+                        }
                     </div>
                 </div>
                 <div className="filter-block">
