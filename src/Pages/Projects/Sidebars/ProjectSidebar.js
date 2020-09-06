@@ -116,7 +116,7 @@ const ProjectSidebar = (props)=>{
                                     onChange={setOwners}
                                     search
                                     multiple={true}
-                                    placeholder={'project owner'}
+                                    placeholder={'project owners'}
                                 />
                             )
                         }

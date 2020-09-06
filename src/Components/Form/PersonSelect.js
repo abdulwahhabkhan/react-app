@@ -23,7 +23,7 @@ const PersonSelect = ({ options, value, multiple, disabled, placeholder, name, o
     const removeOption =(val, values)=>{
         onChange(values.map((r)=> r.value ).filter(v => v !== val))
     }
-
+    const printOption = state ? 'always' : 'on-focus'
     return (
         <div>
            <SelectSearch
@@ -34,7 +34,7 @@ const PersonSelect = ({ options, value, multiple, disabled, placeholder, name, o
                 search={true}
                 onChange={onChange}
                 placeholder={placeholder}
-                printOptions="on-focus"
+                printOptions={printOption}
                 closeOnSelect={!multiple}
                 renderOption={renderOption}
                 renderValue={(valueProps, snapshot, className)=>{
@@ -76,10 +76,11 @@ const PersonSelect = ({ options, value, multiple, disabled, placeholder, name, o
                                     valueProps.onChange(t);
                                     setState(t.target.value)
                                 }}
-                                onFocus={()=>{
-
+                                onFocus={(e)=>{
+                                    valueProps.onChange(e);
                                 }}
                                 onBlur={(e)=>{
+                                    if(!state)
                                     valueProps.onBlur(e)
                                 }}
                                 value={state} className={'form-control form-control-sm'} />
