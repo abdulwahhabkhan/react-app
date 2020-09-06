@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
-import SelectSearch, { useSelect } from 'react-select-search';
-import noPhoto from "../../images/icons/noPhoto2.png"
-import {remove} from "lodash";
+import SelectSearch from 'react-select-search';
+import Avatar from "react-avatar";
 
 const PersonSelect = ({ options, value, multiple, disabled, placeholder, name, onChange }) => {
 
@@ -12,7 +11,7 @@ const PersonSelect = ({ options, value, multiple, disabled, placeholder, name, o
         return (
             <React.Fragment >
                 <button {...props} className={optionClass} type={'button'} >
-                    <img src={noPhoto} alt="sample-img" className="filter-items__item-image"/>
+                    <small><Avatar name={option.name} size="20" textSizeRatio={1.2} round={true} style={{fontFamily:'inherit', marginRight:'5px'}}  /> </small>
                     {option.name}
                 </button>
             </React.Fragment>
@@ -54,7 +53,7 @@ const PersonSelect = ({ options, value, multiple, disabled, placeholder, name, o
                                                     onClick={()=> removeOption(option.value, values) }
                                             >
                                                 <div className="filter-items-item-text">
-                                                    <img src="https://support.webequator.com/images/noPhoto2.png" alt="sample-img" className="auto-complete-item-image"/>
+                                                    <small><Avatar name={option.name} size="20" textSizeRatio={1.2} round={true} style={{fontFamily:'inherit', marginRight:'5px'}}  /></small>
                                                     <span className="auto-complete-item-title">
                                                         {  option.name }
                                                     </span>
