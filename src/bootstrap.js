@@ -28,8 +28,7 @@ axios.interceptors.response.use(response => {
                 info: JSON.stringify(response.data, null, 2),
             })
         }
-
-        throw err
+        throw err.response !== undefined ? err : {...err, response: {}}
 
     });
 });
