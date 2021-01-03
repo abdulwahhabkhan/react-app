@@ -83,7 +83,7 @@ class ProjectForm extends Component {
     render() {
         const title = this.props.project ? 'Edit Project' : 'Add Project';
         return (
-            <Modal show={this.props.show} size={'lg'} centered onHide={()=> this.props.onclose(false)}>
+            <Modal show={this.props.show} size={'lg'} centered onHide={()=> this.props.onClose(false)}>
                 <Modal.Header closeButton>
                     <Modal.Title>{title}</Modal.Title>
                 </Modal.Header>
