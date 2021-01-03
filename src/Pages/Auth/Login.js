@@ -19,11 +19,14 @@ function  Login() {
                     history.push('/dashboard')
             })
     };
-    const redirect = user ? '' : <Redirect to={'/dashboard'} />
+
+    const redirect = user===null ? '' : <Redirect to={'/dashboard'} />
+
+
     return (
         <React.Fragment>
             <div className="auth-content">
-                {redirect}
+
                     <div className="greetings">
                         <img src={logo} alt="React Logo" className="w-128"/>
                         <h3>Welcome to ReactJS</h3>

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import auth from '../services/auth'
-const baseurl = 'http://laravel.we:8180/api';
+const baseurl = 'http://laravel-vue.local/api';
 const apiversion = '/v1';
 const title = 'React Application';
 const settings = {
