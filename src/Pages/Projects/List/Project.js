@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {Link} from "react-router-dom";
 import {Col, ProgressBar, Row, Popover, OverlayTrigger} from "react-bootstrap";
 import Avatar from "react-avatar";
@@ -8,10 +8,14 @@ import {faEllipsisV, faTimes, faPencilAlt, faCheck} from "@fortawesome/free-soli
 import settings from "../../../Config/settings";
 
 const Project = (props) => {
-
+    const [show, setShow] = useState(false);
+    const status = new Date(props.projectInfo.end_date) > new Date() ? 'green' : 'orange'
+    const handleClick = (event) => {
+        setShow(!show);
+    };
     return (
         <Col lg={4} className={'projects'}>
-            <div className="panel green">
+            <div className={'panel '+status }>
                 <div className="panel-body">
                     <Row>
                         <Col>
@@ -51,22 +55,23 @@ const Project = (props) => {
                                     </div>
 
                                     <OverlayTrigger
-                                        trigger={['focus']}
+                                        //trigger={['focus', 'click']}
                                         placement="left"
+                                        show={show}
                                         delay={200}
                                         overlay={
                                             <Popover>
                                                 <Popover.Content>
                                                     <ul className="popover-actions">
-                                                        <li onClick={()=>{props.onDelete(props.projectInfo.id)}}>
+                                                        <li onClick={()=>{handleClick();props.onDelete(props.projectInfo.id);}}>
                                                             <FontAwesomeIcon icon={faTimes} size={'2x'} />
                                                             Delete
                                                         </li>
-                                                        <li onClick={()=>{props.onEdit(props.projectInfo)}}>
+                                                        <li onClick={()=>{handleClick();props.onEdit(props.projectInfo)}}>
                                                             <FontAwesomeIcon icon={faPencilAlt} size={'2x'} />
                                                             Edit
                                                         </li>
-                                                        <li onClick={()=>{props.onComplete(props.projectInfo.id)}}>
+                                                        <li onClick={()=>{handleClick();props.onComplete(props.projectInfo.id)}}>
                                                             <FontAwesomeIcon icon={faCheck} size={'2x'}  />
                                                             Complete
                                                         </li>
@@ -75,7 +80,7 @@ const Project = (props) => {
                                             </Popover>
                                         }
                                     >
-                                        <button className={'btn btn-sm btn-circle btn-default'}>
+                                        <button className={'btn btn-sm btn-circle btn-default'} onClick={handleClick}>
                                             <FontAwesomeIcon icon={faEllipsisV} />
                                         </button>
                                     </OverlayTrigger>
