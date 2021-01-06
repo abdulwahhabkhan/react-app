@@ -65,7 +65,7 @@ const ProjectSidebar = (props)=>{
                 <div className="filter-block">
                     <div className="filter-header">Created Date</div>
                     <div className="filter-body">
-                        <select className={'form-control form-control-sm'} name={'created_range'} ref={register}>
+                        <select className={'form-control form-control-sm form-select'} name={'created_range'} ref={register}>
                             <option value="">Any Date</option>
                             <option value="1">Custom Range</option>
                         </select>
@@ -85,7 +85,7 @@ const ProjectSidebar = (props)=>{
                 <div className="filter-block">
                     <div className="filter-header">Due Date</div>
                     <div className="filter-body">
-                        <select className={'form-control form-control-sm'} name={'due_date_range'} ref={register}>
+                        <select className={'form-control form-control-sm form-select'} name={'due_date_range'} ref={register}>
                             <option value="">Any Date</option>
                             <option value="2">No Start Date</option>
                             <option value="1">No Due Date</option>

@@ -35,6 +35,18 @@ a {
 .pt-24{padding-top: 2.4rem;}
 .btn-sm{font-size: 1.0rem; line-height: 1.75;}
 .form-control{font-size: 1.0rem; line-height: 1.75;}
+.form-select{
+  background: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3e%3cpath fill='none' stroke-width='1.5px' stroke='%23647893' d='M1,7 L5,11 L9,7 M1,5 L5,1 L9,5'/%3e%3c/svg%3e");
+  background-position-x: 0%;
+  background-position-y: 0%;
+  background-repeat: repeat;
+  background-size: auto;
+  background-repeat: no-repeat;
+  background-size: 14px 14px;
+  background-position-x: calc(100% - 8px);
+  background-position-y: center;
+  appearance: none;
+}
 .btn-form {
   color: #fff;
   background-color: #2c3e50;
