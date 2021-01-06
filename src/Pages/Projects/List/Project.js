@@ -37,11 +37,11 @@ const Project = (props) => {
                                     <div className={'project-label'}>
                                         DEADLINE
                                     </div>
-                                    <small>
+
                                         <Moment
                                             format={settings.DATEFROMAT}
                                             date={props.projectInfo.end_date} />
-                                    </small>
+
                                 </Col>
                                 <Col sm={4}>
                                     <div className={'project-label'}>
