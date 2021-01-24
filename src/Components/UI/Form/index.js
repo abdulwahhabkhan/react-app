@@ -6,6 +6,8 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import settings from "../../../Config/settings";
 
+export * from "./Date"
+
 const CalendarInput = (props) => {
     //const [startDate, setStartDate] = useState(new Date());
     const  c_date = props.value ? new Date(props.value) : '';
@@ -21,7 +23,7 @@ const CalendarInput = (props) => {
                 fixedHeight />
             <InputGroup.Append>
                 <InputGroup.Text>
-                    <FontAwesomeIcon icon={faCalendar}></FontAwesomeIcon>
+                    <FontAwesomeIcon icon={faCalendar} />
                 </InputGroup.Text>
             </InputGroup.Append>
         </InputGroup>

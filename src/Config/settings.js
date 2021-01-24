@@ -11,6 +11,7 @@ const settings = {
     DATEFROMAT: 'MMM Do YYYY',
     FULLDATEFROMAT: 'dd Do MMMM YYYY, hh:mmA',
     FORMDATEFROMAT: 'dd/MM/yyyy',
+    FORM_DATE_FROMAT: 'DD/MM/YYYY',
     TIMEFROMAT: 'hh:mm a',
     FROMFUllFROMAT: 'MM/DD/YYYY hh:mm a',
     hideSideBar: false,

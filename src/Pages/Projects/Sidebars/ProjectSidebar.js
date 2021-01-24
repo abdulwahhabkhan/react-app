@@ -1,8 +1,8 @@
 import React, {useState, useEffect} from "react";
-import {useForm, Controller} from "react-hook-form";
+import {useForm} from "react-hook-form";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faFilter, faRetweet} from "@fortawesome/free-solid-svg-icons";
-import {DateRange} from "../../../Components/UI/Form";
+import {FormDateRange} from "../../../Components/UI/Form";
 import {useDispatch, useSelector} from "react-redux";
 import {applyfilters, getProjects} from '../store/actions'
 import PersonSelect from "../../../Components/Form/PersonSelect";
@@ -16,7 +16,7 @@ const ProjectSidebar = (props)=>{
     const orderBy = useSelector(({projects})=> projects.project.orderBy )
     const page = useSelector(({projects})=> projects.project.pagination.page )
     const dispatch = useDispatch()
-    const { handleSubmit, register, watch, control, reset, setValue} = useForm({defaultValues: filters})
+    const { handleSubmit, register, watch,reset} =  useForm({defaultValues: filters})
 
     const [users, setUsers] = useState("")
     const [owners, setOwners] = useState(filters && filters.owner)
@@ -27,6 +27,7 @@ const ProjectSidebar = (props)=>{
         });
     }, []);
     const onSubmit = data => {
+
         dispatch(applyfilters({...data, owner: owners}))
         dispatch(getProjects({
             page: page,
@@ -71,11 +72,13 @@ const ProjectSidebar = (props)=>{
                         </select>
                         {
                             created_at === '1' && (
-                                <DateRange label={'Created'}
-                                           start={filters.created_start_date}
-                                           end={filters.created_end_date}
-                                           Controller={Controller}
-                                           control={control}
+                                <FormDateRange
+                                    name={'created'}
+                                    label={'Created'}
+                                    size={'sm'}
+                                    register={register}
+                                    start={filters.created_start_date}
+                                    end={filters.created_end_date}
                                 />
                             )
                         }
@@ -94,11 +97,12 @@ const ProjectSidebar = (props)=>{
                         </select>
                         {
                             due_at === "4" && (
-                                <DateRange label={'Due'}
-                                           start={filters.due_start_date}
-                                           end={filters.due_end_date}
-                                           Controller={Controller}
-                                           control={control}
+                                <FormDateRange
+                                    label={'Due'}
+                                    size={'sm'}
+                                    register={register}
+                                    start={filters.due_start_date}
+                                    end={filters.due_end_date}
                                 />
                             )
                         }
