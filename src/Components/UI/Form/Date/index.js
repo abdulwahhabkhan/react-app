@@ -46,8 +46,8 @@ export const FormDate = ({name, size, register, initialValue, updateDate}) => {
 }
 
 export const FormDateRange = ({name, label, size, register, start, end})=>{
-    const start_name = getName(name, label)+'_start_date'
-    const end_name = getName(name, label)+'_end_date'
+    const start_name = getName(name, label)+'start_date'
+    const end_name = getName(name, label)+' send_date'
 
     return(
         <div className="date-range">
