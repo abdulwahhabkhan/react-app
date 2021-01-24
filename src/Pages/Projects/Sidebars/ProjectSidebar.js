@@ -73,7 +73,7 @@ const ProjectSidebar = (props)=>{
                         {
                             created_at === '1' && (
                                 <FormDateRange
-                                    name={'created'}
+                                    name={'created_'}
                                     label={'Created'}
                                     size={'sm'}
                                     register={register}
@@ -99,6 +99,7 @@ const ProjectSidebar = (props)=>{
                             due_at === "4" && (
                                 <FormDateRange
                                     label={'Due'}
+                                    name={'due_'}
                                     size={'sm'}
                                     register={register}
                                     start={filters.due_start_date}

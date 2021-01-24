@@ -6,7 +6,8 @@ import settings from "../../../Config/settings";
 import user from '../../../services/auth';
 import SubmitButton from "../../../Components/Form/ButtonLoader";
 import project from '../../../services/projects';
-
+import RangeSlider from 'react-bootstrap-range-slider';
+import 'react-bootstrap-range-slider/dist/react-bootstrap-range-slider.css';
 
 class ProjectForm extends Component {
 
@@ -149,7 +150,21 @@ class ProjectForm extends Component {
                                     </Form.Group>
                                 </Tab>
                                 <Tab eventKey="progress" title="Progress">
-                                    Tab data
+                                    <Row>
+                                        <Col>
+                                            <Form.Group>
+                                                <Form.Label>Project Progress:</Form.Label>
+                                                <RangeSlider
+                                                    step={5}
+                                                    size={'lg'}
+                                                    value={this.state.progress}
+                                                    onChange={(e)=>{ this.handleDate('progress', e.target.value) } }
+                                                    tooltipLabel={currentValue => `${currentValue}%`}
+                                                    tooltip='on'
+                                                />
+                                            </Form.Group>
+                                        </Col>
+                                    </Row>
                                 </Tab>
                             </Tabs>
                         </div>
